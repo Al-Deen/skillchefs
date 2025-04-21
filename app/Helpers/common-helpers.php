@@ -603,10 +603,22 @@ if (!function_exists('local_date_time_format')) {
 
 // minutes to hours
 if (!function_exists('minutes_to_hours')) {
-    function minutes_to_hours($minutes)
+    function minutes_to_hours($seconds)
     {
-        $hours = floor($minutes / 60);
-        $minutes = $minutes % 60;
+//        $hours = floor($minutes / 60);
+//        $minutes = $minutes % 60;
+//        if ($hours == 0) {
+//            return $minutes . 'm';
+//        }
+//        if ($minutes == 0) {
+//            return $hours . 'h';
+//        }
+//        return $hours . 'h ' . $minutes . 'm';
+
+        $totalMinutes = floor($seconds / 60);
+        $hours = floor($totalMinutes / 60);
+        $minutes = $totalMinutes % 60;
+
         if ($hours == 0) {
             return $minutes . 'm';
         }

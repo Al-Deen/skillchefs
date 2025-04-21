@@ -149,6 +149,16 @@ class LessonRepository implements LessonInterface
             $newLessonModel->created_by = auth()->user()->id;
             $newLessonModel->updated_by = auth()->user()->id;
             $newLessonModel->save(); // save data in database table
+
+
+            // Course Duration implementation
+            $course = $this->courseModel->where('id', $request->course_id)->first();
+             $totalLessonDuration =  $this->model->where('course_id', $request->course_id)->sum('duration');
+            $course->course_duration = $totalLessonDuration;
+            $course->save();
+
+
+
             DB::commit();
             return $this->responseWithSuccess($message); // return success response
         } catch (\Throwable $th) {
@@ -230,6 +240,14 @@ class LessonRepository implements LessonInterface
 
             $newLessonModel->updated_by = auth()->user()->id;
             $newLessonModel->save(); // save data in database table
+
+          // Course Duration Implement
+            $course = $this->courseModel->where('id', $newLessonModel->course_id)->first();
+            $totalLessonDuration =  $this->model->where('course_id', $newLessonModel->course_id)->sum('duration');
+            $course->course_duration = $totalLessonDuration;
+            $course->save();
+
+
             DB::commit();
             return $this->responseWithSuccess($message); // return success response
         } catch (\Throwable $th) {
