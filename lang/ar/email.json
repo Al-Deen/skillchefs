@@ -1,0 +1,20 @@
+{
+    "confirm your e mail address": "تأكيد عنوان البريد الإلكتروني الخاص بك",
+    "Hello": "مرحبًا",
+    "welcome!": "مرحبًا بك!",
+    "are receiving this email because you have registered on our site": "تتلقى هذا البريد الإلكتروني لأنك قمت بالتسجيل في موقعنا",
+    "click the link below to active your": "انقر على الرابط أدناه لتنشيط حسابك",
+    "verify email": "تحقق من البريد الإلكتروني",
+    "or": "أو",
+    "if the button above does not work paste this link into your web browser": "إذا لم يعمل الزر أعلاه، قم بنسخ هذا الرابط ولصقه في متصفح الويب الخاص بك",
+    "if you did not make this request please contact us or ignore this message": "إذا لم تقم بطلب ذلك، يرجى الاتصال بنا أو تجاهل هذه الرسالة",
+    "account": "حساب",
+    "reset password": "إعادة تعيين كلمة المرور",
+    "you are receiving this email because a request has been received to change the password for your": "تتلقى هذا البريد الإلكتروني لأنه تم استلام طلب لتغيير كلمة المرور الخاصة بـ",
+    "click the link below to reset your password": "انقر على الرابط أدناه لإعادة تعيين كلمة المرور الخاصة بك",
+    "Password Reset": "إعادة تعيين كلمة المرور",
+    "Email Verification": "تحقق البريد الإلكتروني",
+    "your pasword": "كلمة المرور الخاصة بك",
+    "Payout Rejected": "تم رفض الدفع",
+    "Payout Made": "تم إجراء الدفع"
+}

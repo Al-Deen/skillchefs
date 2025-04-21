@@ -1,0 +1,31 @@
+
+.brand-box{
+    background: var(--white);
+    border-radius: 13.3362px;
+    padding: 11px 11px;
+    text-align: center;
+    height: 81px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    img{
+        max-width: 80%;
+        padding: 10px 10px;
+        height: 60px !important;
+        width: auto !important;
+        object-fit: unset;
+    }
+}
+
+.ot-brand-area {
+    .arrow-style .swiper-btn {
+        top: 73%;
+        transform: translateY(-73%);
+    }
+}
+
+.brand-wrapper.brand-active.swiper.arrow-style.swiper-initialized.swiper-horizontal.swiper-pointer-events {
+	padding: 10px 11px;
+}

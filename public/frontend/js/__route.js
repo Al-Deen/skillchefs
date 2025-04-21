@@ -1,0 +1,12 @@
+const endpoint = $("meta[name='baseurl']").attr("content");
+export const filterCourseRoute = `${endpoint}/courses/filter`;
+export const cartRoute = `${endpoint}/cart`;
+export const addToCartRoute = `${endpoint}/cart/add`;
+export const removeCartRoute = `${endpoint}/cart/remove`;
+export const countryListRoute = `${endpoint}/select/country-list`;
+export const paymentRoute = `${endpoint}/checkout/payment`;
+export const lectureRoute = `${endpoint}/student/course/learn`;
+export const lectureProgressRoute = `${endpoint}/student/course-lecture-progress`;
+export const tabLoadRoute = `${endpoint}/student/course-tab-load`;
+export const noteStoreRoute = `${endpoint}/student/course-lecture/note`;
+export const aiSearchRoute = `${endpoint}/student/course-lecture/note`;

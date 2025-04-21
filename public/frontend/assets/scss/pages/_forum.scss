@@ -1,0 +1,341 @@
+
+
+.forum-sidebar{
+    .ot-checkbox-dropdown {
+        position: relative;
+        cursor: pointer;
+        border: 0;
+        .accordion-button:not(.collapsed) {
+            background: transparent;
+            padding: 0;
+            box-shadow: none;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            padding-top: 0;
+            &::after {
+              margin-right: 0px;
+            }
+      }
+
+      button {
+          border-bottom: 1px solid var(--ot-primary-border);
+          border-top-left-radius: none;
+          border-top-right-radius: none;
+          position: relative;
+          margin: 0 auto;
+          user-select: none;
+          padding-bottom: 16px !important;
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 19px;
+          text-transform: capitalize;
+          color: var(--ot-tertiary-title);
+          background: transparent ;
+          &.accordion-button.collapsed {
+              padding-left: 0px;
+              margin-bottom: 20px;
+              border-bottom-right-radius: 0;
+              border-bottom-left-radius: 0;
+              padding-top: 0;
+
+          }
+          &::after {
+              content: url(../images/courses/down.png);
+              width: 0;
+              margin-right: 0px;
+          }
+          .accordion-button.collapsed {
+              border: 0 !important;
+          }
+      }
+      .ot-checkbox-dropdown-list {
+        position: relative;
+        cursor: pointer;
+        margin-bottom: 10px;
+
+        li{
+          margin-bottom: 3px;
+        }
+        label{
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+            text-transform: capitalize;
+            color: var(--ot-primary-paragraph);
+            display: flex;
+            align-items: center;
+            padding: 7px 7px 7px 30px;
+            position: relative;
+            cursor: pointer;
+        }
+        .ot-checkbox {
+            margin-right: 10px;
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+            &:checked ~ .ot-checkmark {
+              background-color: var(--ot-primary);
+              border-color: var(--ot-primary);
+              &::after {
+                display: block;
+              }
+            }
+        }
+        .ot-checkmark {
+            position: absolute;
+            top: 7px;
+            left: 0;
+            width: 18px;
+            height: 18px;
+            line-height: 18px;
+            border: 1px solid var(--ot-primary-border);
+            margin-right: 10px;
+            border-radius: 50%;
+            &::after {
+              content: url("../images/courses/tick.png");
+              position: absolute;
+              left: 0;
+              top: -2px;
+              display: none;
+              right: 0;
+              margin: 0 auto;
+              text-align: center;
+            }
+        }
+      }
+    }
+}
+
+.single-forum {
+    background: var(--white);
+    padding: 15px;
+    border-radius: 12px;
+    // box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.07);
+    border: 1px solid var(--ot-primary-border);
+    .listCap {
+        display:-webkit-box;
+        display:-ms-flexbox;
+        display:flex;
+        -webkit-box-align:center;
+        -ms-flex-align:center;
+        align-items:center;
+        transition:.4s;
+        cursor:pointer;
+        gap: 15px;
+        .forum-img {
+            max-width: 108px;
+            min-width: 108px;
+            height: 112px;
+            border-radius: 8px;
+            overflow: hidden;
+            @media #{$xs-to-sm-max}{
+                max-width: 100%;
+                min-width: 100%;
+                height: auto;
+            }
+          }
+
+        .recentCaption{
+            margin-bottom: 10px;
+            .title {
+                margin-bottom:9px;
+                line-height:1.5;
+                font-size:20px;
+                text-transform: capitalize;
+                font-weight: 500;
+            }
+            .pera{
+                font-size: 14px;
+            }
+        }
+    }
+
+    .sale-status{
+      i{
+          font-size: 14px;
+          position: relative;
+          top: 2px;
+      }
+      .count{
+          font-size: 14px;
+          text-transform: capitalize;
+          color: var(--ot-primary);
+      }
+      .pera{
+          font-size: 14px;
+          text-transform: capitalize;
+          color: var(--ot-primary-paragraph);
+      }
+    }
+    .btn-primary-outline {
+        padding: 4px 7px 4px 13px;
+        font-size: 14px;
+        i{
+            font-size: 15px;
+            position: relative;
+            top: 3px;
+        }
+    }
+  }
+
+@media(max-width:1199px) {
+    .single-forum {
+        -ms-flex-wrap:wrap;
+        flex-wrap:wrap
+    }
+}
+@media(max-width:991px) {
+    .single-forum .listCap {
+        -ms-flex-wrap:wrap;
+        flex-wrap:wrap;
+        margin-bottom:10px
+    }
+}
+
+//  Select Tag
+.tag-area4{
+    .listing{
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        .single-list{
+            @include transition(.4s);
+            display: inline-block;
+            color: var(--ot-tertiary);
+            background: #F8F8F8;
+            text-transform: capitalize;
+            font-weight: 400;
+            font-size: 12px;
+            padding: 3px 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            @media #{$xs}{
+                padding: 5px 9px;
+            }
+
+        }
+    }
+}
+.fourm-title {
+	margin-bottom: 20px;
+	padding-top: 0;
+	border-bottom: 1px solid var(--ot-primary-border);
+	position: relative;
+	padding-bottom: 16px !important;
+	font-weight: 600;
+	font-size: 16px;
+	text-transform: capitalize;
+	color: var(--ot-tertiary-title);
+}
+
+.featured-topic{
+    .pera{
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+}
+
+.forum-sidebar .search-box-style {
+    width: 100%;
+    .responsive-search-box {
+        min-width: auto;
+        width: 100%;
+    }
+}
+
+// Comments
+
+.comments-selects{
+    .sort-by{
+        display: block;
+        min-width: 65px;
+    }
+}
+
+
+
+.comments-author-img{
+    border: 1px solid var(--ot-tertiary);
+    border-radius: 50%;
+    max-width: 30px;
+    height: 30px;
+    overflow: hidden;
+    min-width: 30px;
+}
+
+.like-comments-forum {
+	font-size: 25px;
+    color: var(--ot-tertiary);
+    &:hover{
+        color: var(--ot-tertiary);
+    }
+}
+
+.comments-card{
+    background: var(--white);
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--ot-primary-border);
+}
+
+
+.view-comments-solution{
+    background: #F2F2F2;
+    pre{
+        margin: 0;
+    }
+}
+
+// single-feedback-review
+.reply-single-comments{
+    border: 1px solid var(--ot-secondary-border);
+    padding: 8px 10px 0px 16px;
+    .reply-top{
+        display: flex;
+        align-items: start;
+        @media #{$xs-to-sm-max} {
+            flex-wrap: wrap;
+        }
+        .reply-user{
+            grid-gap: 20px;
+            display: flex;
+            @media #{$xs} {
+                flex-wrap: wrap;
+                grid-gap: 5px;
+            }
+            .reply-icon{
+                font-size: 25px;
+                color: #9A9A9A;
+            }
+            .reply-title{
+                font-size: 16px;
+                line-height: 24px;
+                color: var(--ot-primary-title);
+            }
+        }
+        .reply{
+            @media  #{$xs-to-sm-max} {
+                justify-content: space-between;
+                flex: 1;
+            }
+            p{
+                font-weight: 600;
+                font-size: 14px;
+                color: #B1B5C4;
+            }
+        }
+    }
+    .reply-description{
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 25px;
+    }
+}
+
+.comment-box{
+    .note-editor.note-airframe .note-editing-area .note-editable, .note-editor.note-frame .note-editing-area .note-editable {
+        min-height: 150px;
+    }
+}

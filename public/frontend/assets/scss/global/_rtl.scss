@@ -1,0 +1,320 @@
+body.rtl{
+
+    // Home page
+    .header-area .logo {
+        @media #{$xs-to-md-max}{
+            margin-right: 80px;
+        }
+        @media #{$xs}{
+            margin-right: 64px;
+        }
+    }
+    .cart {
+        @media #{$xs}{
+            margin-right: auto;
+        }
+    }
+    .signout-btn i {
+        margin-left: 10px;
+        margin-right: 0;
+        transform: rotate(180deg);
+
+    }
+
+    .cart .cart-list .select2-container--default .select2-selection--single .select2-selection__arrow b {
+        margin-left: 0px;
+    }
+    .user-info {
+        margin-left: 0;
+    }
+
+    .header-area .main-menu .listing .submenu > .single-list > .single {
+        flex-direction: row-reverse;
+    }
+    .onhover-dropdown .onhover-dropdown-show {
+        left: 0;
+        right: auto;
+    }
+    .dropdown-list-style .user-sub-info .user-img {
+        margin-right: 0;
+        margin-left: 15px;
+    }
+    .arrow-style .swiper-btn.swiper-button-prev {
+        left: 6px;
+        right: auto;
+    }
+
+    // Categories
+    .ot-filter-course .ot-checkbox-dropdown .accordion-button:not(.collapsed)::after {
+        margin-right: auto;
+        margin-left: 0;
+    }
+    .ot-filter-course .ot-checkbox-dropdown button::after {
+        margin-right: auto;
+        margin-left: 10px;
+    }
+    .single-instructor .listCap .instructor-img {
+        margin-left: 20px;
+        margin-right: 0;
+    }
+    .grid-views .course-widget-img {
+        margin-right: auto;
+        margin-left: 20px;
+    }
+    .grid-views .widget-mid {
+        padding-left: 18px;
+    }
+
+    .tab-grid {
+
+        button {
+            border-right: 0;
+            border-left: 1px solid var(--ot-primary-border);
+            &:last-child{
+                border-left: 0;
+            }
+        }
+    }
+    .course-video-lists li i {
+        margin-right: 0;
+        margin-left: 10px;
+    }
+
+    // Instructor Details
+    .counting-area .count-number::after {
+        right: 140%;
+        left: auto;
+    }
+    .tag-area .listing .single-list {
+        margin-right: 0;
+        margin-left: 3px;
+    }
+    .experience.listing .single-list i {
+        margin-right: 0;
+        margin-left: 15px;
+    }
+
+    // Contact
+    .form-icon {
+        right: -220px;
+        left: auto;
+    }
+    .contact-icon {
+        margin-right: 0;
+        margin-left: 24px;
+    }
+
+    // Blog
+    .user-profile2 .user-img {
+        margin-right: 0;
+        margin-left: 9px;
+    }
+    .single-blogs .blog-content-box .blog-img {
+        margin-right: 0;
+        margin-left: 18px;
+    }
+
+    // checkout
+    .card.cursor.payment-gateway-wrapper {
+        margin-right: 0;
+        margin-left: 12px;
+    }
+
+    // Become a instructor
+    label {
+        // display: block;
+        text-align: right;
+    }
+
+    // Course Details
+    .instractor-tab-widget .instructor-personal-info .instractor-expriences_list li::before {
+        margin-right: 0;
+        margin-left: 11px;
+    }
+
+
+
+    // Panel Student & Teacher
+    .panel-pages {
+        text-align: right;
+        padding-right: 14px;
+    }
+    .progress-container {
+        margin-right: 0;
+        margin-left: 10px;
+    }
+    .listing-video .single-list .play-btn {
+        margin-left: 9px;
+    }
+    .video-playlist .accordion-header .accordion-button {
+        text-align: right;
+    }
+
+
+    // PlayList
+    .panel-sidebar.panel-sidebar2 {
+        left: auto;
+        right: 24px;
+        @media #{$xs-to-md-max}{
+            right: 0px;
+        }
+    }
+    &.playlist {
+        margin-left: 0;
+        margin-right: 524px;
+        @media #{$xs-to-md-max}{
+            margin-right: 0;
+        }
+    }
+    .panel-sidebar.panel-sidebar2 .close-sidebar {
+        left: 5px;
+        right: auto;
+    }
+
+    .ans-sheet{
+        .single-list-quize{
+            .remember-checkbox .ot-checkmark {
+               margin-right: 0;
+               margin-left: 12px;
+               left: auto;
+               right: 5px;
+           }
+           .remember-checkbox label {
+               padding-left: 0;
+               padding-right: 30px;
+           }
+        }
+    }
+    .tagify__tag__removeBtn::after {
+        left: auto;
+        right: 11px !important;
+    }
+
+
+    // Panel
+    &.panel {
+        margin-left: 0;
+        margin-right: 293px;
+        @media #{$xs-to-md-max}{
+            margin-right: 0;
+        }
+    }
+    .panel-sidebar {
+        left: 0;
+        right: 20px;
+    }
+    .panel-sidebar .close-sidebar {
+        right: auto;
+        left: 15px;
+    }
+    .boostrap-modal .close-icon {
+        right: auto;
+        left: 7px;
+    }
+    .file_upload {
+        border-color: var(--ot-primary-border) !important;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow b {
+        margin-left: 6px;
+    }
+
+
+
+    // Instructor Panel
+    .single-dashboard-card .icon {
+        margin-right: 0;
+        margin-left: 17px;
+    }
+    .country .country {
+        margin-left: 15px;
+    }
+    .form-control::placeholder {
+        color: #ffffff47;
+        opacity: 1;
+    }
+
+    .btn-primary-outline:focus {
+        color: #fff;
+    }
+    .btn-primary-fill:focus {
+        color: #fff;
+    }
+    .panel-sidebar-list .list > .submenu {
+        text-align: right;
+    }
+    .panel-sidebar-list .list > .submenu {
+        padding-left: 0;
+        padding-right: 20px;
+    }
+    .tittle-notification .icon {
+        margin-right: 0;
+        margin-left: 10px;
+    }
+    .panel-sidebar-list .list.has-children > .single::after {
+        right: auto;
+        left: 15px;
+    }
+    .setp-page-title i {
+        margin-right: 0;
+        margin-left: 10px;
+    }
+
+    .custom-accordion .single-accordion .course-section-title {
+        padding-right: 0;
+        padding-left: 40px;
+    }
+
+    .custom-accordion .single-accordion .course-section-title::after {
+        right: auto;
+        left: 0;
+    }
+    .custom-accordion {
+        padding-left: 0;
+        padding-right: 30px;
+    }
+    .draggable-item::before {
+        left: auto;
+        right: -32px;
+    }
+
+    .connected-sortable-question {
+        margin-left: 0px;
+        margin-right: 19px;
+    }
+
+    .options__button {
+        margin-left: 0;
+        margin-right: 0.5rem;
+    }
+    .single-liveClass .thumb-content-box .img .live-icon {
+        left: auto;
+        right: 9px;
+    }
+    .single-liveClass .thumb-content-box .thumb-content {
+        text-align: right;
+    }
+    .single-liveClass .listing .single-list:first-child{
+        margin-right: 0px;
+        padding-right: 0px;
+    }
+
+    .chatBox-message .chatShow .single-chat.adminMessage .chatText .chatCaption {
+        text-align: left;
+        margin-left: unset;
+    }
+
+    .chatBox-message .chatShow .single-chat.userMessage .chatText .chatCaption {
+        text-align: right;
+    }
+    .chatBox-message .chatShow .single-chat.userMessage .chatText .chatCaption .sendTime {
+        text-align: right;
+    }
+    .btn-wrapper .btn-rounded2 {
+        left: 5px;
+        right: auto;
+    }
+    .chatSend-wrapper .sendMessage .input {
+        padding-left: 101px;
+        padding-right: 18px !important;
+    }
+}

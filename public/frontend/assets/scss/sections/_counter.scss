@@ -1,0 +1,79 @@
+
+.counting-area {
+    background: var(--ot-primary);
+    padding: 43px 83px;
+    border-radius: 8px;
+    @media #{$xs-to-sm-max}{
+      padding: 23px 43px;
+    }
+    @media #{$xs}{
+      padding: 18px 32px;
+    }
+    .counter-wrapper{
+        display:flex;
+        justify-content: space-between;
+        @media #{$xs}{
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+      }
+    .count-number {
+      @media #{$xs}{
+          width: 100%;
+      }
+      position: relative;
+      h4 {
+        font-weight: 600;
+        font-size: 40px;
+        line-height: 1.5;
+        text-align: center;
+        text-transform: capitalize;
+        color: #ffffff;
+        margin-bottom: 12px;
+        @media #{$lg}{
+          font-size: 32px;
+        }
+        @media #{$xs-to-md-max}{
+          font-size: 26px;
+        }
+        @media #{$xs}{
+          font-size: 20px;
+    
+        }
+      }
+      p {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        text-align: center;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: #e6e8ec;
+        margin-bottom: 0;
+        @media #{$lg}{
+          font-size: 16px;
+        }
+        @media #{$xs-to-md-max}{
+          font-size: 14px;
+        }
+        @media #{$xs}{
+          font-size: 12px;
+    
+        }
+      }
+      &::after{
+          content: url('../images/instructor/line.png');
+          position: absolute;
+            position: absolute;
+            top: -45%;
+            left: 140%;
+            @media #{$xs-to-lg-max}{
+              display: none;
+            }
+        }
+      &:last-child:after{
+          content: "";
+      }
+    }
+  }
+

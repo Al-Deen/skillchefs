@@ -1,0 +1,31 @@
+.assignment-area{
+    .single-list-assignment{
+        margin-left: 17px;
+        color: var(--ot-tertiary-title);
+        &:not(:last-child){
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--ot-secondary-border);
+            padding-bottom: 5px;
+        }
+        .title{
+            color: var(--ot-tertiary-title);
+            font-size: 16px;
+            display: block;
+            margin-bottom: 0px;
+            font-weight: 400;
+        }
+        .assignment-date{
+            font-size: 12px;
+            margin-right: 20px;
+        }
+    }
+}
+
+.edits{
+    button{
+        background: none;
+        border: 0;
+        font-size: 16px;
+        color: var(--ot-tertiary-title);
+    }
+}

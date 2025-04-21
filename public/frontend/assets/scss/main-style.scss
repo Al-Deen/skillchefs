@@ -1,0 +1,88 @@
+/*-----------------------------------------------------------------------------------
+
+  @version         : 1.0.0
+  @Template Name   : Onest LMS - Learning Management System web application.
+  @Template author : https://codecanyon.net/user/onesttech/
+
+-----------------------------------------------------------------------------------*/
+
+// Global SCSS
+@import "global/mixins";
+@import "global/variables";
+@import "global/global";
+@import "global/button";
+@import "global/animation";
+
+// Demo Default & plugin customzie SCSS
+@import "pages/select2";
+
+// layout
+@import "layout/header";
+@import "layout/footer";
+@import "layout/banner";
+
+// Sections
+@import "sections/bradcam";
+@import "sections/shoping_cart";
+@import "sections/course_details";
+@import "sections/sidebar";
+@import "sections/pagination";
+@import "sections/counter";
+@import "sections/counter";
+
+// Landing
+@import "pages/landing";
+
+// Pages [Front-end]
+@import "pages/categories";
+@import "pages/about";
+@import "pages/blog";
+@import "pages/event";
+@import "components/courses";
+@import "components/tab_widget";
+@import "components/enroll_component";
+@import "components/custom-modal";
+@import "components/custom-accrodion";
+@import "sections/brand";
+@import "pages/categories";
+@import "pages/about";
+@import "pages/contact";
+@import "pages/instructor";
+@import "pages/course_details";
+@import "pages/filter_courses";
+@import "pages/become_instractor";
+@import "pages/checkout";
+@import "pages/login";
+@import "pages/terms-condition";
+@import "pages/testimonial";
+@import "pages/forum";
+// @import "pages/event-page";
+
+// Panel [ student & instructions]
+@import "panel/layout/panel-sidebar";
+@import "panel/layout/panel-menu";
+@import "panel/layout/panel-hero";
+@import "panel/my-learning";
+@import "panel/panel-student-activity";
+@import "panel/panel-instructor-activity";
+@import "panel/my-courses";
+@import "panel/playlist-banner";
+@import "panel/assignment_create";
+@import "panel/playlist";
+@import "panel/setting";
+@import "panel/tagify";
+@import "panel/progess";
+@import "panel/profile";
+@import "panel/instructor_feedback";
+@import "panel/instructor_upload_course.scss";
+@import "panel/multi-step-courseCreate";
+@import "panel/quize";
+@import "panel/ratting";
+@import "panel/live-class";
+@import "panel/chat-box";
+
+// Dark Mode
+@import "global/dark-mode";
+
+// RTL Front-end & panel
+@import "global/rtl";

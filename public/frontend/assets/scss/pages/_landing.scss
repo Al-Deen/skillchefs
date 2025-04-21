@@ -1,0 +1,294 @@
+/* Preview img */
+.single-page-item {
+    height: 600px;
+    overflow: hidden;
+    position: relative;
+    // box-shadow: 0px 0px 12px -1px #00000021;
+    // border: 5px solid #FFF8F5;
+    box-shadow: 0 3px 10px rgba(35,47,85,0.1);
+    transition: all linear 0.3s;
+    border-radius: 10px;
+    a {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 100%;
+        transition: all ease-in-out 0.3s;
+    }
+
+
+    .btn-page {
+        text-align: center;
+        margin-top: -28px;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        display: none;
+
+        a {
+            display: inline-block;
+            background-color: #FFF8F5;
+            font-family: var(--extra-font);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--heading-color-three);
+            transition: all linear 0.2s;
+            text-transform: capitalize;
+            padding: 2px 70px;
+            width: 100%;
+
+            &:hover {
+                color: var(--main-color-one);
+                transform: scale(1);
+            }
+        }
+    }
+
+    .bg {
+        background-position: top center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 100%;
+        height: 100%;
+        transition: all linear 6s;
+        background-color: #fff;
+    }
+
+    &:hover {
+        .bg {
+            background-position: bottom center;
+        }
+    }
+}
+.height-320 {
+        height: 320px ;
+}
+
+/* Preview img */
+.single-preview {
+    a {
+        position: relative;
+        display: block;
+        text-align: center;
+        width: 500px;
+        height: 656px;
+        -webkit-transition: background-position 8s ease-in-out;
+        -moz-transition: background-position 8s ease-in-out;
+        -ms-transition: background-position 8s ease-in-out;
+        -o-transition: background-position 8s ease-in-out;
+        transition: background-position 8s ease-in-out;
+        background-size: cover;
+        width: 100%;
+        filter: drop-shadow(16px 16px 64px rgba(0, 0, 0, 0.16));
+        border-radius: 16px;
+        &:hover {
+            background-position:0px 100%;
+            &::before {
+                background: rgba(173, 170, 169, 0.3);
+            }
+            &::after{
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.stickyStye {
+	clip-path: polygon(100% 0%, 90.6% 52.17%, 100% 100%, 0px 100%, -.49% 47%, 0px 0px);
+	color: #ffffff;
+	background: var(--ot-primary);
+    text-transform: capitalize;
+	font-size: 16px;
+	font-weight: 500;
+	padding: 6px 54px 5px 18px;
+	margin-bottom: 0;
+	display: inline-block;
+	text-align: center;
+	padding-right: 34px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 6;
+}
+
+
+/* Hope Page */
+    .preview-image-1{
+        background:url("../images/landing/home1.png") 0 0 no-repeat;
+    }
+    .preview-image-2{
+        background:url("../images/landing/home2.png") 0 0 no-repeat;
+        background-size: 100% !important;
+    }
+
+
+// inner page
+
+    .preview-image-3{
+        background:url("../images/landing/inner3.png") 0 0 no-repeat;
+    }
+    .preview-image-4{
+        background:url("../images/landing/inner4.png") 0 0 no-repeat;
+    }
+    .preview-image-5{
+        background:url("../images/landing/inner5.png") 0 0 no-repeat;
+    }
+    .preview-image-6{
+        background:url("../images/landing/inner6.png") 0 0 no-repeat;
+    }
+    .preview-image-7{
+        background:url("../images/landing/inner7.png") 0 0 no-repeat;
+    }
+    .preview-image-8{
+        background:url("../images/landing/inner8.png") 0 0 no-repeat;
+    }
+    .preview-image-9{
+        background:url("../images/landing/inner9.png") 0 0 no-repeat;
+    }
+    .preview-image-10{
+        background:url("../images/landing/inner10.png") 0 0 no-repeat;
+    }
+    .preview-image-11{
+        background:url("../images/landing/inner11.png") 0 0 no-repeat;
+    }
+    .preview-image-12{
+        background:url("../images/landing/inner12.png") 0 0 no-repeat;
+    }
+    .preview-image-13{
+        background:url("../images/landing/inner13.png") 0 0 no-repeat;
+    }
+    .preview-image-14{
+        background:url("../images/landing/inner14.png") 0 0 no-repeat;
+    }
+    .preview-image-15{
+        background:url("../images/landing/inner15.png") 0 0 no-repeat;
+    }
+    .preview-image-16{
+        background:url("../images/landing/inner16.png") 0 0 no-repeat;
+    }
+    .preview-image-17{
+        background:url("../images/landing/inner17.png") 0 0 no-repeat;
+    }
+    .preview-image-18{
+        background:url("../images/landing/inner18.png") 0 0 no-repeat;
+    }
+    .preview-image-19{
+        background:url("../images/landing/inner19.png") 0 0 no-repeat;
+    }
+    .preview-image-20{
+        background:url("../images/landing/inner20.png") 0 0 no-repeat;
+    }
+
+
+// student panel
+    // .preview-image-22{
+    //     background:url("../images/landing/student-panel1.png") 0 0 no-repeat;
+    // }
+    // .preview-image-23{
+    //     background:url("../images/landing/student-panel2.png") 0 0 no-repeat;
+    // }
+    // .preview-image-24{
+    //     background:url("../images/landing/student-panel3.png") 0 0 no-repeat;
+    // }
+    // .preview-image-25{
+    //     background:url("../images/landing/student-panel4.png") 0 0 no-repeat;
+    // }
+    // .preview-image-26{
+    //     background:url("../images/landing/student-panel5.png") 0 0 no-repeat;
+    // }
+    // .preview-image-27{
+    //     background:url("../images/landing/student-panel6.png") 0 0 no-repeat;
+    // }
+    // .preview-image-28{
+    //     background:url("../images/landing/student-panel7.png") 0 0 no-repeat;
+    // }
+    // .preview-image-29{
+    //     background:url("../images/landing/student-panel8.png") 0 0 no-repeat;
+    // }
+    // .preview-image-30{
+    //     background:url("../images/landing/student-panel9.png") 0 0 no-repeat;
+    // } 
+    // .preview-image-31{
+    //     background:url("../images/landing/student-panel10.png") 0 0 no-repeat;
+    // }
+    // .preview-image-32{
+    //     background:url("../images/landing/student-panel11.png") 0 0 no-repeat;
+    // }
+
+
+// Instructor panel
+    // .preview-image-35{
+    //     background:url("../images/landing/instructor-panel1.png") 0 0 no-repeat;
+    // }
+    // .preview-image-36{
+    //     background:url("../images/landing/instructor-panel2.png") 0 0 no-repeat;
+    // }
+    // .preview-image-37{
+    //     background:url("../images/landing/instructor-panel3.png") 0 0 no-repeat;
+    // }
+    // .preview-image-38{
+    //     background:url("../images/landing/instructor-panel4.png") 0 0 no-repeat;
+    // }
+    // .preview-image-39{
+    //     background:url("../images/landing/instructor-panel5.png") 0 0 no-repeat;
+    // }
+    // .preview-image-40{
+    //     background:url("../images/landing/instructor-panel6.png") 0 0 no-repeat;
+    // }
+    // .preview-image-41{
+    //     background:url("../images/landing/instructor-panel7.png") 0 0 no-repeat;
+    // }
+    // .preview-image-42{
+    //     background:url("../images/landing/instructor-panel8.png") 0 0 no-repeat;
+    // }
+    // .preview-image-43{
+    //     background:url("../images/landing/instructor-panel9.png") 0 0 no-repeat;
+    // }
+    // .preview-image-44{
+    //     background:url("../images/landing/instructor-panel10.png") 0 0 no-repeat;
+    // }
+    // .preview-image-45{
+    //     background:url("../images/landing/instructor-panel11.png") 0 0 no-repeat;
+    // }
+
+
+
+    .content-wrap {
+        background-color: var(--white);
+        -webkit-box-shadow: 0 3px 12px rgba(45, 23, 191, 0.09);
+        box-shadow: 0 3px 12px rgba(45, 23, 191, 0.09);
+        padding: 20px;
+        border-radius: 6px;
+    
+        .single-feature-item {
+            text-align: center;
+            .icon-box {
+                margin: auto;
+                max-width: 39px;
+                max-height: 49px;
+                img{
+                    max-width: 100%;
+                    height: auto;
+                }
+                .icon {
+                    display: block;
+                    padding-top: 3px;
+                    font-size: 40px;
+                    color: var(--ot-primary);
+                }
+            }
+    
+            .title {
+                margin-top: 8px !important;
+                margin: auto;
+                padding-top: 10px;
+                font-size: 17px;
+                font-weight: 500;
+                color: var(--ot-primary-title);
+                text-transform: capitalize;
+    
+            }
+        }
+    }

@@ -1,0 +1,286 @@
+.multi-step-form {
+    .become-instractor-form {
+      max-width: 1001px;
+      margin: 0 auto;
+    }
+    .prevBtn {
+      float: right;
+      margin-right: 24px;
+      @media #{$xs} {
+        margin: 10px;
+      }
+    }
+    .nextBtn {
+      @media #{$xs} {
+        margin: 10px;
+      }
+    }
+    .nextBtn {
+      float: right;
+    }
+
+    #msform {
+      text-align: center;
+      position: relative;
+      margin-top: 20px;
+    }
+
+    #msform fieldset {
+      border: 1px solid var(--ot-primary-border);
+      border-radius: 8px;
+      padding: 48px;
+      max-width: 1142px;
+      margin: 0 auto;
+      @media #{$xs-to-sm-max} {
+        padding: 20px;
+      }
+    }
+
+    .form-card {
+      text-align: left;
+    }
+    #msform fieldset:not(:first-of-type) {
+      display: none;
+    }
+
+
+    /*The background card*/
+    .card {
+      z-index: 0;
+      border: none;
+      position: relative;
+    }
+
+    /*FieldSet headings*/
+    .fs-title {
+      font-size: 25px;
+      color: var(--ot-primary);
+      margin-bottom: 15px;
+      font-weight: normal;
+      text-align: left;
+    }
+
+    .purple-text {
+      color: var(--ot-primary);
+      font-weight: normal;
+    }
+
+    /*Step Count*/
+    .steps {
+      font-size: 25px;
+      color: gray;
+      margin-bottom: 10px;
+      font-weight: normal;
+      text-align: right;
+    }
+
+    /*Field names*/
+    .fieldlabels {
+      color: gray;
+      text-align: left;
+    }
+
+    /*Icon progressbar*/
+    #progressbar {
+      margin-bottom: 30px;
+      overflow: hidden;
+      color: lightgrey;
+    }
+
+    #progressbar .active {
+      color: var(--ot-primary);
+    }
+
+    #progressbar li {
+      list-style-type: none;
+      font-size: 15px;
+      width: 25%;
+      float: left;
+      position: relative;
+      font-weight: 400;
+      z-index: 0;
+    }
+
+    #progressbar li:before {
+      content: attr(data-title);
+    }
+
+
+    /*Icon ProgressBar before any progress*/
+    #progressbar {
+      display: flex;
+      @media #{$xs} {
+        flex-wrap: wrap;
+        display: flex;
+        position: relative;
+        left: -10%;
+      }
+      @media #{$xs} {
+        flex-wrap: wrap;
+      }
+      li {
+        @media #{$xs} {
+          height: 45px;
+        }
+        flex: 1 1 0;
+        &:last-child {
+          &::after {
+            display: none;
+          }
+        }
+        flex: 1 1 0;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .data-count {
+          position: absolute;
+          left: calc(50% + 6px);
+          top: 6px;
+          background: #bfbfbf;
+          width: 27px;
+          height: 27px;
+          border-radius: 50%;
+          color: var(--white);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 3;
+        }
+        &:before {
+            width: 40px;
+            height: 40px;
+            display: block;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f0f0;
+            box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.08);
+            top: 10px;
+            left: 50%;
+            top: 0;
+            position: absolute;
+            z-index: 2;
+        }
+        &.active {
+            &::before {
+                content: '\EB80';
+                color: var(--ot-primary);
+                font-family:var(--remix-icon) !important;
+                font-size: 28px;
+                position: absolute;
+                top: 0;
+                z-index: 1212;
+            }
+            .progress-title {
+                color: var(--ot-primary-subtitle);
+              
+            }
+        }
+        .progress-title {
+            font-weight: 600;
+            font-size: 18px;
+            white-space: nowrap;
+            color: #b1b5c4;
+            display: block;
+            margin-top: 61px;
+            border: 0;
+            
+            @media #{$xs} {
+                display: none;
+            }
+        }
+      }
+    }
+
+    /*ProgressBar connectors*/
+    #progressbar li:after {
+        content: '';
+        width: 100%;
+        height: 10px;
+        position: absolute;
+        left: calc(50% + 1px);
+        top: 15px;
+        z-index: 0;
+        background: #f0f0f0;
+    }
+
+    /*Color number of the step and the connector before it*/
+    // #progressbar li.active:before,
+    #progressbar li.active:after {
+      background: var(--ot-primary);
+    }
+
+    /*Animated Progress Bar*/
+    .progress {
+      height: 20px;
+    }
+
+    .progress-bar {
+      background-color: var(--ot-primary);
+    }
+
+    /*Fit image in bootstrap div*/
+    .fit-image {
+      width: 100%;
+      object-fit: cover;
+    }
+}
+
+.certificate-upload-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 24px;
+    align-items: center;
+    .certificate-upload-wrapper_img {
+        flex-shrink: 0;
+        border: 1px solid var(--ot-primary-border);
+        border-radius: 50%;
+        max-width: 36px;
+        height: 157px;
+        overflow: hidden;
+        min-width: 157px;
+        @media #{$xs} {
+          max-width: 100px;
+        }
+    }
+    .certificate-text {
+      h5 {
+          font-weight: 600;
+          font-size: 18px;
+          color: var(--ot-primary-subtitle);
+          margin-bottom: 9px;
+      }
+      p {
+          font-size: 16px;
+          font-weight: 400;
+          color: var(--ot-primary-title);
+          span {
+            color: var(--ot-primary);
+            font-weight: 600;
+          }
+      }
+    }
+}
+
+.footer-lesson {
+    background: #e6e8ec;
+    border-radius: 8px;
+    padding: 16px;
+    a {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      color: var(--ot-primary);
+      display: flex;
+      justify-content: center;
+    }
+}
+
+.cus-close{
+    top: -20px !important;
+    right: -10px !important;
+}
+

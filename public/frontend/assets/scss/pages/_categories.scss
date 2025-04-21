@@ -1,0 +1,84 @@
+
+// Cart background color Generate
+    $cart-bg-one:#FFF3EE;    $cart-bg-six:#FAEFFA;
+    $cart-bg-two:#FAEFFA;    $cart-bg-seven:#FFF1F1;
+    $cart-bg-three:#E6F8EF;  $cart-bg-seven:#FFF1F1;
+    $cart-bg-four:#FAEFFA;   $cart-bg-eight:#FAEFFA;
+    $cart-bg-five:#EEF9FE;   $cart-bg-nine:#F1F5FD;
+
+
+    @each $cart-bg-name, $cart-bg-color in  (one, $cart-bg-one),
+        (two, $cart-bg-two) ,
+        (three, $cart-bg-three),
+        (four, $cart-bg-four),
+        (five, $cart-bg-five),
+        (six, $cart-bg-six),
+        (seven, $cart-bg-seven),
+        (eight, $cart-bg-eight),
+        (nine, $cart-bg-nine) {
+
+            .cart-bg-#{$cart-bg-name}{
+                background: $cart-bg-color;
+            }
+            .cart-bg-#{$cart-bg-name}:hover{
+                .icon{
+                    background: $cart-bg-color;
+                }
+            }
+    }
+
+.single-categories{
+    padding: 40px 20px;
+    @include transition(.3s);
+    border-radius: 8px;
+    margin: 4px 0px;
+    display:block;
+    background: var(--white);
+    -webkit-box-shadow: 0 3px 10px rgba(35,47,85,0.1);
+    cursor: pointer;
+    @media #{$xs}{
+        @include flex-wrap(wrap);
+    }
+    .icon{
+        transition: .4s;
+        // background: var(--white);
+        width: 35px;
+        height: 35px;
+        text-align: center;
+        line-height: 35px;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        padding: 2;
+        @media #{$xs}{
+            margin-bottom: 20px;
+        }
+      }
+
+
+    .cat-caption{
+        height: 54px;
+        overflow: hidden;
+
+        .title{
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: capitalize;
+            margin-bottom: 0px;
+            color: #666666;
+            @media #{$xs}{
+                font-size: 18px;
+            }
+        }
+        .pear{
+            font-size: 16px;
+            font-weight: 400;
+            margin: 0;
+        }
+    }
+    // &:hover{
+    //     background: var(--white);
+    //     -webkit-box-shadow: 0 3px 10px rgba(35,47,85,0.1);
+    //     cursor: pointer;
+    // }
+}
+

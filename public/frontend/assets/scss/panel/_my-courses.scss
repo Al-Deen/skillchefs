@@ -1,0 +1,100 @@
+.video-img2{
+    position: relative;
+    border-radius: 12px 12px 0 0;
+    height: 168px;
+    width: 100%;
+    img{
+        width: 100%;
+        border-radius: 14px;
+    }
+    // Video icon
+    .video-icon{
+        position: absolute;
+        top:50%;
+        transform: translateY(-50%);
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        text-align: center;
+        a{
+            background: var(--ot-tertiary);
+            color: var(--ot-primary);
+            width: 58px;
+            height: 58px;
+            text-align: center;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            @media #{$xs-to-lg-max}{
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+            }
+            img{
+                width: 20px;
+                border-radius: 0;
+                @media #{$xs-to-lg-max}{
+                    width: 17px;
+                }
+            }
+            &::after{
+                position: absolute;
+                content: "";
+                border-radius: 50%;
+                left: -11px;
+                top: -12px;
+                right: 0;
+                z-index: 0;
+                background: #0000;
+                z-index: -1;
+            }
+            i{
+                // color: $heading-color;
+                font-size: 32px;
+                line-height: 1;
+                position: relative;
+                right: -2px;
+                top: 6px;
+            }
+        } 
+    }
+}
+.my-single-courses{
+    box-shadow: 0px 1px 80px 12px rgba(26,40,68,0.06);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .course-badge{
+        top: 10px;
+        left: 10px;
+    }
+    .course-caption{
+        padding: 12px 10px;
+        border: 1px solid var(--ot-secondary-border);
+        border-top: 0;
+        border-radius: 0 0 8px 8px;
+        .title{
+            font-size: 16px;
+        }
+        .module-time{
+            font-size: 14px;
+        }
+        .module-count{
+            font-size: 14px;
+            border-bottom: 1px solid var(--ot-secondary-border);
+            margin-bottom: 12px;
+            padding-bottom: 9px;
+        }
+    }
+}
+
+
+.my-single-courses{
+    .custom-dropdown{
+        // position: absolute;
+        // top: 0;
+        // right: 0;
+    }
+}

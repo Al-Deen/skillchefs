@@ -1,0 +1,80 @@
+.bradcam-bg-1{
+    @include background(
+    "../../../assets/images/hero/bradcam_bg.jpg",
+    center center,
+    no-repeat
+  );
+}
+
+// breadcrumb Overly
+.breadcrumb-overly {
+    position: relative;
+    z-index: 0;
+    &::before {
+        position: absolute;
+        content: "";
+        background-color: rgba(0, 0, 0,.8);
+        // @extend %overlay1;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        z-index: -1;
+        background-repeat: no-repeat;
+    }
+}
+
+.ot-bradcam-area{
+    .ot-bradcam-inner{
+        padding: 51px 0;
+        .bradcam-text{
+            @media #{$xs-to-md-max} {
+                order: 2;
+            }
+            .title{
+                font-size: 30px;
+                text-transform: capitalize;
+                @media #{$xs} {
+                    font-size: 28px;
+                }
+            }
+            .bradcamb-links{
+                grid-gap: 12px;
+                display: flex;
+                align-items: center;
+
+                a{
+                    font-size: 18px;
+                    color: var(--white);
+                    display: flex;
+                    align-items: center;
+                    grid-gap: 12px;
+                    text-transform: capitalize;
+                    &.bradcamb-link{
+                        &:hover{
+                            color: var(--ot-primary);
+                        }
+                    }
+
+                    &:not(:first-child){
+                        &::before{
+                            content: '';
+                            width: 4px;
+                            height: 4px;
+                            background: $white ;
+                            border-radius: 50%;
+                            display: inline-block;
+                        }
+                    }
+                }
+            }
+        }
+        .bradcamb-shape{
+            @media #{$xs-to-md-max} {
+                order: 1;
+            }
+        }
+    }
+}

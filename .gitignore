@@ -1,0 +1,43 @@
+# Node modules and vendor
+/node_modules
+/vendor
+
+# Laravel specific
+/public/build
+/public/docs
+/public/hot
+/public/storage
+/public/module_images
+/public/modules
+/public/temp/*
+/storage/*.key
+/storage/logs/*
+/storage/framework/*
+/bootstrap/cache/*
+.env
+*.env
+*.key
+*.pem
+*.sql
+
+# Test and debug
+.phpunit.result.cache
+npm-debug.log
+yarn-error.log
+
+# IDEs and editors
+/.idea
+/.vscode
+
+# Composer and other configs
+composer.lock
+modules_statuses.json
+
+# Language files (optional)
+# Uncomment if you don't want to track language files
+# /lang/en
+# /lang/ar
+
+# Optional: OS specific
+.DS_Store
+Thumbs.db

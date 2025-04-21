@@ -1,0 +1,52 @@
+// Register cart
+    .admin-hero{
+        padding: 53px 32px 53px 72px;
+        border-radius: 12px;
+        background: linear-gradient(115.87deg, #9A61E0 39.31%, var(--ot-primary) 100.75%);
+        @media #{$md}{
+            padding: 46px 30px 33px 31px;
+        }
+        @media #{$sm}{
+            padding: 46px 30px 33px 31px;
+        }
+        @media #{$xs}{
+            padding: 42px 11px 27px 11px;
+        }
+        .title {
+            font-size:38px;
+            display: block;
+            line-height: 1.4;
+            margin-bottom: 0px;
+            color: var(--white);
+            @media #{$sm}{
+                font-size: 23px;
+            }
+            @media #{$xs}{
+                font-size: 23px;
+            }
+            a{
+                color: var(--ot-tertiary);
+            }
+        }
+        .pera {
+            font-size: 24px;
+            @media #{$xs}{
+                font-size:16px;
+            }
+            .sub-title{
+                font-style: italic;
+                border-bottom: 1px solid #fff;
+            }
+        }
+    }
+
+    .img-bg{
+        background-size: 100% 100%;
+        
+        background-position: center center;
+        background-repeat: no-repeat;
+        @media #{$xs-to-md-max}{
+            background-size: cover;
+        }
+
+    }

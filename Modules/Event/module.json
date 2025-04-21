@@ -1,0 +1,12 @@
+{
+    "name": "Event",
+    "alias": "event",
+    "description": "",
+    "keywords": [],
+    "thumbnail": "event.jpg",
+    "priority": 0,
+    "providers": [
+        "Modules\\Event\\Providers\\EventServiceProvider"
+    ],
+    "files": []
+}

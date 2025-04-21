@@ -1,0 +1,27 @@
+.ot-tab-nav{
+    grid-gap: 12px;
+    @media #{$xs-to-md-max} {
+        grid-gap: 10px;
+    }
+    .nav-link{
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: capitalize;
+        border-radius: 30px;
+        background: #F8F9FC;
+        padding: 7px 21px 9px 21px;
+        border: 0;
+        color: #6D7289;
+        transition: .3s;
+        @media #{$xs-to-md-max} {
+            font-size: 14px;
+            padding: 6px 12px;
+        }
+        &.active, &:hover{
+            background: var(--ot-primary);
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.16);
+            color: var(--white);
+        }
+    }
+}
+

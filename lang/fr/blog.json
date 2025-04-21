@@ -1,0 +1,17 @@
+{
+    "Blog": "Article",
+    "Category": "Categorie",
+    "Blog Category": "Catégorie article",
+    "Create Blog Category": "Créer une catégorie",
+    "Icon": "Icon",
+    "Edit Blog Category": "Modifier une Categorie",
+    "blog": "article",
+    "Create Blog": "Créer un article",
+    "Image": "Image",
+    "description": "description",
+    "Meta Description": "Meta Description",
+    "select_category": "--Select Category--",
+    "select category": "--Choisir une catégorie--",
+    "Edit Blog": "Modifier l'article",
+    "Meta Image": "Meta Image"
+}

@@ -1,0 +1,11 @@
+{
+    "name": "GNEAI",
+    "alias": "gneai",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\GNEAI\\Providers\\GNEAIServiceProvider"
+    ],
+    "files": []
+}

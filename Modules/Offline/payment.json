@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Cash",
+        "status": "1"
+    },
+    {
+        "name": "Cheque",
+        "status": "1"
+    },
+    {
+        "name": "Bank Transfer",
+        "status": "1"
+    }
+]

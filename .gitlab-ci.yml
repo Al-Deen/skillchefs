@@ -1,0 +1,6 @@
+insights:
+  script:
+    - vendor/bin/phpinsights -n --ansi --format=codeclimate > codeclimate-report.json
+  artifacts:
+    reports:
+      codequality: codeclimate-report.json

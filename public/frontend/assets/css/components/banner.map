@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "banner.css",
+	"sources": [
+		"../../scss/components/banner.scss"
+	],
+	"sourcesContent": [
+		""
+	],
+	"names": [],
+	"mappings": ""
+}

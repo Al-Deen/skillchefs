@@ -1,0 +1,203 @@
+
+.my-profile-card{
+    &.my-profile-card2{
+      .profile-image{
+          width: 54px;
+          height: 56px;
+      }
+      .profile-name{
+        font-size: 18px;
+      }
+      .country i {
+        font-size: 28px;
+      }
+    }
+    .profile-image {
+        width: 138px;
+        height: 144px;
+        border-radius: 12px;
+        overflow: hidden;
+        background: gray;
+        border: 2px solid var(--ot-primary);
+        margin-bottom: 10px;
+    }
+    .profile-name {
+        text-transform: capitalize;
+        color: var(--ot-primary-title);
+        font-size: 20px;
+        margin-bottom: 3px;
+    }
+    .profile-user-name {
+        font-size: 14px;
+        color: var(--ot-primary-paragraph);
+        margin-bottom: 10px;
+    }
+    .profile-designation {
+        font-size: 14px;
+        text-transform: capitalize;
+    }
+
+    .profile-info {
+        p {
+            font-size: 14px;
+            color: var(--ot-primary-paragraph);
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+  
+        }
+    }
+}
+
+.country{
+    .country{
+        font-size: 16px;
+        margin-right: 15px;
+    }
+    i{
+        font-size: 20px;
+    }
+}
+
+
+//  Select Tag
+.tag-area3{
+    .listing{
+        .single-list{
+            @include transition(.4s);
+            display: inline-block;
+            color: var(--ot-primary-paragraph);
+            background: var(--white);
+            border: 1px solid var(--ot-secondary-border);
+            text-transform: capitalize;
+            font-weight: 500;
+            font-size: 13px;
+            padding: 6px 14px;
+            margin-bottom: 10px;
+            margin-right: 2px;
+            cursor: pointer;
+            border-radius: 30px;
+            @media #{$xs}{
+                padding: 5px 9px;
+                margin-right: 3px;
+            }
+            &:hover {
+                background: var(--ot-primary);
+                color: #fff;
+                border: 1px solid transparent;
+              }
+            &:last-child{
+                margin-bottom: 0px;
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+
+// Badges
+.single-badges{
+    margin-right: 10px;
+    display: inline-block;
+    &.single-badges2{
+        .badges-icon{
+              background: none;
+              width: auto;
+              height: auto;
+              line-height: inherit;
+              text-align: center;
+              padding: 0;
+              margin-bottom: 0;
+              border-radius: 0;
+              display: flex;
+              align-items: center;
+              
+              img{
+                width: 15px;
+                margin-right: 9px;
+              }
+        }
+    }
+    &.single-badges3{
+        .badges-icon{
+            width: 80px;
+            height: 80px;
+            line-height: 1;
+            text-align: center;
+            padding: 15px 14px;
+            @media #{$xs-to-xl-max}{
+              width: 60px;
+              height: 60px;
+              line-height: 32px;
+              padding: 5px 14px;
+            }
+            img{
+              width: 35px;
+              margin-bottom: 5px;
+              margin-right: 0;
+              @media #{$xs-to-xl-max}{
+                width: 20px;
+                margin-bottom: 0;
+              }
+            }
+        }
+    }
+    .badges-icon{
+        @include transition(.4s);
+        display: inline-block;
+        background:rgba( var(--ot-tertiary-rgb), .07);
+
+        width: 100px;
+        height: 100px;
+        line-height: 67px;
+        text-align: center;
+        padding: 6px 14px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        border-radius: 50%;
+        @media #{$xs-to-xl-max}{
+          width: 60px;
+          height: 60px;
+          line-height: 32px;
+        }
+        img{
+          margin-bottom: 0px;
+          line-height: 1;
+
+          @media #{$xs-to-xl-max}{
+            width: 20px;
+          }
+        }
+        .pera{
+          text-transform: capitalize;
+            font-size: 12px;
+            line-height: 1;
+            @media #{$xs-to-xl-max}{
+              font-size: 10px;
+            }
+        }
+    }
+    .title{
+        font-size: 16px;
+        @media #{$xs-to-xl-max}{
+          font-size: 12px;
+        }
+    }
+}
+
+td .flag-icon {
+    // border: 0 !important;
+    i{
+      font-size: 18px;
+      margin-right: 10px;
+    }
+}
+
+td .user .thumb{
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    overflow: hidden;
+
+}
+

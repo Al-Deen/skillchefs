@@ -1,0 +1,124 @@
+.activity-progress {
+    .single-progress{
+        .title {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 1.5;
+            text-transform: capitalize;
+            color: var(--ot-primary-title);
+        }
+        .percentage {
+            font-size: 14px;
+            text-transform: capitalize;
+            color: #494e5c;
+        }
+    }
+    .bg-progress1{
+        animation: load3 3s normal forwards;
+        background: var(--ot-primary);
+    }
+    .bg-progress2{
+        animation: load1 3s normal forwards !important;
+        background: #F15BB5 !important;
+    }
+    .bg-progress3{
+        animation: load2 3s normal forwards;
+        background: linear-gradient(223.22deg, #2FB5FF -15.9%, #6BD1F5 108.14%);
+    }
+    .bg-progress4{
+        animation: load4 3s normal forwards;
+        background: var(--ot-tertiary) !important;
+    }
+    .bg-progress5{
+        animation: load5 3s normal forwards;
+        background: #2a64f8;
+    }
+    .bg-progress6{
+        animation: load6 3s normal forwards;
+        background: #f15bb5;
+    }
+
+
+    @keyframes load1 {
+        0% { width: 0; }
+        100% { width: 80%; }
+    }
+    @keyframes load2 {
+      0% { width: 0; }
+      100% { width: 90%; }
+    }
+    @keyframes load3 {
+      0% { width: 0; }
+      100% { width: 80%; }
+    }
+    @keyframes load4 {
+      0% { width: 0; }
+      100% { width: 70%; }
+    }
+    @keyframes load5 {
+      0% { width: 0; }
+      100% { width: 80%; }
+    }
+    @keyframes load6 {
+      0% { width: 0; }
+      100% { width: 90%; }
+    }
+}
+  
+.progress-title{
+    font-size: 14px;
+    border-bottom: 1px solid var(--ot-primary-border);
+    padding-bottom: 12px;  
+}
+
+.activity-title{
+    .title{
+        font-size: 16px;
+    }
+   
+    border-bottom: 1px solid 1px solid var(--ot-primary-border);
+    padding-bottom: 12px;  
+}
+
+
+.video-content{
+    .title{
+        font-size: 16px;
+        line-height: 1.1;
+    }
+    .pera{
+        span{
+            color: var(--ot-primary-title);
+        }
+    }
+}
+
+.net-btn{
+    font-size: 18px;
+}
+
+
+
+.single-video{
+    background: #F8F8F8;
+    padding: 20px;
+    border-radius: 10px;
+    i{
+        color:var(--ot-primary);
+        position: relative;
+        top: 3px;
+    }
+}
+
+
+.action-table {
+    button{
+        background: none;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 0 2px;
+        border: 0;
+        line-height: 1;
+        color: var(--ot-primary-paragraph);
+    }
+}

@@ -1,0 +1,85 @@
+.quize-list{
+    border: 1px solid var(--ot-secondary-border);
+    padding: 22px 10px;
+    border-radius: 5px;
+    .single-list-quize{
+        color: var(--ot-tertiary-title);
+        padding-left: 16px;
+        &:not(:last-child){
+            margin-bottom: 19px;
+            border-bottom: 1px solid var(--ot-secondary-border);
+            padding-bottom: 18px;
+        }
+        .title{
+            color: var(--ot-tertiary-title);
+            font-size: 16px;
+            display: block;
+            margin-bottom: 0px;
+            font-weight: 400;
+        }
+        .quize-date{
+            font-size: 12px;
+            margin-right: 20px;
+        }
+    }
+}
+
+
+// Check Mark
+.remember-checkbox {
+    &.selected-quize{
+        &.true{
+            .text-title{
+                color: $success !important;
+            }
+        }
+        &.false{
+            text-decoration: line-through !important;
+            .text-title{
+                color: var(--ot-tertiary) !important;
+            }
+        }
+        .ot-checkmark {
+            background: var(--ot-tertiary);
+            border: var(--ot-tertiary);
+            &::after {
+                display: block;
+                left: 0;
+                top: -2px;
+                right: 0;
+                text-align: center;
+                margin: 0 auto;
+            }
+        }
+        label {
+          pointer-events: auto !important;
+          cursor: not-allowed !important;
+          pointer-events: none;
+          -webkit-user-select: none; /* Safari */
+          -ms-user-select: none; /* IE 10 and IE 11 */
+          user-select: none; /* Standard syntax */
+        }
+    }
+}
+
+.ans-sheet{
+    .single-list-quize{
+        .remember-checkbox {
+            pointer-events: none;
+        }
+        .remember-checkbox.quize.false{
+            top: 0px;
+        }
+    }
+
+}
+
+
+
+.single-quize-wrapper .single-list-quize .remember-checkbox.quize .ot-checkmark {
+	top: 4px;
+}
+.single-quize-wrapper .single-list-quize .remember-checkbox.quize.style2 .ot-checkmark {
+	top: 0px;
+}
+

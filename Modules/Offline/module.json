@@ -1,0 +1,12 @@
+{
+    "name": "Offline",
+    "alias": "offline",
+    "description": "",
+    "keywords": [],
+    "thumbnail": "offline_payment.jpg",
+    "priority": 0,
+    "providers": [
+        "Modules\\Offline\\Providers\\OfflineServiceProvider"
+    ],
+    "files": []
+}

@@ -1,0 +1,11 @@
+{
+    "name": "PaynetGateway",
+    "alias": "paynetgateway",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\PaynetGateway\\Providers\\PaynetGatewayServiceProvider"
+    ],
+    "files": []
+}

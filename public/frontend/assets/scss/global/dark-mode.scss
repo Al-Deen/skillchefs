@@ -1,0 +1,576 @@
+body.dark-mode{
+
+    // Landing
+    .hero-landing{
+        background-color: var(--white);
+        background-image: unset !important;
+    }
+
+    // Front End
+    background: var(--body);
+    .ot-tab-nav .nav-link {
+        background: var(--white);
+        color: var(--ot-primary-paragraph);
+    }
+
+    .single-categories .cat-caption .title .brand-box {
+        background:var(--dark);
+    }
+
+
+    .single-categories .cat-caption .title {
+        color: var(--dark);
+    }
+    .single-categories {
+        background: var(--body);
+    }
+
+    .ot-contact-form .ot-contact-input {
+        color: #fff;
+    }
+
+    .form-control .ot-contact-input:focus {
+        color: #fff;
+    }
+    .progressParent svg.backCircle path {
+        stroke: var(--ot-primary);
+    }
+    .progressParent::after {
+        color: var(--dark);
+    }
+    .accordion-item {
+        background: none;
+    }
+    .search-box-style .search-btn {
+        color: var(--dark)
+    }
+    .search-box-style .ot-search {
+        background: none;
+        color: var(--dark);
+    }
+    .footer-form form input::placeholder , .footer-form form input {
+        color: var(--dark);
+    }
+    .pagination .pagination-list li .page-number.current {
+        background-color: var(--ot-tertiary) !important;
+        color: var(--dark);
+    }
+    .pagination .pagination-list li .page-number {
+        background: var(--white);
+        color: var(--dark);
+    }
+    .ot-tab-nav .nav-link.active, .ot-tab-nav .nav-link:hover {
+        background: var(--ot-primary) !important;
+        color: var(--dark) !important;
+    }
+    .course-widget .course-widget-img .quic-action-buttons a {
+        color: var(--dark);
+    }
+    .ot-bradcam-area .ot-bradcam-inner .bradcam-text .bradcamb-links a {
+        color: var(--dark);
+    }
+    .total-checkout-prormo {
+        background: var(--white);
+    }
+    .category-searchbar {
+        background: var(--body);
+    }
+    .footer-social a:hover {
+        color: var(--dark);
+    }
+    .btn-primary-outline:hover {
+        // background: var(--ot-primary-btn);
+        // border-color: transparent !important;
+        color: #fff;
+    }
+    .ot-bradcam-area.section-bg-two {
+        background: #00031F;
+    }
+    .blog-single {
+        background: var(--body);
+    }
+    .arrow-style .swiper-btn {
+        color: var(--dark);
+        background: #29365D;
+    }
+
+
+    .ot-intractor-features-area .ot-intractor-features-info .ot-intractor-features-boxs .ot-intractor-features-box i {
+        color: var(--dark);
+    }
+    .footer-social a {
+        color: var(--dark) !important;
+    }
+    .blog-details-wrapper .notes {
+        background: var(--white);
+    }
+    .social-link-card {
+        background: var(--white);
+    }
+    .social-link-body p {
+        color: var(--dark);
+    }
+    .social-link-card:hover p {
+        color:  var(--dark);
+    }
+    .social-link-card:hover i {
+        color: var(--dark);
+    }
+    .total-checkout-prormo .promo_box .input-group button {
+        color: var(--dark);
+    }
+    .total-checkout-prormo .promo_box .input-group input {
+        color: var(--dark);
+        background: inherit;
+    }
+    .ot-checkout-area .summary-card {
+        background: var(--white);
+    }
+    .ot-checkout-area .billing-info .payment-accordion .accordion-button:not(.collapsed) {
+        background-color: var(--white);
+    }
+    .select2-results {
+        background: var(--white);
+    }
+
+    .select2-container--default .select2-search--dropdown .select2-search__field {
+        border: 1px solid var(--ot-primary-border);
+        background: var(--white);
+        color: var(--ot-primary-title);
+    }
+    .select2-search--dropdown {
+        background: var(--white);
+    }
+    .select2-dropdown {
+        border-color: var(--ot-primary-border);
+        background-color: var(--white);
+    }
+    .select2-container--default .select2-results__option[aria-selected="true"] {
+        background-color: var(--dark);
+        color: var(--ot-primary);
+    }
+    .select2-container--default .select2-results__option[aria-selected="true"] {
+        background-color: var(--ot-primary);
+        color: var(--dark);
+    }
+    .instructor-profile-card {
+        background: var(--white);
+    }
+    .tag-area {
+        background: var(--white);
+    }
+    .multi-step-form #progressbar li .data-count {
+        color: var(--dark);
+    }
+    .btn-primary-submit:focus:hover{
+        border-color: transparent;
+    }
+    .ot-login-area .ot-login-card .login-footer .sign-with .icon-login-section .icon-login a:hover {
+        color: var(--dark);
+    }
+    .single-video {
+        background: var(--body);
+    }
+    .score .title {
+        color: var(--dark);
+    }
+    .signout-btn {
+        background: #29365D;
+        .title {
+            color: var(--dark);
+        }
+    }
+    .dropdown-list-style .notification-listing .list .list-items i {
+        color: var(--dark);
+    }
+
+    .playlist-banner-wrapper {
+
+        .single-list.single.change-mode{
+            color: var(--white) !important;
+        }
+        i{
+            color: var(--dark) !important;
+        }
+    }
+    .video-playlist .input-form input {
+        background: var(--body);
+    }
+    .video-playlist .accordion-header .accordion-button {
+        background: var(--body);
+        box-sizing: none;
+    }
+    .video-playlist .accordion-collapse .accordion-body {
+        background: var(--body);
+    }
+    .btn-uplode {
+        color: var(--dark);
+    }
+    .ot_fileUploader input.form-control::placeholder {
+        color: var(--dark);
+    }
+    .theme-according .card-body {
+        background: var(--white);
+    }
+    .theme-according .card .card-header h5 button {
+        background: var(--white);
+    }
+    .footer-mobile-wrapper .listing .single-list a.active i {
+        color: var(--dark);
+    }
+    .footer-mobile-wrapper .listing .single-list a span {
+        color: var(--dark);
+    }
+    .footer-mobile-wrapper .listing .single-list a {
+        color: var(--dark);
+    }
+    .counter .count {
+        color: var(--dark) !important;
+    }
+    .footer-mobile-wrapper .listing .single-list .home-btn {
+        border: 3px solid  var(--dark);
+        background: var(--ot-primary);
+    }
+    .panel-sidebar-icon .sidebar-icon {
+        color: var(--dark);
+    }
+    .panel-home {
+        color: var(--dark);
+    }
+    .course-badge:hover {
+        color: var(--dark);
+    }
+
+    .social-share-list {
+        .single-social::after {
+            color: var(--dark);
+        }
+        .single-social.selected {
+            border: 1px solid var(--dark);
+            color: var(--dark);
+        }
+    }
+
+    .cart .cart-list .upload-btn {
+        color: var(--dark);
+    }
+    .cart .cart-list .upload-btn:hover {
+        border: 1px solid var(--dark);
+    }
+
+    // End-of Front-End
+
+    .progress-c-sub-title {
+        border-color: var(--ot-primary);
+    }
+    // Panel
+    &.panel {
+        .header-search .input-form input {
+            border: 1px solid transparent;
+        }
+        .panel-home {
+            border: 1px solid transparent;
+        }
+        .menu-wrapper {
+            border-bottom: 1px solid var(--white);
+            margin-bottom: 16px;
+            padding-bottom: 5px;
+        }
+        .apexcharts-legend-text {
+            color: var(--dark) !important;
+        }
+        .activity-table table tbody tr td {
+            color: var(--ot-primary-title);
+        }
+
+        .single-dashboard-card .icon {
+            // background: var(--dark);
+        }
+        .single-dashboard-card .cat-caption .single-counter .counter, .single-dashboard-card .cat-caption .single-counter .currency, .single-dashboard-card .cat-caption .single-counter .amount {
+            color: var(--dark);
+        }
+        .pagination .pagination-list li .page-number {
+            background: #29365A;
+            color: var(--dark);
+        }
+        .single-dashboard-card{
+            background: var(--body);
+            border: 0;
+        }
+
+    }
+    .single-dashboard-card.single-dashboard-card2 .icon i {
+        color: #fff !important;
+    }
+
+    .ot-switch-btn label span {
+        background-color: #fff;
+    }
+    .daterangepicker .calendar-table {
+        border: 1px solid var(--white);
+        background-color: var(--white);
+    }
+    .setp-page-title i {
+        background: var(--body);
+    }
+    .course-title .ot-contact-input {
+        background: var(--body);
+    }
+
+    // CK editor
+    .ck.ck-toolbar.ck-toolbar_grouping {
+        background: var(--body);
+        border-color: var(--ot-primary-border);
+        box-shadow: none;
+    }
+    .ck.ck-button, a.ck.ck-button {
+        color: var(--dark)
+    }
+    .ck.ck-dropdown .ck-button.ck-dropdown__button {
+        width: 100%;
+    }
+    .ck.ck-button:not(.ck-disabled):hover, a.ck.ck-button:not(.ck-disabled):hover {
+        background: var(--white);
+    }
+    .ck.ck-button.ck-on, a.ck.ck-button.ck-on {
+        background: var(--white);
+    }
+
+
+    .daterangepicker::after {
+        border-bottom: 6px solid var(--ot-primary-border);
+    }
+
+    body.dark-mode .daterangepicker .calendar-table .next span, body.dark-mode .daterangepicker .calendar-table .prev span {
+        border-color: #fff;
+    }
+    .daterangepicker .ranges li.active {
+        background-color: var(--ot-primary);
+        color: #fff;
+    }
+    .daterangepicker td.available:hover, .daterangepicker th.available:hover {
+        background-color: var(--ot-primary);
+    }
+    .daterangepicker td.available:hover, .daterangepicker th.available:hover {
+        background-color: var(--ot-primary);
+    }
+
+
+    .tagify__input::before {
+        color:#fff;
+    }
+    .tagify__input:focus:empty::before {
+        color:#fff;
+    }
+
+    .footer-mobile-wrapper .listing .single-list a.active i {
+        color: var(--dark);
+    }
+    #SvgjsText1022 {
+        fill: var(--dark);
+    }
+    #SvgjsText1021 {
+        fill: var(--dark) !important;
+    }
+    #SvgjsText1210 {
+        fill: var(--dark) !important;
+    }
+    #SvgjsText1015 {
+        fill: var(--dark);
+    }
+    #SvgjsText1016 {
+        fill: var(--dark);
+    }
+
+    .single-progress .count.text-primary.opacity-50 {
+        color: var(--dark) !important;
+        opacity: .8 !important;
+    }
+
+    $cart-bg-one:#FFF3EE;    $cart-bg-six:#FAEFFA;
+    $cart-bg-two:#FAEFFA;    $cart-bg-seven:#FFF1F1;
+    $cart-bg-three:#E6F8EF;  $cart-bg-seven:#FFF1F1;
+    $cart-bg-four:#FAEFFA;   $cart-bg-eight:#FAEFFA;
+    $cart-bg-five:#EEF9FE;   $cart-bg-nine:#F1F5FD;
+
+    @each $cart-bg-name, $cart-bg-color in  (one, $cart-bg-one),
+    (two, $cart-bg-two) ,
+    (three, $cart-bg-three),
+    (four, $cart-bg-four),
+    (five, $cart-bg-five),
+    (six, $cart-bg-six),
+    (seven, $cart-bg-seven),
+    (eight, $cart-bg-eight),
+    (nine, $cart-bg-nine) {
+        .cart-bg-#{$cart-bg-name}{
+            background: var(--white);
+        }
+        .cart-bg-#{$cart-bg-name}:hover{
+            .icon{
+                background: var(--body);
+            }
+        }
+    }
+    .ot-theme-modal .ot-modal-close {
+        background: var(--ot-primary);
+        color: var(--dark);
+    }
+
+    .main__message_container > input {
+        border: 1px solid var(--ot-secondary-border);
+        background: var(--white);
+        color: #fff;
+        border: 0;
+    }
+
+    .modal-content {
+        background-color: var(--white);
+    }
+    .alert-warning {
+        --bs-alert-color: var(--bs-warning-text);
+        --bs-alert-bg: var(--body);
+        --bs-alert-border-color: var(--ot-primary-border);
+    }
+    .tagify {
+        background: var(--white);
+    }
+    // .form-control:focus {
+    //     color: var(--bs-body-color);
+    //     outline: 0;
+    //     box-shadow: none;
+    // }
+
+    .apexcharts-text tspan {
+        fill: #fff;
+    }
+    .apexcharts-text defs {
+        fill: #fff;
+    }
+    .apexcharts-text rect {
+        fill: #fff;
+    }
+
+
+    .admin-hero {
+        background: linear-gradient(115.87deg, #9A61E05E 39.31%, #5B58FF33 100.75%);
+    }
+    .ai-reply-message .ai-message-list .ai-reply {
+        background: var(--white);
+    }
+
+    .swal2-popup.swal2-toast {
+        background: var(--white);
+        box-shadow: none;
+
+    }
+    .swal2-popup .swal2-title {
+        color: #fff;
+    }
+    .text-muted {
+        color: var(--dark) !important;
+    }
+    .daterangepicker .calendar-table .next span, .daterangepicker .calendar-table .prev span {
+        border-color: #fff;
+    }
+    .daterangepicker td.off, .daterangepicker td.off.end-date, .daterangepicker td.off.in-range, .daterangepicker td.off.start-date {
+        background-color: #181c2d;
+        color: #fff;
+    }
+    .daterangepicker .drp-buttons {
+        border-top: 1px solid var(--ot-primary-border);
+    }
+
+
+
+
+    // Section background color ( white background )
+    .hero-area {
+        background: var(--body) !important;
+    }
+    .ot-courses-area{
+        background: var(--body) !important;
+    }
+    .ot-best-rated-courses-area{
+        background: var(--body) !important;
+    }
+    .ot-discount-courses-area{
+        background: var(--body) !important;
+    }
+    .testimonial-area{
+        background: var(--body) !important;
+    }
+    .ot-brand-area{
+        background: var(--body) !important;
+    }
+
+
+    // Section background color ( section-bg-two )
+    .categories-area{
+        background: var(--white) !important;
+    }
+    .ot-latest-courses-area{
+         background: var(--white) !important;
+    }
+    .ot-best-selling-courses-area{
+         background: var(--white) !important;
+    }
+    .become-instructor{
+         background: var(--white) !important;
+    }
+    .ot-blog-area{
+         background: var(--white) !important;
+    }
+
+    .input-group-text {
+        background-color: unset;
+    }
+
+    .ot-contact-input::placeholder, .ot-input {
+        color: #ffffff47;
+        opacity: 1;
+    }
+
+    .chat-body {
+        background: var(--body);
+    }
+    .chat-list-wrapper .chat-list .single-chat {
+        background: var(--body);
+    }
+    .chatSend-wrapper .sendMessage .input {
+        color: #fff;
+    }
+    .tag-area4 .listing .single-list {
+        background: var(--body);
+    }
+    .view-comments-solution {
+        background: var(--body);
+    }
+    .note-editor.note-airframe .note-editing-area .note-editable, .note-editor.note-frame .note-editing-area .note-editable {
+        color: #fff;
+    }
+    .note-btn {
+        color: #fff;
+        background-color: var(--body);
+        border: 1px solid var(--ot-primary-border);
+    }
+    pre {
+        background-image: var(--body) !important;
+        background-color: unset;
+        border: 1px solid var(--ot-primary-border);
+    }
+    .note-toolbar {
+        padding: 10px 5px;
+        color: #333;
+        background-color: var(--body);
+        border-color: var(--ot-primary-border);
+    }
+
+    .ot-card3 {
+        background: var(--white);
+    }
+
+}
+
+.swal2-popup.swal2-toast {
+   border: 1px solid var(--ot-primary-border);
+}

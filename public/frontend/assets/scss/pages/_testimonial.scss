@@ -1,0 +1,111 @@
+
+    .single-testimonial{
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.03);
+        // margin: 20px 20px;
+    }
+
+
+    .testimonial-caption{
+        background: var(--white);
+        padding: 40px 35px 40px 35px;
+        @include transition(.4s);
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
+        @media #{$xs}{
+            padding: 20px;
+        }
+        .testimonialCap{
+            p{
+                line-height: 1.5;
+                margin-bottom: 25px;
+                font-size: 14px;
+                font-weight: 400;
+                @media #{$lg}{
+
+                }
+                @media #{$sm}{
+                    margin-bottom: 30px;
+                }
+                @media #{$xs}{
+                    font-size: 15px;
+                    margin-bottom: 30px;
+                }
+                & > img{
+                    margin-right:15px ;
+                    display: inline-block;
+                    width: auto;
+                }
+            }
+        }
+        .testimonial-founder{
+            padding-bottom: 14px;
+            margin-bottom: 22px;
+            .founder-img {
+                border-radius: 50%;
+                max-width: 80px;
+                height: 80px;
+                overflow: hidden;
+                min-width: 30px;
+                margin: 0 auto;
+            }
+        }
+        .founder-text{
+            span{
+                font-size: 20px;
+                font-weight: 600;
+                text-align: left;
+                margin-bottom: 1px;
+            }
+            p{
+                font-weight:500;
+                line-height:1.5;
+                margin: 0;
+                font-size: 14px;
+            }
+        }
+        .ratting {
+            margin-bottom: 30px;
+            ul li {
+                display: inline-block;
+                i {
+                    font-size: 16px;
+                }
+            }
+        }
+        &:hover{
+            // background: var(--ot-primary);
+            // .testimonialCap{
+            //     p{
+            //         color:var(--white);
+            //     }
+            // }
+            // .founder-text{
+            //     span{
+            //         color:var(--white);
+            //     }
+            //     p{
+            //         color:var(--white);
+            //     }
+            // }
+        }
+    }
+
+    .testimonial-active.swiper.arrow-style.swiper-initialized.swiper-horizontal.swiper-pointer-events.swiper-backface-hidden {
+        padding: 10px 11px;
+    }
+
+
+
+// Button Hover Effect
+.arrow-style {
+    .swiper-btn {
+        opacity: 0;
+        visibility: hidden;
+        @include transition(.4s);
+    }
+    &:hover{
+        .swiper-btn {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
