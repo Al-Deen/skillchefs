@@ -87,16 +87,16 @@
                         </div>
                         <div class="d-flex gap-20 flex-wrap">
                             <div class="flex-fill">
-                                <div class="d-flex align-items-center course-star-rating">
-                                    <span class="rating-count text-16 mr-2">{{ @$data['course']->rating }} </span>
-                                    <span class="text-16 pl-8 pr-8">{{ rating_ui(@$data['course']->rating, '16') }} </span>
-                                    <span class="total-rating  "> ( @if ($data['course']->total_review > 0)
-                                            {{ numberFormat($data['course']->total_review) }}
-                                            {{ ___('frontend.Reviews') }}
-                                        @else
-                                            {{ numberFormat(0.0) }}
-                                        @endif )</span>
-                                </div>
+{{--                                <div class="d-flex align-items-center course-star-rating">--}}
+{{--                                    <span class="rating-count text-16 mr-2">{{ @$data['course']->rating }} </span>--}}
+{{--                                    <span class="text-16 pl-8 pr-8">{{ rating_ui(@$data['course']->rating, '16') }} </span>--}}
+{{--                                    <span class="total-rating  "> ( @if ($data['course']->total_review > 0)--}}
+{{--                                            {{ numberFormat($data['course']->total_review) }}--}}
+{{--                                            {{ ___('frontend.Reviews') }}--}}
+{{--                                        @else--}}
+{{--                                            {{ numberFormat(0.0) }}--}}
+{{--                                        @endif )</span>--}}
+{{--                                </div>--}}
                                 <div
                                     class="d-flex align-items-center gap-12 course-duration d-flex align-items-center gap-12">
                                     <h5>{{ minutes_to_hours($data['course']->course_duration) }}</h5>

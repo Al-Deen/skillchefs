@@ -13,13 +13,13 @@
                         href="{{ route('frontend.instructor.details', [$data['course']->user->name, $data['course']->user->id]) }}">{{ @$data['course']->instructor->name }}</a>
                 </h4>
                 <h5 class="instractor-designation">{{ @$data['course']->instructor->instructor->designation }}</h5>
-                <div class="rating-star d-flex align-items-center">
-                    @if (@$data['course']->instructor->instructor)
-                        {{ rating_ui(@$data['course']->instructor->instructor->ratings() ?? 0, 16) }}
-                    @else
-                        {{ rating_ui(0, 16) }}
-                    @endif
-                </div>
+{{--                <div class="rating-star d-flex align-items-center">--}}
+{{--                    @if (@$data['course']->instructor->instructor)--}}
+{{--                        {{ rating_ui(@$data['course']->instructor->instructor->ratings() ?? 0, 16) }}--}}
+{{--                    @else--}}
+{{--                        {{ rating_ui(0, 16) }}--}}
+{{--                    @endif--}}
+{{--                </div>--}}
             </div>
         </div>
         <div class="instructor-personal-info">
