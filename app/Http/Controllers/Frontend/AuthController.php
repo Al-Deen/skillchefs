@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\frontend\OTPRequest;
 use App\Http\Requests\frontend\SignInRequest;
@@ -147,7 +148,18 @@ class AuthController extends Controller
                         return $this->responseWithSuccess(___('alert.Please_verify_your_two_factor_authentication'), $data, 200);
                     }
                 }
-                $data['redirect_url'] = route('home');
+
+                if ($user->role_id != Role::STUDENT && $user->role_id != Role::INSTRUCTOR && $user->role_id != Role::ORGANIZATION ){
+                    $data['redirect_url'] = route('dashboard');
+                }elseif ($user->role_id == Role::STUDENT){
+                    $data['redirect_url'] = route('student.dashboard');
+                }elseif ($user->role_id == Role::INSTRUCTOR){
+                    $data['redirect_url'] = route('instructor.dashboard');
+                }elseif ($user->role_id == Role::ORGANIZATION){
+                    $data['redirect_url'] = route('organization.dashboard');
+                }else{
+                    $data['redirect_url'] = route('home');
+                }
                 return $this->responseWithSuccess(___('alert.Successfully Logged in'), $data);
             } else {
                 return $this->responseWithError($result->original['message'], [], 400); // return error response

@@ -114,7 +114,7 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface
             return $this->responseWithError(___('alert.Something went wrong'), [], 400);
         }
     }
-    
+
     public function verifyOTPForPhoneNumber($request)
     {
         try {

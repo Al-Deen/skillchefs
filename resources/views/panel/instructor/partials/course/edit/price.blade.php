@@ -35,7 +35,7 @@
                 <!-- Check Box -->
                 <div class="remember-checkbox mb-24">
                     <label>
-                        <input class="ot-checkbox" type="checkbox" value="1" id="is_discount"
+                        <input class="ot-checkbox" type="checkbox" value="11" id="is_discount"
                             {{ @$data['course']->is_discount == 11 ? ' checked="checked"' : '' }} name="is_discount" />
                         <small class="text-tertiary">{{ ___('label.Check discount price') }}</small>
                         <span class="ot-checkmark"></span>

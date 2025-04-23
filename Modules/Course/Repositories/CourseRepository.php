@@ -170,7 +170,7 @@ class CourseRepository implements CourseInterface
             $courseModel->outcomes = $request->outcomes;
             $courseModel->is_free = $request->is_free ?? 0;
             $courseModel->price = @$request->price ?? 0;
-            if (@$request->is_discount) {
+            if (@$request->is_free != 1) {
                 $courseModel->is_discount = $request->is_discount ?? 10;
                 $courseModel->discount_price = $request->discount_price ?? 10;
                 $courseModel->discount_type = $request->discount_type;
@@ -250,7 +250,7 @@ class CourseRepository implements CourseInterface
             $courseModel->outcomes = $request->outcomes;
             $courseModel->is_free = $request->is_free ?? 0;
             $courseModel->price = $request->price;
-            if (@$request->is_discount) {
+            if (@$request->is_free != 1) {
                 $courseModel->is_discount = $request->is_discount ?? 10;
                 $courseModel->discount_price = $request->discount_price ?? 10;
                 $courseModel->discount_type = $request->discount_type;
