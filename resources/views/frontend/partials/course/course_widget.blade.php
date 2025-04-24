@@ -3,27 +3,22 @@
         <a href="{{ route('frontend.courseDetails', $course->slug) }}">
             <img src="{{ showImage(@$course->thumbnailImage->original) }}" class="img-cover" alt="img">
         </a>
-
-        {{-- Discount Badge --}}
-        @if(!@$course->is_free && @$course->is_discount === 11)
-            <span class="course-badge bg-danger position-absolute text-12 font-500 radius-4 d-inline-flex"
-                  style="top: 10px; left: 10px; z-index: 2;">
-            @if(@$course->discount_type == 1)
-                    - {{ showPrice(@$course->discount_price) }}
-                @else
-                    -{{ $course->discount_price }}%
-                @endif
-        </span>
-        @endif
-
-        {{-- Course Type Badge --}}
-        <a class="course-badge bg-{{ @$course->courseType->class }} position-absolute text-12 font-500 radius-4 d-inline-flex"
-           href="javascript:void(0)"
-           style="top: 42px; left: 10px; z-index: 1;">
-            {{ @$course->courseType->name }}
-        </a>
-
-        {{-- Bookmark --}}
+        <div class="badge-wrapper position-absolute d-flex gap-1"
+             style="top: 10px; left: 10px; z-index: 2;">
+            <a class="course-badge bg-{{ @$course->courseType->class }} text-12 font-500 radius-4 d-inline-flex"
+               href="javascript:void(0)">
+                {{ @$course->courseType->name }}
+            </a>
+            @if(!@$course->is_free && @$course->is_discount === 11)
+                <span class="course-badge bg-danger text-12 font-500 radius-4 d-inline-flex">
+                @if(@$course->discount_type == 1)
+                        - {{ showPrice(@$course->discount_price) }}
+                    @else
+                        -{{ $course->discount_price }}%
+                    @endif
+            </span>
+            @endif
+        </div>
         <div class="bookmark-wrapper">
             @if (auth()->check() && $course->userBookmark()->exists())
                 <a href="javascript:void(0)" class="bookmark bookmark-destroy"
@@ -36,6 +31,7 @@
             @endif
         </div>
     </div>
+
 
     <div class="widget-mid w-100 ">
         <div class="course-widget-info mb-18">
@@ -54,8 +50,6 @@
                     <h4 class="title colorEffect line-clamp-2 text-15 font-500">
                           {{ @$course->title }}
                     </h4>
-
-
                 </a>
             </div>
             <div class="course-widget-info_rating">
