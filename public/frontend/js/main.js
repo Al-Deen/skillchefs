@@ -337,7 +337,7 @@ async function getSectionData(className, load_url, filterData = {}) {
 
 $(document).ready(function () {
     $(".menu-categories").length > 0 && menuCategories();
-    $(".hero-area").length > 0 && homePageSlider();
+    // $(".hero-area").length > 0 && homePageSlider();
     $(".ot-courses-area").length > 0 && featuredCourses();
     $(".categories-area").length > 0 && popularCategory();
     $(".ot-latest-courses-area").length > 0 && latestCourses();

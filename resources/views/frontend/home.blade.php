@@ -4,6 +4,23 @@
 
     @foreach ($data['section'] as $key => $section)
         @if ($section->snake_title == 'slider')
+            @php
+           $sliders = \Modules\Slider\Entities\Slider::query()
+                    ->active()
+                    ->with('iconImage:id,original')
+                    ->orderBy('serial', 'asc')
+                    ->get()
+                    ->map(function ($data) {
+                        return [
+                            'id' => $data->id,
+                            'title' => $data->title,
+                            'sub_title' => $data->sub_title,
+                            'description' => $data->description,
+                            'serial' => $data->serial,
+                            'image' => showImage(optional($data->iconImage)->original, 'backend/uploads/default-images/hero/hero' . rand(1, 3) . '.jpg'),
+                        ];
+                    });
+            @endphp
             @include('frontend.home.hero_area')
         @elseif($section->snake_title == 'featured_courses')
             @include('frontend.home.featured_courses')
@@ -34,4 +51,17 @@
 
 @endsection
 @section('scripts')
+    <script>
+        new Swiper('.banner-active', {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
 @endsection
