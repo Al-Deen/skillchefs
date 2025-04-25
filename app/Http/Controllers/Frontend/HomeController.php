@@ -56,6 +56,11 @@ class HomeController extends Controller
     public function index(Request $request)
     {
 
+
+        $popularCategories = $this->courseCategory->model()->where('is_popular', 1)->active()->select('id', 'title', 'icon', 'slug')->with('iconImage:id,paths')->take(9)->get();
+        $brands= $this->brand->getAllBrands();
+
+
         try {
             $data['title'] = ___('frontend.Home'); // title
 
@@ -66,6 +71,12 @@ class HomeController extends Controller
                 Cache::put('sections', $sections);
             }
             $data['section'] = $sections;
+
+            $data['popularCategories'] = $popularCategories;
+
+            $data['brands'] = $brands;
+            $data['brand_section_title'] = ___('frontend.Trusted By Thousands');
+
 
             return view('frontend.home', compact('data'));
         } catch (\Throwable $th) {
@@ -112,9 +123,12 @@ class HomeController extends Controller
                 $featuredCourses = $this->featuredCourse->model()->active()->with('course')->orderBy('id', 'ASC')->limit(8)->get();
                 Cache::put('featured_courses', $featuredCourses);
             }
+
             $data['courses'] = $featuredCourses;
             $data['title'] = ___('frontend.Featured Courses');
             $data['url'] = route('courses') . '?type=featured';
+
+
             $view = view('frontend.ajax.home.ot_featured_courses_area', compact('data'))->render();
             $response['content'] = $view;
             $response['message'] = ___('frontend.Featured Courses');
@@ -151,7 +165,7 @@ class HomeController extends Controller
     {
         try {
 
-                $latest = $this->course->model()->active()->visible()->orderBy('id', 'DESC')->limit(8)->get();
+            $latest = $this->course->model()->active()->visible()->orderBy('id', 'DESC')->limit(8)->get();
 
             $data['courses'] = $latest;
             $data['title'] = ___('frontend.Latest Courses');

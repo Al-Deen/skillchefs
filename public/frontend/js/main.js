@@ -154,32 +154,33 @@ async function homePageSlider() {
     });
 }
 // Start Featured Courses
-async function featuredCourses() {
-    await $.ajax({
-        url: featuredCoursesUrl,
-        method: "get",
-        data: {},
-        success: function (data) {
-            if (data?.result) {
-                $("#ot_courses_area").html(data?.data?.content);
-            }
-        }
-    });
-}
+// async function featuredCourses() {
+//     await $.ajax({
+//         url: featuredCoursesUrl,
+//         method: "get",
+//         data: {},
+//         success: function (data) {
+//             if (data?.result) {
+//                 $("#ot_courses_area").html(data?.data?.content);
+//             }
+//         }
+//     });
+// }
 // End Featured Courses
 // Start Popular category
 async function popularCategory() {
-    $.ajax({
-        url: popularCategoryUrl,
-        method: "get",
-        data: {},
-        success: function (data) {
-            if (data?.result) {
-                $("#ot_categories_area").html(data.data.content);
-                callCategoriesCarousel();
-            }
-        },
-    });
+    callCategoriesCarousel();
+    // $.ajax({
+    //     url: popularCategoryUrl,
+    //     method: "get",
+    //     data: {},
+    //     success: function (data) {
+    //         if (data?.result) {
+    //             $("#ot_categories_area").html(data.data.content);
+    //             callCategoriesCarousel();
+    //         }
+    //     },
+    // });
 }
 // End Popular category
 
@@ -276,17 +277,18 @@ async function blogs() {
 
 // Start Brand area
 async function brands() {
-    $.ajax({
-        url: brandsUrl,
-        method: "get",
-        data: {},
-        success: function (data) {
-            if (data?.result) {
-                $("#ot_brands").html(data.data.content);
-                callBrandCarousel();
-            }
-        }
-    });
+    callBrandCarousel();
+    // $.ajax({
+    //     url: brandsUrl,
+    //     method: "get",
+    //     data: {},
+    //     success: function (data) {
+    //         if (data?.result) {
+    //             $("#ot_brands").html(data.data.content);
+    //             callBrandCarousel();
+    //         }
+    //     }
+    // });
 }
 // End Brand area
 
@@ -338,14 +340,14 @@ async function getSectionData(className, load_url, filterData = {}) {
 $(document).ready(function () {
     $(".menu-categories").length > 0 && menuCategories();
     // $(".hero-area").length > 0 && homePageSlider();
-    $(".ot-courses-area").length > 0 && featuredCourses();
+  //  $(".ot-courses-area").length > 0 && featuredCourses();
     $(".categories-area").length > 0 && popularCategory();
-    $(".ot-latest-courses-area").length > 0 && latestCourses();
-    $(".ot-best-rated-courses-area").length > 0 && bestRatedCourses();
-    $(".ot-best-selling-courses-area").length > 0 && mostPopularCourses();
-    $(".ot-discount-courses-area").length > 0 && discountCourses();
+   // $(".ot-latest-courses-area").length > 0 && latestCourses();
+   // $(".ot-best-rated-courses-area").length > 0 && bestRatedCourses();
+   // $(".ot-best-selling-courses-area").length > 0 && mostPopularCourses();
+   // $(".ot-discount-courses-area").length > 0 && discountCourses();
     $(".ot_become_an_instructor").length > 0 && discountCourses();
-    $(".ot-blog-area").length > 0 && blogs();
+   // $(".ot-blog-area").length > 0 && blogs();
     $(".testimonial-area").length > 0 && testimonials();
     $(".ot-brand-area").length > 0 && brands();
     $(".ot_package_area").length > 0 && packages();
