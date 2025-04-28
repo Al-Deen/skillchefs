@@ -297,7 +297,16 @@
                                 </button>
                             @endif
                             <div class="course-features">
+                                @php
+                                 $totalEnrolledUsers  = \Modules\Order\Entities\Enroll::where('course_id', $data['course']->id)->count();
+                                @endphp
                                 <h4>{{ ___('frontend.This course includes') }}:</h4>
+                                <div class="course-feature-list d-flex align-items-center gap-14">
+                                    <i class="ri-group-line"></i>
+                                    <p> {{ $totalEnrolledUsers }}
+                                        {{ ___('frontend.students have enrolled in this course') }}</p>
+                                </div>
+
                                 <div class="course-feature-list d-flex align-items-center gap-14 ">
                                     <i class="ri-video-line"></i>
                                     <p>{{ minutes_to_hours($data['course']->course_duration) }}

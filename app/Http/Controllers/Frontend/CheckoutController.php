@@ -72,7 +72,7 @@ class CheckoutController extends Controller
             $data['payment_method'] = $payment_method;
             $data['country'] = setting('country') ? setting('country') : 'Bangladesh';
 
-           
+
 
             // order data
             $result = $this->orderRepository->store($data);
