@@ -37,12 +37,12 @@ return [
         'redirect' => env('APP_URL') . '/auth/facebook/callback',
     ],
 
-    'google' => [
-        'client_id' => env('GOOGLE_CLIENT_ID'),
-        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('APP_URL') . '/auth/google/callback',
-    ],
-
+   'google' => [
+       'client_id' => env('GOOGLE_CLIENT_ID'),
+       'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+       'redirect' => env('APP_URL') . '/auth/google/callback',
+   ],
+   
     'linkedin' => [
         'client_id' => env('LINKEDIN_CLIENT_ID'),
         'client_secret' => env('LINKEDIN_CLIENT_SECRET'),
