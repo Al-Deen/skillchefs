@@ -78,6 +78,24 @@
                                         href="{{ route('student.sign_up') }}"><span>{{ ___('auth.Create an account') }}</span></a>
                                 </p>
                             </div>
+
+
+
+                         {{--Custom Google Login--}}
+
+                            <div class="sign-with">
+                                <p>{{ ___('auth.Or_Sign_in_with') }}</p>
+                                <ul class="icon-login-section">
+
+                                    <li class="icon-login">
+                                        <a href="{{ route('auth.redirection', 'google') }}"><i
+                                                style="color: #EA4335; font-size: 24px;" class="ri-google-fill"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+
                             @if (module('SocialLogin') &&
                                     (setting('google_setup') || setting('facebook_setup') || setting('github_setup') || setting('linkedin_setup')))
                                 <div class="sign-with">

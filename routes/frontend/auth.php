@@ -13,11 +13,15 @@ use App\Http\Controllers\Panel\Instructor\InstructorAuthController;
 // common auth routes
 Route::controller(AuthController::class)->group(function () {
 
-    Route::get('sign-in',          'signIn')->name('frontend.signIn'); 
+    // social google Login
+    Route::get('auth/redirection/{provider}', 'authProviderRedirect')->name('auth.redirection');
+    Route::get('auth/{provider}-callback', 'socialAuthentication')->name('auth.callback');
+
+    Route::get('sign-in',          'signIn')->name('frontend.signIn');
     Route::post('/sign-in',        'signInPost')->name('student.sign_in_post');
 
-    
-    
+
+
     Route::get('verify-email/{email}',                  'verifyEmail')->name('frontend.verify_email');
     // reset password
     Route::get('forgot-password',                       'forgotPassword')->name('frontend.forgot_password');
@@ -32,6 +36,7 @@ Route::controller(AuthController::class)->group(function () {
         Route::get('/email/send/verify/{type}/{id}', 'sendVerify')->name('send.verification.verify')->middleware(['throttle:6,1']);
         // otp match for phone number verify
         Route::post('/email/verify/otp_match', 'verifyPhoneNumber')->name('verify.otp_verification');
+
     });
 });
 // common auth routes
