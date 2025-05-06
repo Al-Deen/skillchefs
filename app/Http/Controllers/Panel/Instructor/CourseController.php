@@ -38,6 +38,7 @@ class CourseController extends Controller
 
     public function courses(Request $request)
     {
+
         try {
             $data['title'] = ___('instructor.My Courses'); // title
             $data['courses'] = $this->course->model()

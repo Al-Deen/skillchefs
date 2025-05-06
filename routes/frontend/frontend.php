@@ -11,6 +11,7 @@ use App\Http\Controllers\Frontend\InstructorController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\SelectController;
+use App\Http\Controllers\Panel\Instructor\BookController;
 use Illuminate\Support\Facades\Route;
 
 // start sign inz
@@ -32,6 +33,7 @@ Route::get('/certificate', [HomeController::class, 'certificateView'])->name('fr
 Route::get('/certificate-tracking', [HomeController::class, 'certificateTrack'])->name('front.certificate');
 // start course details
 Route::get('course-details/{slug}', [CourseDetailsController::class, 'index'])->name('frontend.courseDetails');
+Route::get('book-details/{slug}', [BookController::class, 'bookDetails'])->name('frontend.bookDetails');
 // end course details
 
 // start course cart add
