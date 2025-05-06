@@ -808,7 +808,7 @@
                                 @include('livechat::partials.settings_sidebar')
                             @endif
 
-                            
+
                             @if (hasPermission('seo_settings_read'))
                                 <li class="sidebar-menu-item {{ set_menu(['settings.seo_setting']) }}">
                                     <a
@@ -823,7 +823,7 @@
                                         {{ ___('backend_sidebar.Twilio Settings') }}
                                     </a>
                                 </li>
-                            @endif 
+                            @endif
                             {{-- End Twilio Settings --}}
 
                             {{-- Start home section page --}}

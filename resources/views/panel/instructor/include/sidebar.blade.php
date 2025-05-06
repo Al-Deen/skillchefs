@@ -50,6 +50,21 @@
                                 {{ ___('sidebar.My Courses') }}
                             </a>
                         </li>
+
+
+
+            {{--     Book Section--}}
+
+                        <li
+                            class="list {{ is_active(['instructor.books', 'instructor.add_book']) }}">
+                            <a href="{{ route('instructor.books') }}" class="single">
+                                <i class="ri-book-open-line"></i>
+                                My Books
+                            </a>
+                        </li>
+
+
+
                         <li
                             class="list {{ is_active(['instructor.organization.courses']) }}">
                             <a href="{{ route('instructor.organization.courses') }}" class="single">

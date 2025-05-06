@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Panel\Instructor\AISupportController;
 use App\Http\Controllers\Panel\Instructor\AssignmentController;
+use App\Http\Controllers\Panel\Instructor\BookController;
 use App\Http\Controllers\Panel\Instructor\CourseController;
 use App\Http\Controllers\Panel\Instructor\EducationController;
 use App\Http\Controllers\Panel\Instructor\ExperienceController;
@@ -91,6 +92,19 @@ Route::prefix('instructor')->middleware(['instructor', 'auth', 'verified', 'phon
 
     });
     // end course
+
+    // start Book section
+    Route::controller(BookController::class)->group(function () {
+        Route::get('/my-books', 'books')->name('instructor.books');
+        Route::get('/add-book', 'addBook')->name('instructor.add_book');
+        Route::post('/store-book', 'storeBook')->name('instructor.book.store');
+    });
+    // end Book section
+
+
+
+
+
     // start course section
     Route::controller(SectionController::class)->group(function () {
         Route::get('/add-section/{slug}', 'create')->name('instructor.section.add');
