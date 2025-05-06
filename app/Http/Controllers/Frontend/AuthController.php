@@ -9,10 +9,17 @@ use App\Http\Requests\frontend\SignInRequest;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Interfaces\AuthenticationRepositoryInterface;
 use App\Interfaces\UserInterface;
+use App\Models\User;
 use App\Traits\ApiReturnFormatTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+use Laravel\Socialite\Facades\Socialite;
+use Modules\Student\Entities\Student;
 
 class AuthController extends Controller
 {
@@ -21,11 +28,13 @@ class AuthController extends Controller
 
     protected $user;
     protected $authenticationRepository;
+    protected $student;
 
-    public function __construct(UserInterface $userInterface, AuthenticationRepositoryInterface $authenticationRepository)
+    public function __construct(UserInterface $userInterface, AuthenticationRepositoryInterface $authenticationRepository , Student $student)
     {
         $this->user = $userInterface;
         $this->authenticationRepository = $authenticationRepository;
+        $this->student = $student;
     }
 
     public function signIn()
@@ -233,6 +242,45 @@ class AuthController extends Controller
             }
         } catch (\Throwable $th) {
             return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
+        }
+    }
+
+
+    public function authProviderRedirect($provider) {
+        if ($provider) {
+            return Socialite::driver($provider)->redirect();
+        }
+        abort(404);
+    }
+
+    public function socialAuthentication($provider) {
+        try {
+            if ($provider) {
+                $socialUser = Socialite::driver($provider)->stateless()->user();
+                $user = User::where('google_id', $socialUser->id)->first();
+                if ($user) {
+                    Auth::login($user);
+                } else {
+                    $user_name = preg_replace('/[^A-Za-z0-9]/', '', Str::slug($socialUser->name, '-'));
+                    $user = User::create([
+                        'name' => $socialUser->name,
+                        'username' => $user_name . '-' . Str::random(5),
+                        'email' => $socialUser->email,
+                        'role_id'=> 4,
+                        'status'=> 1,
+                        'status_id'=> 4,
+                        'password' => Hash::make(Str::random(6)),
+                        'google_id' => $socialUser->id,
+                    ]);
+                  Auth::login($user);
+                }
+                $user->student()->create();
+                return redirect()->route('student.dashboard')->with('success', 'Successfully Logged in');
+            }
+            abort(404);
+
+        } catch (Exception $e) {
+            dd($e);
         }
     }
 }
