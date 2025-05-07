@@ -100,6 +100,9 @@ Route::prefix('instructor')->middleware(['instructor', 'auth', 'verified', 'phon
         Route::post('/store-book', 'storeBook')->name('instructor.book.store');
         Route::get('/edit-book/{slug}', 'editBook')->name('instructor.book.edit');
         Route::post('/update-book/{slug}', 'updateBook')->name('instructor.book.update');
+        Route::get('/delete-book/{id}', 'deleteBook')->name('instructor.book.delete');
+        Route::get('/view/book-short-file/{id}', 'shortFilePDFView')->name('instructor.book.short-file.view');
+        Route::get('/view/book-full-file/{id}', 'fullFilePDFView')->name('instructor.book.full-file.view');
     });
     // end Book section
 

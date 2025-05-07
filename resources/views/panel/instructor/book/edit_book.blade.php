@@ -4,9 +4,9 @@
 
 
     <!-- instructor Create new Course -->
-    <section class="create-new-course" id="course_step">
+    <section class="create-new-course">
         <!-- MultiStep S t a r t-->
-        <div class="row" id="edit_course" >
+        <div class="row">
             <div class="col-lg-12">
 
                 <!-- Next - Previus -->
@@ -55,9 +55,15 @@
                             <div class="ot-contact-form">
                                 <label class="ot-contact-label">Short File</label>
                                 <input class="form-control ot-contact-input" type="file" name="short_file">
-                                @if($shortFile)
-                                    <div>
-                                        <H6>{{$shortFile->name}}</H6>
+{{--                                @if($shortFile)--}}
+{{--                                    <div>--}}
+{{--                                        <H6>{{$shortFile->name}}</H6>--}}
+{{--                                    </div>--}}
+{{--                                @endif--}}
+
+                                @if($data['book']->short_file)
+                                    <div class="mt-2">
+                                        <a target="_blank" class="btn btn-warning" href="{{ route('instructor.book.short-file.view', $data['book']->id) }}">View Short File</a>
                                     </div>
                                 @endif
                             </div>
@@ -83,12 +89,18 @@
                                     <div class="ot-contact-form">
                                         <label class="ot-contact-label">Full File <span
                                                 class="text-danger">*</span></label>
-                                        <input class="form-control ot-contact-input" type="file" name="full_file" required>
+                                        <input class="form-control ot-contact-input" type="file" name="full_file">
 
-                                        @if($fullFile)
-                                         <div>
-                                             <H6>{{$fullFile->name}}</H6>
-                                         </div>
+{{--                                        @if($fullFile)--}}
+{{--                                         <div>--}}
+{{--                                             <H6>{{$fullFile->name}}</H6>--}}
+{{--                                         </div>--}}
+{{--                                        @endif--}}
+
+                                        @if($data['book']->full_file)
+                                            <div class="mt-2">
+                                                <a target="_blank" class="btn btn-warning" href="{{ route('instructor.book.full-file.view', $data['book']->id) }}">View Full File</a>
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
@@ -150,7 +162,9 @@
                                  data-height="200px "></div>
                             <small
                                 class="text-muted">{{ ___('placeholder.NB : Thumbnail size will 600px x 600px and not more than 1mb') }}</small>
-                            <div id="thumbnail"></div>
+                            <div id="thumbnail">
+                                <img src="{{ asset($data['book']->thumbnail) }}" style="width: 80px;height: 80px"  alt="img"> </a>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-12">
@@ -170,8 +184,7 @@
             </div>
 
             <div class="d-flex aling-items-center flex-wrap gap-10 mb-20">
-                <button class="btn-primary-fill" type="submit" id="next-btn"> Update
-                </button>
+                <button class="btn-primary-fill" type="submit"> Update </button>
             </div>
         </form>
 

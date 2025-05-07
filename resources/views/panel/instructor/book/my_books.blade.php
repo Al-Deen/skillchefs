@@ -46,11 +46,11 @@
                 <div class="col">
                     <div class="my-single-courses white-bg position-relative radius-8 h-calc">
                         <a class="course-badge position-absolute text-10 font-400 radius-4 "
-                            href="{{ route('frontend.courseDetails', $book->slug) }}">{{ @$book->title }}</a>
+                            href="{{ route('frontend.bookDetails', $book->slug) }}">{{ @$book->title }}</a>
                         <div class="video-img2 overly1">
-{{--                            <a href="{{ route('frontend.courseDetails', $course->slug) }}">--}}
-{{--                                <img src="{{ showImage(@$course->thumbnailImage->original) }}" class="img-cover"--}}
-{{--                                    alt="img"> </a>--}}
+                            <a href="{{ route('frontend.bookDetails', $book->slug) }}">
+                                <img src="{{ asset($book->thumbnail) }}" class="img-cover"
+                                    alt="img"> </a>
                             <!--Edit DropDown -->
                             <div class="course-edit">
                                 <div class="activity-dropdown">
@@ -72,7 +72,7 @@
                                         </li>
                                         <li class="mb-2">
                                             <a href="javascript:;" class="action-danger"
-                                                onclick="deleteFunction(`{{ route('instructor.course.delete', $book->id) }}`)">
+                                                onclick="deleteFunction(`{{ route('instructor.book.delete', $book->id) }}`)">
                                                 <i class="ri-delete-bin-line"></i>
                                             </a>
                                         </li>
@@ -84,7 +84,7 @@
                         </div>
                         <div class="course-caption">
                             <h4>
-                                <a href="{{ route('frontend.courseDetails', $book->slug) }}"
+                                <a href="{{ route('frontend.bookDetails', $book->slug) }}"
                                     class="title colorEffect font-600 d-block line-clamp-2  mb-10">{{ Str::limit(@$book->title, 25) }}</a>
                             </h4>
                         </div>

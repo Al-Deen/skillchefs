@@ -82,7 +82,7 @@
                                         <div class="row g-3">
                                             <div class="col-md-6">
                                                 <label class="required">Title</label>
-                                                <input type="text" name="point_title[]" class="form-control" placeholder="Enter the title" required>
+                                                <input type="text" name="point_title[]" class="form-control" placeholder="Enter the title">
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="required">Description</label>
