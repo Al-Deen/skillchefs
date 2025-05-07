@@ -74,11 +74,18 @@
             @include('frontend.home.become_an_instructor')
         @elseif($section->snake_title == 'testimonials')
             @include('frontend.home.testimonials')
+        @elseif($section->snake_title == 'books')
+            @php
+               $books =\App\Models\Book::query()->latest()->take(8)->get();
+               $bookData['section_title'] = 'Books';
+               $bookData['books'] = $books;
+            @endphp
+            @include('frontend.home.books')
         @elseif($section->snake_title == 'blogs')
             @php
-               $blogs = \Modules\Blog\Entities\Blog::query()->active()->with('iconImage')->select('id', 'title', 'description', 'image_id','created_at')->latest()->take(4)->get();
-               $blogData['section_title'] = ___('frontend.Our Recent Blogs');
-               $blogData['blogs'] = $blogs;
+                $blogs = \Modules\Blog\Entities\Blog::query()->active()->with('iconImage')->select('id', 'title', 'description', 'image_id','created_at')->latest()->take(4)->get();
+                $blogData['section_title'] = ___('frontend.Our Recent Blogs');
+                $blogData['blogs'] = $blogs;
             @endphp
             @include('frontend.home.blogs')
         @elseif($section->snake_title == 'brands')

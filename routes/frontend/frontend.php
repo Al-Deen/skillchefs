@@ -34,6 +34,7 @@ Route::get('/certificate-tracking', [HomeController::class, 'certificateTrack'])
 // start course details
 Route::get('course-details/{slug}', [CourseDetailsController::class, 'index'])->name('frontend.courseDetails');
 Route::get('book-details/{slug}', [BookController::class, 'bookDetails'])->name('frontend.bookDetails');
+Route::get('/all-books', [BookController::class, 'allbooks'])->name('all.books');
 // end course details
 
 // start course cart add

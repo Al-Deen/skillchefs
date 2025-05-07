@@ -137,9 +137,17 @@ class CMSSeeder extends Seeder
                 'type' => 'web',
             ],
             [
+                'title' => 'Books', // 9
+                'snake_title' => 'books',
+                'order' => 11,
+                'color' => '#fbfaf7',
+                'type' => 'web',
+            ],
+
+            [
                 'title' => 'Our Recent Blogs', // 9
                 'snake_title' => 'blogs',
-                'order' => 11,
+                'order' => 12,
                 'color' => '#fbfaf7',
                 'type' => 'web',
             ],
@@ -147,7 +155,7 @@ class CMSSeeder extends Seeder
             [
                 'title' => 'Trusted By Thousands', // 10
                 'snake_title' => 'brands',
-                'order' => 12,
+                'order' => 13,
                 'type' => 'web',
             ],
         ];

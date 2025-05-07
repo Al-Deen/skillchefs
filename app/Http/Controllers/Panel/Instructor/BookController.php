@@ -370,4 +370,16 @@ class BookController extends Controller
         }
         return redirect()->back()->with('error', 'Unsupported file format!');
     }
+
+    public function allbooks(Request $request)
+    {
+        try {
+            $data['title']     = "Books";
+            $data['books']  = Book::orderBy('id','DESC')->search($request)->paginate(10);
+            return view('frontend.book.index', compact('data'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
+        }
+
+    }
 }
