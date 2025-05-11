@@ -127,7 +127,7 @@ class BookController extends Controller
                 $imageName = time() . rand(1000, 9999) . '.' . $image->getClientOriginalExtension();
                 $imagePath = public_path('uploads/book/thumbnail/' . $imageName);
                 // Save Original Image
-                Image::make($image)->resize(400, 255)->save($imagePath);
+                Image::make($image)->resize(600, 600)->save($imagePath);
                 $data['thumbnail'] = 'uploads/book/thumbnail/' . $imageName;
             }
             if ($request->hasFile('short_file')) {
@@ -200,6 +200,7 @@ class BookController extends Controller
 
     public function updateBook(Request $request, $slug)
     {
+       
         try {
            $book =Book::where('slug', $slug)->where('created_by', auth()->user()->id)->first(); // data
             if (!$book) {
@@ -251,7 +252,7 @@ class BookController extends Controller
                 $imageName = time() . rand(1000, 9999) . '.' . $image->getClientOriginalExtension();
                 $imagePath = public_path('uploads/book/thumbnail/' . $imageName);
                 // Save Original Image
-                Image::make($image)->resize(400, 255)->save($imagePath);
+                Image::make($image)->resize(600, 600)->save($imagePath);
                 $data['thumbnail'] = 'uploads/book/thumbnail/' . $imageName;
             }
             if ($request->hasFile('short_file')) {
