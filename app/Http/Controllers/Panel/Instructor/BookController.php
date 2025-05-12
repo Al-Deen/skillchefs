@@ -151,7 +151,7 @@ class BookController extends Controller
 
 
             Book::create($data);
-            return redirect()->route('instructor.books')->with('success', 'Subscription Plan Created successfully.');
+            return redirect()->route('instructor.books')->with('success', 'Book Created successfully.');
 
         } catch (\Throwable $th) {
 
@@ -200,7 +200,7 @@ class BookController extends Controller
 
     public function updateBook(Request $request, $slug)
     {
-       
+
         try {
            $book =Book::where('slug', $slug)->where('created_by', auth()->user()->id)->first(); // data
             if (!$book) {
@@ -220,42 +220,22 @@ class BookController extends Controller
             }
             $data['updated_by'] = auth()->user()->id;
 
-//            if ($request->hasFile('thumbnail')) {
-//                $upload = $this->uploadFile($request->thumbnail, 'book/thumbnail/thumbnail', [[100, 100], [300, 300], [600, 600]], '', 'image'); // upload file and resize image 35x35
-//                if ($upload['status']) {
-//                    $data['thumbnail'] = $upload['upload_id'];
-//                } else {
-//                    return $this->responseWithError($upload['message'], [], 400);
-//                }
-//            }
-            // Short File upload
-//            if ($request->hasFile('short_file')) {
-//                $upload = $this->uploadFile($request->short_file, 'book/file/short_file', [], '', 'file'); // upload file and resize image 35x35
-//                if ($upload['status']) {
-//                    $data['short_file'] = $upload['upload_id'];
-//                } else {
-//                    return $this->responseWithError($upload['message'], [], 400);
-//                }
-//            }
-
-//            if ($request->hasFile('full_file')) {
-//                $upload = $this->uploadFile($request->full_file, 'book/file/full_file', [], '', 'file'); // upload file and resize image 35x35
-//                if ($upload['status']) {
-//                    $data['full_file'] = $upload['upload_id'];
-//                } else {
-//                    return $this->responseWithError($upload['message'], [], 400);
-//                }
-//            }
 
             if ($request->hasFile('thumbnail')) {
+                if ($book->thumbnail && file_exists(public_path($book->thumbnail))) {
+                    unlink(public_path($book->thumbnail));
+                }
                 $image = $request->file('thumbnail');
                 $imageName = time() . rand(1000, 9999) . '.' . $image->getClientOriginalExtension();
                 $imagePath = public_path('uploads/book/thumbnail/' . $imageName);
-                // Save Original Image
                 Image::make($image)->resize(600, 600)->save($imagePath);
                 $data['thumbnail'] = 'uploads/book/thumbnail/' . $imageName;
             }
+
             if ($request->hasFile('short_file')) {
+                if ($book->short_file && file_exists(public_path($book->short_file))) {
+                    unlink(public_path($book->short_file));
+                }
                 $file = $request->file('short_file');
                 $fileName = time() . rand(1000, 9999) . '.' . $file->getClientOriginalExtension();
                 $filePath = 'uploads/book/file/' . $fileName;
@@ -264,13 +244,15 @@ class BookController extends Controller
             }
 
             if ($request->hasFile('full_file')) {
+                if ($book->full_file && file_exists(public_path($book->full_file))) {
+                    unlink(public_path($book->full_file));
+                }
                 $file = $request->file('full_file');
                 $fileName = time() . rand(1000, 9999) . '.' . $file->getClientOriginalExtension();
                 $filePath = 'uploads/book/file/' . $fileName;
                 $file->move(public_path('uploads/book/file'), $fileName);
                 $data['full_file'] = $filePath;
             }
-
             $book->update($data);
             return redirect()->route('instructor.books')->with('success', 'Book Updated Successfully.');
         } catch (\Throwable $th) {

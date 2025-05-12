@@ -55,6 +55,10 @@
                                                 <a href="javascript:;"
                                                     class="single menu-categories">{{ ___('frontend.Categories') }}</a>
                                             </li>
+                                            <li class="single-list">
+                                                <a href="{{ route('all.books') }}"
+                                                   class="single">{{ ___('frontend.Books') }}</a>
+                                            </li>
 
                                             <li class="single-list">
                                                 <a href="{{ route('frontend.instructor') }}"
@@ -92,18 +96,18 @@
                                     </li>
 
                                     <!-- Bookmark -->
-                                    <li class="cart-list shopping-cart position-relative"><a
-                                            href="{{ route('frontend.bookmark') }}" class="cart-items">
-                                            <i class="ri-heart-line"></i>
-                                            <span class="count" id="bookmarks">
-                                                @auth
-                                                    {{ auth()->user()->bookmarks()->count() }}
-                                                @else
-                                                    0
-                                                @endauth
-                                            </span>
-                                        </a>
-                                    </li>
+{{--                                    <li class="cart-list shopping-cart position-relative"><a--}}
+{{--                                            href="{{ route('frontend.bookmark') }}" class="cart-items">--}}
+{{--                                            <i class="ri-heart-line"></i>--}}
+{{--                                            <span class="count" id="bookmarks">--}}
+{{--                                                @auth--}}
+{{--                                                    {{ auth()->user()->bookmarks()->count() }}--}}
+{{--                                                @else--}}
+{{--                                                    0--}}
+{{--                                                @endauth--}}
+{{--                                            </span>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
 
 
                                     @auth

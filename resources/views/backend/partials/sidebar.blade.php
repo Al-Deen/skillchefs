@@ -88,6 +88,29 @@
                 {{-- end Course  --}}
 
 
+                {{-- start Book  --}}
+{{--                @if (hasPermission('course_read') || hasPermission('course_category_read'))--}}
+
+                    <li class="sidebar-menu-item">
+                        <a class="parent-item-content has-arrow">
+                            <i class="las la-book-open"></i>
+                            <span class="on-half-expanded">{{ ___('backend_sidebar.Books') }}</span>
+                        </a>
+
+                        <!-- second layer child menu list start  -->
+                        <ul class="child-menu-list">
+{{--                            @if (hasPermission('course_category_read'))--}}
+                                <li class="sidebar-menu-item">
+                                    <a
+                                        href="{{ route('book.index') }}">Books List</a>
+                                </li>
+{{--                            @endif--}}
+                        </ul>
+                    </li>
+{{--                @endif--}}
+                {{-- end Book  --}}
+
+
                 {{-- live classes  --}}
                 @if (module('LiveClass') && hasPermission('live_class_settings_read'))
                     <li class="sidebar-menu-item">

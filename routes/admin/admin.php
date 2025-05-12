@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\BookController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserController;
@@ -86,4 +87,18 @@ use App\Http\Controllers\Backend\AuthenticationController;
         //Theme Change
         Route::post('/change-theme',                 'changeTheme')->name('changeTheme');
     });
+
+
+     Route::prefix('admin')->middleware(['auth.routes','admin'])->group(function () {
+         Route::controller(BookController::class)->group(function () {
+                 Route::get('/book/index', 'index')->name('book.index');
+                 Route::get('/book/create', 'create')->name('book.create');
+                 Route::post('/book/store', 'store')->name('book.store');
+                 Route::get('/edit/{id}', 'edit')->name('course-category.edit');
+                 Route::put('/update/{id}', 'update')->name('course-category.update');
+                 Route::get('/delete/{id}', 'destroy')->name('course-category.destroy');
+         });
+
+     });
+
 });

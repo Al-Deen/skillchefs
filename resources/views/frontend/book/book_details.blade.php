@@ -117,67 +117,69 @@
 
     <!-- course-details  S t a r t-->
     <div class="ot-course-details section-padding2">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
+        <div class="container px-3 px-md-5">
+            <div class="row d-flex align-items-center flex-row-reverse">
+                <!-- Right side: Book Image -->
+                <div class="col-lg-6 col-md-12 text-center mb-4 mb-lg-0">
                     <div>
-                       <img  src="{{ asset(@$data['book']->thumbnail) }}"  alt="img" style="width: 100%;height: 500px;">
-                   </div>
+                        <img src="{{ asset(@$data['book']->thumbnail) }}" alt="img" class="img-fluid" style="max-width: 48%; height: auto;">
+                    </div>
+                    <div class="text-center mt-2">
+                        <button class="btn btn-primary mt-3" id="bookPreview">
+                            <i class="ri-book-open-line"></i> Preview
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Left side: Title, instructor -->
+                <div class="col-lg-6 col-md-12">
+                    <h3 class="mb-3 text-center text-lg-start" id="book_title">
+                        <strong>{{ @$data['book']->title }}</strong>
+                    </h3>
+
+                    @php
+                        $user = \Illuminate\Support\Facades\Auth::user();
+                    @endphp
+
+                    <input type="hidden" id="getFile" value="{{ asset(@$data['book']->short_file) }}">
+                    <input type="hidden" id="userPhone" value="{{ $user->phone }}">
+                    <input type="hidden" id="userName" value="{{ $user->name }}">
+
+                    <div class="d-flex align-items-center gap-3 mt-4 flex-column flex-sm-row text-center text-sm-start">
+                        <div class="thumb">
+                            <img src="{{ showImage(@$data['book']->instructor->image->original) }}" alt="Instructor Image"
+                                 class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover;">
+                        </div>
+                        <div>
+                            <h5 class="mb-0">
+                                <a href="{{ route('frontend.instructor.details', [$data['book']->user->name, $data['book']->user->id]) }}">
+                                    {{ @$data['book']->instructor->name }}
+                                </a>
+                            </h5>
+                            <p class="mb-0">{{ @$data['book']->instructor->instructor->designation }}</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-5" id="course-summary" data-val="{{ encrypt(@$data['book']->id) }}">
+                        <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
+                            @if ($data['book']->is_free == 1)
+                                <h4>{{ ___('frontend.Free') }}</h4>
+                            @else
+                                <h4>{{ showPrice(@$data['book']->price) }}</h4>
+                            @endif
+                        </div>
+                        <button class="btn btn-primary w-100 mt-4">
+                            {{ ___('frontend.Enroll Now') }}
+                        </button>
+                    </div>
                 </div>
             </div>
+             <hr>
             <br>
             <div class="row">
                 <div class="col-xl-9 col-lg-8 col-md-12">
                     <div class="ot-course-details-inner">
-                        <div class="row">
-                            <div class="d-flex justify-content-between align-items-center w-100">
-                                <div>
-                                    <h3 class="ot-course-title" id="book_title">{{ @$data['book']->title }}</h3>
-                                </div>
-                                <div>
-                                    @php
-                                        $user =  \Illuminate\Support\Facades\Auth::user();
-                                    @endphp
-                                    <input type="hidden" id="getFile" value="{{ asset(@$data['book']->short_file)}}">
-                                    <input type="hidden" id="userPhone" value="{{ $user->phone }}">
-                                    <input type="hidden" id="userName" value="{{ $user->name }}">
-                                    <button class="btn btn-primary" id="bookPreview" >   <i class="ri-book-open-line"> Preview </i></button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="d-flex course-author gap-12 align-items-center">
-                            <div class="thumb course-widget-author-img">
-                                <img class="img-cover"
-                                    src=" {{ showImage(@$data['book']->instructor->image->original) }} " alt="img">
-                            </div>
-                            <div class="author-info">
-                                <h5>
-                                    <a
-                                        href="{{ route('frontend.instructor.details', [$data['book']->user->name, $data['book']->user->id]) }}">
-                                        {{ @$data['book']->instructor->name }}
-                                    </a>
-                                </h5>
-                                <p>{{ @$data['book']->instructor->instructor->designation }}</p>
-                            </div>
-                        </div>
-                        <div class="d-flex gap-20 flex-wrap">
-                            <div class="flex-fill">
-{{--                                <div class="d-flex align-items-center course-star-rating">--}}
-{{--                                    <span class="rating-count text-16 mr-2">{{ @$data['course']->rating }} </span>--}}
-{{--                                    <span class="text-16 pl-8 pr-8">{{ rating_ui(@$data['course']->rating, '16') }} </span>--}}
-{{--                                    <span class="total-rating  "> ( @if ($data['course']->total_review > 0)--}}
-{{--                                            {{ numberFormat($data['course']->total_review) }}--}}
-{{--                                            {{ ___('frontend.Reviews') }}--}}
-{{--                                        @else--}}
-{{--                                            {{ numberFormat(0.0) }}--}}
-{{--                                        @endif )</span>--}}
-{{--                                </div>--}}
-                            </div>
-                        </div>
-
                         <div class="course-tab-widget">
-                            <h3 class="course-details-title">{{ ___('frontend.Description') }}</h3>
                             <ul class="course-details-list">
                                 <?= $data['book']->description ?>
                             </ul>
@@ -221,41 +223,11 @@
 
                         </div>
 
-
-
                         <!-- course details tab  -->
 
                         <!-- COURSE_DETAILS_TABS::END    -->
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-4 col-md-8" id="course-summary"
-                     data-val="{{ encrypt(@$data['book']->id) }}">
-                    <div class="course-details-right-box mb-24">
-                        <div class="course-details-right-box-inner">
-                            <div class="d-flex align-items-center">
-                                <div class="current-prise d-flex align-items-center flex-fill">
-                                    @if ($data['book']->is_free == 1)
-                                        <h4>{{ ___('frontend.Free') }}</h4>
-                                        <!-- package course enroll -->
-                                    @else
-                                      <h4> {{ showPrice(@$data['book']->price) }}</h4>
-                                    @endif
-                                </div>
-                            </div>
-
-                                <button
-                                    class="btn-primary-fill mb-16 d-flex align-items-center justify-content-center w-100 offer_couter checkout">
-                                    {{ ___('frontend.Enroll Now') }}
-                                </button>
-                                <button
-                                    class="btn-primary-outline d-flex align-items-center justify-content-center w-100 add-to-cart">
-                                    {{ ___('frontend.Add to cart') }}
-                                </button>
-
-                        </div>
-                    </div>
-                </div>
-
                 <!-- modal for pdf view -->
                 <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
