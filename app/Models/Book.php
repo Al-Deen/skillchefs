@@ -74,14 +74,14 @@ class Book extends Model
         $where = [];
 
         if (@$req->instructor_id) {
-            $where[] = ['created_by', @$req->instructor_id];
+            $where[] = ['instructor_id', @$req->instructor_id];
         }
         if (@$req->search) {
             $where[] = ['title', 'like', '%' . @$req->search . '%'];
         }
 
         if (@$req->status) {
-            $where[] = ['status_id', @$req->status];
+            $where[] = ['status', @$req->status];
         }
 
         return $query->where($where);

@@ -202,7 +202,7 @@ class BookController extends Controller
     {
 
         try {
-           $book =Book::where('slug', $slug)->where('created_by', auth()->user()->id)->first(); // data
+           $book =Book::where('slug', $slug)->first(); // data
             if (!$book) {
                 return redirect()->back()->with('danger','Book not Found !');
             }

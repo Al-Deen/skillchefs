@@ -62,14 +62,15 @@
                                     <div class="ot-contact-form">
                                         <label class="ot-contact-label">Price </label>
                                         <input class="form-control ot-contact-input" type="number" name="price" id="price"
-                                               value="{{ old('price') }}" placeholder="price">
+                                               value="{{ old('price') }}" placeholder="Enter price">
                                     </div>
                                 </div>
                                 <!-- Select level -->
                                 <div class="ot-contact-form mb-24">
                                     <div class="ot-contact-form">
-                                        <label class="ot-contact-label">Short File</label>
-                                        <input class="form-control ot-contact-input" type="file" name="short_file">
+                                        <label class="ot-contact-label">Short File<span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control ot-contact-input" type="file" name="short_file" required>
                                     </div>
                                 </div>
                             </div>

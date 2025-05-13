@@ -42,31 +42,11 @@
                                                     data-href="{{ route('ajax-instructor-list') }}">
                                                 <option selected disabled>
                                                     {{ ___('common.Select Instructor') }}</option>
-                                                @if (@$_GET['instructor_id'])
-                                                    <option value="{{ $_GET['instructor_id'] }}" selected>
-                                                        {{ @$data['params']['instructor'] }}</option>
+                                                @if(!empty($data['selectedInstructor']))
+                                                    <option value="{{ $data['selectedInstructor']->id }}" selected>
+                                                        {{ $data['selectedInstructor']->name }}
+                                                    </option>
                                                 @endif
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!-- end categories -->
-
-                                    <!-- start categories -->
-                                    <div class="align-self-center">
-                                        <div class="dropdown dropdown-designation custom-dropdown-select"
-                                             data-bs-toggle="tooltip" data-bs-placement="top"
-                                             data-bs-title="{{ ___('ui_element.status') }}">
-                                            <select class="form-control select2 w-100" name="status">
-                                                <option selected disabled>
-                                                    {{ ___('common.Select Status') }}</option>
-                                                @if (@$_GET['status'])
-                                                    <option value="{{ $_GET['status'] }}" selected>
-                                                        {{ @$data['params']['status'] }}</option>
-                                                @endif
-                                                <option value="1" {{ @$_GET['status'] == 1 ? 'selected' : '' }}>
-                                                    {{ ___('common.Active') }}</option>
-                                                <option value="3" {{ @$_GET['status'] == 3 ? 'selected' : '' }}>
-                                                    {{ ___('common.Pending') }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -98,7 +78,6 @@
                         </form>
 
                         <!-- add btn start -->
-                        @if (hasPermission('course_create'))
                             <div class="align-self-center d-flex gap-2">
                                 <!-- add btn -->
                                 <div class="align-self-center">
@@ -110,7 +89,6 @@
                                     </a>
                                 </div>
                             </div>
-                        @endif
                         <!-- add btn end -->
                     </div>
                     <!--toolbar table end -->
@@ -124,6 +102,7 @@
                                 <th>Title</th>
                                 <th>Instructor</th>
                                 <th>Price</th>
+                                <th>Payable Status</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -134,14 +113,14 @@
                                 <tr>
                                     <td>{{ @$key + 1 }}</td>
                                     <td>
-                                        <a href="{{ route('frontend.bookDetails', @$book->slug) }}"
+                                        <a target="_blank" href="{{ route('frontend.bookDetails', @$book->slug) }}"
                                            class="text-primary">
                                             {{ @$book->title }}
                                         </a>
                                     </td>
                                     <td>
                                         Instructor :
-                                        <a href="{{ route('frontend.instructor.details', [$book->user->name, $book->user->id]) }}"
+                                        <a target="_blank" href="{{ route('frontend.instructor.details', [$book->user->name, $book->user->id]) }}"
                                            class="text-primary">
                                             {{ @$book->instructor->name }}</a>
                                     </td>
@@ -153,6 +132,15 @@
                                             {{ showPrice(@$book->price) }}
                                         @endif
                                     </td>
+
+                                    <td>
+                                        @if(@$book->is_free == 1)
+                                            <span class="badge-basic-success-text" > Free</span>
+                                        @else
+                                            <span class="badge-basic-danger-text" > Paid</span>
+                                        @endif
+                                    </td>
+
                                     <td>
                                       @if(@$book->status == 1)
                                           <span class="badge-basic-success-text" > Active</span>
@@ -170,26 +158,22 @@
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end">
 
-{{--                                                @if (hasPermission('course_update'))--}}
-{{--                                                    <li>--}}
-{{--                                                        <a class="dropdown-item"--}}
-{{--                                                           href="{{ route('course.edit', [$course->id]) }}"><span--}}
-{{--                                                                class="icon mr-12"><i--}}
-{{--                                                                    class="fa-solid fa-pen-to-square"></i></span>--}}
-{{--                                                            {{ ___('common.edit') }}</a>--}}
-{{--                                                    </li>--}}
-{{--                                                @endif--}}
-{{--                                                --}}
-{{--                                                @if (hasPermission('course_delete'))--}}
-{{--                                                    <li>--}}
-{{--                                                        <a class="dropdown-item delete_data" href="javascript:void(0);"--}}
-{{--                                                           data-href="{{ route('course.destroy', $course->id) }}">--}}
-{{--                                                                <span class="icon mr-8"><i--}}
-{{--                                                                        class="fa-solid fa-trash-can"></i></span>--}}
-{{--                                                            <span>{{ ___('common.delete') }}</span>--}}
-{{--                                                        </a>--}}
-{{--                                                    </li>--}}
-{{--                                                @endif--}}
+
+                                                    <li>
+                                                        <a class="dropdown-item"
+                                                           href="{{ route('book.edit', [@$book->id]) }}"><span
+                                                                class="icon mr-12"><i
+                                                                    class="fa-solid fa-pen-to-square"></i></span>
+                                                            {{ ___('common.edit') }}</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item delete_data" href="javascript:void(0);"
+                                                           data-href="{{ route('book.destroy', $book->id) }}">
+                                                                <span class="icon mr-8"><i
+                                                                        class="fa-solid fa-trash-can"></i></span>
+                                                            <span>{{ ___('common.delete') }}</span>
+                                                        </a>
+                                                    </li>
                                             </ul>
                                         </div>
                                     </td>

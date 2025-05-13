@@ -94,9 +94,12 @@ use App\Http\Controllers\Backend\AuthenticationController;
                  Route::get('/book/index', 'index')->name('book.index');
                  Route::get('/book/create', 'create')->name('book.create');
                  Route::post('/book/store', 'store')->name('book.store');
-                 Route::get('/edit/{id}', 'edit')->name('course-category.edit');
-                 Route::put('/update/{id}', 'update')->name('course-category.update');
+                 Route::get('/book/edit/{id}', 'edit')->name('book.edit');
+                 Route::put('/update/{id}', 'update')->name('book.update');
                  Route::get('/delete/{id}', 'destroy')->name('course-category.destroy');
+                 Route::get('/view/book-short-file/{id}', 'shortFilePDFView')->name('book.short-file.view');
+                 Route::get('/view/full-file-book/{id}', 'fullFilePDFView')->name('book.fullfile.view');
+                 Route::get('/delete-book/{id}', 'delete')->name('book.destroy');
          });
 
      });
