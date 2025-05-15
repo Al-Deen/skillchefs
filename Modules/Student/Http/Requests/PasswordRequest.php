@@ -15,7 +15,7 @@ class PasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'old_password' => 'required|max:255',
+           // 'old_password' => 'required|max:255',
             'password' => 'required|different:old_password',
             'password' => 'required|required_with:password_confirmation|same:password_confirmation|min:8|confirmed',
             'password_confirmation' => 'required'
@@ -35,12 +35,12 @@ class PasswordRequest extends FormRequest
     public function messages()
     {
         return [
-            'old_password.required' => ___('validation.Old password is required'),
+           // 'old_password.required' => ___('validation.Old password is required'),
             'password.required' => ___('validation.Password is required'),
             'password.min' => ___('validation.Password required minimum 8 character'),
             'password.same' => ___('validation.Password & confirmation password must be same'),
             'password_confirmation.required' => ___('validation.Password confirmation is required'),
-            'password.different' => ___('validation.Password & old password are same')
+           // 'password.different' => ___('validation.Password & old password are same')
         ];
     }
 }

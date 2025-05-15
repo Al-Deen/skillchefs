@@ -40,6 +40,9 @@ class AuthController extends Controller
     public function signIn()
     {
         if (auth()->check()) {
+            if (auth()->user()->phone == null){
+                return redirect()->route('student.dashboard');
+            }
             return redirect()->route('home')->with('warning', ___('alert.You are already logged in'));
         }
         $data['title'] = ___('auth.Sign In'); // title
@@ -269,12 +272,13 @@ class AuthController extends Controller
                         'role_id'=> 4,
                         'status'=> 1,
                         'status_id'=> 4,
-                        'password' => Hash::make(Str::random(6)),
+                       // 'password' => Hash::make(Str::random(6)),
+                       // 'password' => Hash::make(12345678),
                         'google_id' => $socialUser->id,
                     ]);
                   Auth::login($user);
+                 $user->student()->create();
                 }
-                $user->student()->create();
                 return redirect()->route('student.dashboard')->with('success', 'Successfully Logged in');
             }
             abort(404);

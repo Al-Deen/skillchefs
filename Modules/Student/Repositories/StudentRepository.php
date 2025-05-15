@@ -223,10 +223,11 @@ class StudentRepository implements StudentInterface
             if (env('APP_DEMO')) {
                 return $this->responseWithError(___('alert.you_can_not_change_in_demo_mode'));
             }
-
+           if ($user->password){
             if (!Hash::check($request->old_password, $user->password)) {
                 return $this->responseWithError(___('alert.Old password does not match.'), [], 400);
             }
+           }
             $user->password = Hash::make($request->password);
             $user->save();
 

@@ -61,6 +61,10 @@ class CartController extends Controller
                 return $this->responseWithError(___('alert.Please_login_to_add_course'), [], 400); // return error response
             }
 
+            if (auth()->user()->phone == null) {
+                return $this->responseWithError(___('alert.Please Add your phone number to your Account'), [], 400); // return error response
+            }
+
             if (auth()->user()->role_id != 4) {
                 return $this->responseWithError(___('alert.You_are_not_a_student'), [], 400); // return error response
             }

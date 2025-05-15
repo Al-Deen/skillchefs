@@ -252,6 +252,8 @@
                                         </h4>
                                     </div>
 
+
+                                 @if($data['student']->user->password)
                                     <div class="ot-contact-form mb-24">
                                         <label class="ot-contact-label">{{ ___('student.Old Password') }} <span
                                                 class="text-danger">*</span></label>
@@ -265,6 +267,9 @@
                                             </div>
                                         @enderror
                                     </div>
+                                    @endif
+
+
                                     <div class="ot-contact-form mb-24">
                                         <label class="ot-contact-label">{{ ___('student.New Password') }} <span
                                                 class="text-danger">*</span></label>
