@@ -8,6 +8,7 @@ var countryListRoute = `${endpoint}/select/country-list`;
 var paymentRoute = `${endpoint}/checkout/payment`;
 var removeCartRoute = `${endpoint}/cart/remove`;
 var loginRoute = `${endpoint}/sign-in`;
+var studentDashboardRoute = `${endpoint}/student/dashboard`;
 
 // Start  course detail page video player
 $('#player').length &&
@@ -76,11 +77,26 @@ $(document).on("click", ".add-to-cart", function (e) {
 });
 // End add to cart
 // Start checkout
+
 $(document).on("click", ".checkout", function (e) {
     console.clear();
     e.preventDefault();
     let id = $('#course-summary').data("val");
     cartForm(id, "checkout");
+});
+
+$(document).on("click", ".authcheckout", function (e) {
+    console.clear();
+    e.preventDefault();
+    warningsLoginHandler();
+    window.location.href = loginRoute;
+});
+
+$(document).on("click", ".validAuthcheckout", function (e) {
+    console.clear();
+    e.preventDefault();
+    warningsValidLoginCheckHandler();
+    window.location.href = studentDashboardRoute;
 });
 
 // End checkout

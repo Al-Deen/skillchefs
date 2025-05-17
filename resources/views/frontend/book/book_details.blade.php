@@ -142,8 +142,8 @@
                     @endphp
 
                     <input type="hidden" id="getFile" value="{{ asset(@$data['book']->short_file) }}">
-                    <input type="hidden" id="userPhone" value="{{ $user->phone }}">
-                    <input type="hidden" id="userName" value="{{ $user->name }}">
+                    <input type="hidden" id="userPhone" value="{{ $user->phone ?? '' }}">
+                    <input type="hidden" id="userName" value="{{ $user->name ?? '' }}">
 
                     <div class="d-flex align-items-center gap-3 mt-4 flex-column flex-sm-row text-center text-sm-start">
                         <div class="thumb">
@@ -168,9 +168,23 @@
                                 <h4>{{ showPrice(@$data['book']->price) }}</h4>
                             @endif
                         </div>
-                        <button class="btn btn-primary w-100 mt-4">
-                            {{ ___('frontend.Enroll Now') }}
-                        </button>
+
+                        @if (auth()->check())
+                            @if(auth()->user()->phone)
+                                <a href="javascript:void(0);"  class="btn-primary-fill mt-4 d-flex align-items-center justify-content-center w-100 ">
+                                    {{ ___('frontend.Enroll Now') }}</a>
+                                @else
+                                <button
+                                    class="btn-primary-fill mt-4 d-flex align-items-center justify-content-center w-100 offer_couter validAuthcheckout">
+                                    {{ ___('frontend.Enroll Now') }}
+                                </button>
+                            @endif
+                        @else
+                            <button
+                                class="btn-primary-fill mt-4 d-flex align-items-center justify-content-center w-100 offer_couter authcheckout">
+                                {{ ___('frontend.Enroll Now') }}
+                            </button>
+                        @endif
                     </div>
                 </div>
             </div>

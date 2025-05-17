@@ -9,7 +9,7 @@
                href="javascript:void(0)">
                 {{ @$course->courseType->name }}
             </a>
-            @if(!@$course->is_free && @$course->is_discount === 11)
+            @if(!@$course->is_free && @$course->is_discount == 11)
                 <span class="course-badge bg-danger text-12 font-500 radius-4 d-inline-flex">
                 @if(@$course->discount_type == 1)
                         - {{ showPrice(@$course->discount_price) }}
@@ -111,7 +111,7 @@
                             {{ ___('frontend.Free') }}
                         @else
                             <h4 class="prev-prise">
-                                @if ($course->is_discount === 11)
+                                @if ($course->is_discount == 11)
                                     <span class="text-title">{{ showPrice(discount_price($course)) }}</span>
                                     <span class="text-decoration-line-through">{{ showPrice(@$course->price) }}</span>
                                 @else

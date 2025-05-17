@@ -14,6 +14,7 @@ use App\Http\Controllers\Panel\Instructor\PaymentMethodController;
 use App\Http\Controllers\Panel\Instructor\QuestionController;
 use App\Http\Controllers\Panel\Instructor\SectionController;
 use App\Http\Controllers\Panel\Instructor\SettingsController;
+use App\Http\Controllers\Panel\Instructor\SupportController;
 use App\Http\Controllers\Panel\InvoiceController;
 use Illuminate\Support\Facades\Route;
 
@@ -84,6 +85,8 @@ Route::prefix('instructor')->middleware(['instructor', 'auth', 'verified', 'phon
         Route::get('/edit-course/{slug}', 'editCourse')->name('instructor.course.edit');
         Route::post('/update-course/{slug}', 'updateCourse')->name('instructor.course.update');
         Route::get('/delete-course/{id}', 'deleteCourse')->name('instructor.course.delete');
+
+        Route::get('/support-course/{slug}', 'supportCourse')->name('instructor.course.support');
         // review
         Route::get('/course-review', 'courseReviews')->name('instructor.course_reviews');
         // enrollments
@@ -175,6 +178,15 @@ Route::prefix('instructor')->middleware(['instructor', 'auth', 'verified', 'phon
         Route::get('course/noticeboard/{id}', 'ajaxNoticeBoard')->name('ajax.instructor.course.noticeboard'); // course assignment ajax
     });
     // end course noticeboard
+
+    Route::controller(SupportController::class)->group(function () {
+        Route::get('/add-support/{id}', 'create')->name('instructor.support.add');
+        Route::post('/store-support/{id}', 'store')->name('instructor.support.store');
+        Route::get('/edit-support/{id}', 'edit')->name('instructor.support.edit');
+        Route::post('/update-support/{id}', 'update')->name('instructor.support.update');
+        Route::get('/delete-support/{id}', 'destroy')->name('instructor.support.delete');
+
+    });
 
     // start financial
     Route::prefix('financial')->group(function () {

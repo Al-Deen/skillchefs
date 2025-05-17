@@ -200,14 +200,14 @@
                                         </button>
                                     </li>
 
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link learn-tab" id="Support-tab" data-bs-toggle="tab"
-                                                data-bs-target="#Support" data-id="Support" type="button" role="tab"
-                                                aria-controls="Support" aria-selected="false">
-                                            <i class="ri-live-line"></i>
-                                            <span>{{ ___('student.Support') }}</span>
-                                        </button>
-                                    </li>
+{{--                                    <li class="nav-item" role="presentation">--}}
+{{--                                        <button class="nav-link learn-tab" id="Support-tab" data-bs-toggle="tab"--}}
+{{--                                                data-bs-target="#Support" data-id="Support" type="button" role="tab"--}}
+{{--                                                aria-controls="Support" aria-selected="false">--}}
+{{--                                            <i class="ri-live-line"></i>--}}
+{{--                                            <span>{{ ___('student.Support') }}</span>--}}
+{{--                                        </button>--}}
+{{--                                    </li>--}}
 
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link learn-tab" id="Review-tab" data-bs-toggle="tab"
@@ -289,36 +289,26 @@
 
 
 
-                                    @php
-                                    $support = \App\Models\Support::where('course_id',$data['enroll']->course_id)->where('status',1)->latest()->first();
-                                    @endphp
+{{--                                    @php--}}
+{{--                                    $support = \App\Models\Support::where('course_id',$data['enroll']->course_id)->where('status',1)->latest()->first();--}}
+{{--                                    @endphp--}}
+{{--                                    @if($support)--}}
+{{--                                    <div class="tab-pane fade " id="Support" role="tabpanel"--}}
+{{--                                         aria-labelledby="Support-tab">--}}
+{{--                                        <div class="row">--}}
+{{--                                            <div class="col-xl-12">--}}
+{{--                                                <div>--}}
+{{--                                                    <a target="_blank" href="{{ $support->support_link }}"--}}
+{{--                                                       class="btn btn-success">--}}
+{{--                                                        <i class="ri-live-line"></i> Join--}}
+{{--                                                    </a>--}}
 
-                                    <div class="tab-pane fade " id="Support" role="tabpanel"
-                                         aria-labelledby="Support-tab">
-                                        <div class="row">
-                                            <div class="col-xl-12">
-                                                <div
-                                                    class="d-flex align-items-center justify-content-between flex-wrap border-bottom mb-20">
-                                                    <!-- Section Tittle -->
-                                                    <div class="small-tittle-two mb-20">
-                                                        <h2 class="title font-600 text-capitalize">
-                                                            {{ ___('student.Support Link') }}</h2>
-                                                    </div>
-                                                </div>
-                                                @if($support)
-                                                    <div>
-                                                        <a target="_blank" href="{{ $support->support_link }}"
-                                                           class="btn btn-success">
-                                                            <i class="ri-live-line"></i> Join
-                                                        </a>
+{{--                                                </div>--}}
+{{--                                            </div>--}}
 
-                                                    </div>
-                                                @endif
-                                            </div>
-
-                                        </div>
-                                    </div>
-
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    @endif--}}
 
                                     <div class="tab-pane fade " id="Review" role="tabpanel"
                                         aria-labelledby="Review-tab">

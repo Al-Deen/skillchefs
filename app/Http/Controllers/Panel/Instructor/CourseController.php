@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Panel\Instructor;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\LanguageInterface;
+use App\Models\Support;
 use App\Traits\ApiReturnFormatTrait;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
@@ -98,6 +99,22 @@ class CourseController extends Controller
             $data['languages'] = $this->language->all(); // data
             $data['title'] = ___('instructor.Edit Course'); // title
             return view('panel.instructor.course.edit_course', compact('data'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
+        }
+    }
+
+    public function supportCourse($slug)
+    {
+        try {
+            $data['course'] = $this->course->model()->where('slug', $slug)->where('created_by', auth()->user()->id)->with('sections')->first(); // data
+            if (!$data['course']) {
+                return redirect()->back()->with('danger', ___('alert.Course not found'));
+            }
+            $data['supports'] = Support::where('course_id', $data['course']->id)->latest()->paginate(10);
+            $data['languages'] = $this->language->all(); // data
+            $data['title'] = 'Course Support';
+            return view('panel.instructor.course.support_course', compact('data'));
         } catch (\Throwable $th) {
             return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
         }

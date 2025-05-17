@@ -115,6 +115,22 @@ window.warningsHandler = (warning) => {
     });
 }
 
+window.warningsLoginHandler = () => {
+    let title = 'Please Login First !';
+    Toast.fire({
+        icon: 'warning',
+        title: title
+    });
+}
+
+window.warningsValidLoginCheckHandler = () => {
+    let title = 'Please add your phone number to your Account !';
+    Toast.fire({
+        icon: 'warning',
+        title: title
+    });
+}
+
 window.successHandler = (title) => {
     Toast.fire({
         icon: 'success',

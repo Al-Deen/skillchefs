@@ -72,6 +72,15 @@
                                             </li>
                                         @endif
 
+
+                                            <li>
+                                                <a title="Support link" href="{{ route('instructor.course.support', $course->slug) }}"
+                                                   class="action-primary">
+                                                    <i class="ri-live-line"></i>
+                                                </a>
+                                            </li>
+
+
                                         <li>
                                             <a href="{{ route('instructor.course.edit', $course->slug) }}"
                                                 class="action-success">
