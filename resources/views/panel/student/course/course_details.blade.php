@@ -3,6 +3,35 @@
 @section('css')
     <link rel="stylesheet" href="{{ asset('frontend/plyr/plyr.css') }}" />
 @endsection
+<style>
+    #lesson-video {
+        position: relative;
+        z-index: 1;
+        overflow: hidden; /* ensures watermark doesn't go outside */
+    }
+
+    .video-watermark {
+        position: absolute;
+        color: red !important; /* 🔴 Text color red */
+        font-size: 14px;
+        z-index: 10;
+        pointer-events: none;
+        transition: all 1s ease-in-out;
+    }
+
+    /*.video-watermark {*/
+    /*    position: absolute;*/
+    /*    color: red !important;*/
+    /*    font-size: 14px;*/
+    /*    z-index: 10;*/
+    /*    pointer-events: none;*/
+    /*    text-shadow: 1px 1px 2px black;*/
+    /*    background-color: rgba(0, 0, 0, 0.2);*/
+    /*    padding: 2px 5px;*/
+    /*    border-radius: 4px;*/
+    /*    transition: all 1s ease-in-out;*/
+    /*}*/
+</style>
 @section('content')
     <main>
         <!-- Admin Contents S t a r t -->
@@ -95,30 +124,40 @@
                                         </div>
                                     @else
                                         @if (@$data['lesson']->lesson_type == 'Youtube')
-                                            <div class="container video-size ">
+                                            <div class="container video-size " id="lesson-video">
                                                 <div class="plyr__video-embed" id="player">
                                                     <iframe id="player" type="text/html" height="500" width="100%"
                                                         src="https://www.youtube.com/embed/{{ course_video_url_preg_match(@$data['lesson']->video_url) }}"
                                                         allowfullscreen allowtransparency allow="autoplay"></iframe>
                                                 </div>
+                                                <div class="video-watermark" id="watermark-text">
+                                                   <p style="color: red">{{ Auth::user()->email }}</p>  <p style="color: red;text-align: center">{{ Auth::user()->phone }}</p>
+                                                </div>
                                             </div>
+
                                         @elseif (@$data['lesson']->lesson_type == 'Vimeo')
-                                            <div class="container video-size">
+                                            <div class="container video-size" id="lesson-video">
                                                 <div class="plyr__video-embed" id="player">
                                                     <iframe
                                                         src="https://player.vimeo.com/video/{{ course_video_url_preg_match(@$data['lesson']->video_url) }}?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media"></iframe>
                                                 </div>
+                                                <div class="video-watermark" id="watermark-text">
+                                                    <p style="color: red">{{ Auth::user()->email }}</p>  <p style="color: red;text-align: center">{{ Auth::user()->phone ?? '' }}</p>
+                                                </div>
                                             </div>
                                         @elseif (@$data['lesson']->lesson_type == 'GoogleDrive')
-                                            <div class="container video-size">
+                                            <div class="container video-size" id="lesson-video">
                                                 <div class="plyr__video-embed" id="player">
                                                     <iframe width="100%" height="500px"
                                                         src="https://drive.google.com/file/d/{{ course_video_url_preg_match(@$data['lesson']->video_url) }}/preview"
                                                         allowfullscreen></iframe>
                                                 </div>
+                                                <div class="video-watermark" id="watermark-text">
+                                                    <p style="color: red">{{ Auth::user()->email }}</p>  <p style="color: red;text-align: center">{{ Auth::user()->phone ?? '' }}</p>
+                                                </div>
                                             </div>
                                         @elseif (@$data['lesson']->lesson_type == 'VideoFile')
-                                            <div class="container video-size">
+                                            <div class="container video-size" id="lesson-video">
                                                 <video playsinline controls width="100%" height="500px">
                                                     @if (video_get_video_extension(@$data['lesson']->video->original) == 'mp4')
                                                         <source src="{{ asset(@$data['lesson']->video->original) }}" />
@@ -127,6 +166,9 @@
                                                             type="video/webm" />
                                                     @endif
                                                 </video>
+                                                <div class="video-watermark" id="watermark-text">
+                                                    <p style="color: red">{{ Auth::user()->email }}</p>  <p style="color: red;text-align: center">{{ Auth::user()->phone ?? '' }}</p>
+                                                </div>
                                             </div>
                                         @elseif (@$data['lesson']->lesson_type == 'Text')
                                             <div class="container video-size border al">
@@ -145,9 +187,12 @@
                                                     width="100%" height="500px" frameborder="0"></iframe>
                                             </div>
                                         @elseif (@$data['lesson']->lesson_type == 'IframeEmbed' )
-                                            <div class="container video-size">
+                                            <div class="container video-size" id="watermark-text" >
                                                 <div class="plyr__video-embed" id="player">
                                                     <iframe width="100%" height="500px" src="{{ @$data['lesson']->iframe }}"></iframe>
+                                                </div>
+                                                <div class="video-watermark" id="watermark-text">
+                                                    <p style="color: red">{{ Auth::user()->email }}</p>  <p style="color: red;text-align: center">{{ Auth::user()->phone ?? '' }}</p>
                                                 </div>
                                             </div>
                                         @elseif (@$data['lesson']->lesson_type == 'DocumentFile' && @$data['lesson']->attachment_type == 2)
@@ -427,4 +472,25 @@
     @if (@$data['lesson']->is_quiz == 1)
         <script src="{{ asset('frontend/js/student/quiz.js') }}" type="module"></script>
     @endif
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const watermark = document.getElementById("watermark-text");
+
+            setInterval(() => {
+                const container = document.getElementById("lesson-video");
+                const containerWidth = container.clientWidth;
+                const containerHeight = container.clientHeight;
+
+                const maxLeft = containerWidth - watermark.clientWidth - 15;
+                const maxTop = containerHeight - watermark.clientHeight - 15;
+
+                const randomLeft = Math.floor(Math.random() * maxLeft) + 15;
+                const randomTop = Math.floor(Math.random() * maxTop) + 15;
+
+                watermark.style.left = randomLeft + "px";
+                watermark.style.top = randomTop + "px";
+            }, 3000); // every 3 seconds it will move
+        });
+    </script>
 @endsection
