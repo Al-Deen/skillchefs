@@ -21,4 +21,9 @@
             @endif
         </li>
     @endforeach
+        <li class="single-list">
+        <a href="{{ route('frontend.category') }}" class="single">
+            All Categories
+        </a>
+        </li>
 </ul>

@@ -313,7 +313,7 @@
                                     </div>
                                     <div class="tab-pane fade " id="Notes" role="tabpanel"
                                         aria-labelledby="Notes-tab">
-                                        <div class="row">
+                                        <div class="ro  w">
                                             <div class="col-xl-12">
                                                 <div
                                                     class="d-flex align-items-center justify-content-between flex-wrap border-bottom mb-20">

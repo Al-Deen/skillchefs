@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\AmbassadorController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
@@ -105,6 +106,14 @@ Route::controller(InstructorController::class)->prefix('instructor')->group(func
     Route::get('/list', 'index')->name('frontend.instructor');
     Route::get('/filter', 'filterInstructor');
     Route::get('details/{name}/{id}', 'details')->name('frontend.instructor.details');
+});
+
+
+// start Ambassador
+Route::controller(AmbassadorController::class)->prefix('ambassador')->group(function () {
+    Route::get('/list', 'index')->name('frontend.ambassador');
+//    Route::get('/filter', 'filterInstructor');
+//    Route::get('details/{name}/{id}', 'details')->name('frontend.instructor.details');
 });
 
 /**

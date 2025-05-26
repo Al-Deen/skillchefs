@@ -1,7 +1,7 @@
 <?php
 
 
-
+use App\Http\Controllers\Panel\Ambassador\AmbassadorAuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Auth\SocialLoginController;
@@ -57,5 +57,13 @@ Route::controller(StudentAuthController::class)->group(function () {
 Route::controller(InstructorAuthController::class)->prefix('instructor')->group(function () {
     Route::get('/become-instructor',                            'becomeInstructor')->name('becomeInstructor');
     Route::post('/sign-up',                                     'signUp')->name('instructor.sign_up');
+});
+//  instructors Auth related routes
+
+
+// Ambassador Auth related routes
+Route::controller(AmbassadorAuthController::class)->prefix('ambassador')->group(function () {
+    Route::get('/become-ambassador',                            'becomeAmbassador')->name('becomeAmbassador');
+    Route::post('/sign-up',                                     'signUp')->name('ambassador.sign_up');
 });
 //  instructors Auth related routes

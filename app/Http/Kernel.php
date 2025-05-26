@@ -74,6 +74,7 @@ class Kernel extends HttpKernel
         'XssSanitizer' => \App\Http\Middleware\XssSanitization::class,
         'login' => \App\Http\Middleware\UserLive::class,
         'instructor' => \App\Http\Middleware\InstructorMiddleware::class,
+        'ambassador' => \App\Http\Middleware\AmbassadorMiddleware::class,
         'student' => \App\Http\Middleware\StudentMiddleware::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'org.ins' => \App\Http\Middleware\InstructorOrgMiddleware::class,

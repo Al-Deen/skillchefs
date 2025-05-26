@@ -161,13 +161,15 @@ class AuthController extends Controller
                     }
                 }
 
-                if ($user->role_id != Role::STUDENT && $user->role_id != Role::INSTRUCTOR && $user->role_id != Role::ORGANIZATION ){
+                if ($user->role_id != Role::STUDENT && $user->role_id != Role::INSTRUCTOR && $user->role_id != Role::Ambassador && $user->role_id != Role::ORGANIZATION ){
                     $data['redirect_url'] = route('dashboard');
                 }elseif ($user->role_id == Role::STUDENT){
                     $data['redirect_url'] = route('student.dashboard');
                 }elseif ($user->role_id == Role::INSTRUCTOR){
                     $data['redirect_url'] = route('instructor.dashboard');
-                }elseif ($user->role_id == Role::ORGANIZATION){
+                }elseif ($user->role_id == Role::Ambassador){
+                    $data['redirect_url'] = route('ambassador.dashboard');
+                } elseif ($user->role_id == Role::ORGANIZATION){
                     $data['redirect_url'] = route('organization.dashboard');
                 }else{
                     $data['redirect_url'] = route('home');

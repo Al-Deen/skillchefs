@@ -45,6 +45,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'google_id',
         'github_id',
         'linkedin_id',
+        'instagram_id',
+        'quora_id',
         'event_commission',
     ];
 

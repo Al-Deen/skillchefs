@@ -47,22 +47,43 @@
                                                     </div>
                                                 </form>
                                             </li>
-                                            <li class="single-list active">
-                                                <a href="{{ route('home') }}"
-                                                    class="single">{{ ___('frontend.Home') }}</a>
-                                            </li>
+{{--                                            <li class="single-list active">--}}
+{{--                                                <a href="{{ route('home') }}"--}}
+{{--                                                    class="single">{{ ___('frontend.Home') }}</a>--}}
+{{--                                            </li>--}}
                                             <li class="single-list">
                                                 <a href="javascript:;"
-                                                    class="single menu-categories">{{ ___('frontend.Categories') }}</a>
+                                                    class="single menu-categories">{{ ___('frontend.Skills') }}</a>
+
                                             </li>
+
                                             <li class="single-list">
                                                 <a href="{{ route('all.books') }}"
                                                    class="single">{{ ___('frontend.Books') }}</a>
                                             </li>
 
                                             <li class="single-list">
-                                                <a href="{{ route('frontend.instructor') }}"
-                                                    class="single">{{ ___('frontend.Instructors') }}</a>
+                                                <ul>
+                                                    <li class="single-list ">
+                                                        <a href="javascript:void(0)" class="single">
+                                                            More <span class="dropdown-arrow">&#9662;</span>
+                                                        </a>
+                                                        <ul class="submenu">
+                                                            <li class="single-list">
+                                                                <a href="{{ route('becomeInstructor') }}" class="single">
+                                                                    {{ ___('frontend.Become An Instructor') }}
+                                                                </a>
+                                                            </li>
+
+                                                            <li class="single-list">
+                                                                <a href="{{ route('becomeAmbassador') }}" class="single">
+                                                                    {{ ___('frontend.Become An Ambassador') }}
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+
+                                                </ul>
                                             </li>
                                         </ul>
                                     </nav>
