@@ -16,7 +16,12 @@ return new class extends Migration
         Schema::create('supports', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('course_id')->nullable();
+            $table->string('title')->nullable();
             $table->string('support_link')->nullable();
+            $table->integer('interval');
+            $table->date('current_date')->nullable();
+            $table->time('start_time')->nullable();
+            $table->time('end_time')->nullable();
             $table->integer('status')->default(1)->comment('0=>Inactive, 1=>Active');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

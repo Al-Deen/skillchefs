@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Panel\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\LiveSupport;
+use App\Models\Support;
 use App\Models\User;
 use App\Traits\ApiReturnFormatTrait;
 use App\Traits\CommonHelperTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Modules\Course\Interfaces\BookmarkInterface;
 use Modules\Order\Interfaces\EnrollInterface;
 use Modules\Order\Interfaces\NoteInterface;
@@ -121,6 +125,9 @@ class StudentController extends Controller
             }
             $this->enrollRepository->visited($data['enroll']);
             $data['lesson_id'] = $lesson_id;
+
+            $data['support'] = Support::where('course_id',$data['enroll']->course_id)->where('status',1)->latest()->first();
+
             return view($this->template . '.course.course_details', compact('data'));
         } catch (\Throwable $th) {
             return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
@@ -167,6 +174,60 @@ class StudentController extends Controller
             return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
         }
     }
+
+
+    public function supportRequest(Request $request)
+    {
+        $request->validate([
+            'support_id' => 'required|exists:supports,id',
+            'course_id' => 'required|exists:courses,id',
+            'question' => 'required|string',
+        ]);
+
+        $support = Support::findOrFail($request->support_id);
+        $intervalMinutes = $support->interval;
+
+        $existingLiveSupports = LiveSupport::where('support_id', $support->id)
+            ->orderByDesc('end_time')
+            ->first();
+
+        // Set Bangladesh timezone
+        $currentTime = Carbon::now('Asia/Dhaka');
+
+        if (!$existingLiveSupports) {
+            $startTime = $currentTime;
+        } else {
+            $lastEndTime = Carbon::parse($existingLiveSupports->end_time);
+
+            if ($currentTime->lt($lastEndTime)) {
+                $startTime = $lastEndTime;
+            } else {
+                $startTime = $currentTime;
+            }
+        }
+
+        $endTime = (clone $startTime)->addMinutes($intervalMinutes);
+
+       LiveSupport::create([
+            'support_id' => $support->id,
+            'course_id' => $request->course_id,
+            'user_id' => auth()->id(),
+            'question' => $request->question,
+            'start_time' => $startTime,
+            'end_time' => $endTime,
+            'status' => 0,
+        ]);
+
+        Session::put('live_support_info', [
+            'user_id' =>  auth()->id(),
+            'support_id' => $support->id,
+            'course_id' => $request->course_id,
+        ]);
+
+        return back()->with('success', 'Support request submitted successfully.');
+    }
+
+
 
     public function logout()
     {

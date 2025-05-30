@@ -18,7 +18,12 @@ class Support extends Model
 
     protected $fillable = [
         'course_id',
+        'title',
         'support_link',
+        'interval',
+        'current_date',
+        'start_time',
+        'end_time',
         'status',
         'created_by',
         'updated_by',
@@ -40,6 +45,11 @@ class Support extends Model
     public function updated_by()
     {
         return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    public function liveSupports()
+    {
+        return $this->hasMany(LiveSupport::class);
     }
 
 

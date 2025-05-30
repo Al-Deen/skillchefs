@@ -210,19 +210,61 @@
                                         <h2 class="title font-600 mb-20">{{ @$data['enroll']->course->title }}</h2>
                                     </div>
 
-                                    <div class="d-flex course-author gap-12 align-items-center">
+                                    <div class="d-flex course-author gap-3 align-items-center">
+                                        <!-- Author Image -->
                                         <div class="thumb course-widget-author-img">
                                             <img class="img-cover"
-                                                src="{{ showImage(@$data['enroll']->course->user->image->original) }}"
-                                                alt="img">
+                                                 src="{{ showImage(@$data['enroll']->course->user->image->original) }}"
+                                                 alt="img">
                                         </div>
+
+                                        <!-- Author Info -->
                                         <div class="author-info">
                                             <h5>{{ @$data['enroll']->course->user->name }}</h5>
                                             @if (@$data['enroll']->course->user->instructor)
                                                 <p class="text-gray text-12 font-400 line-clamp-1">
-                                                    {{ @$data['enroll']->course->user->instructor->designation }}</p>
+                                                    {{ @$data['enroll']->course->user->instructor->designation }}
+                                                </p>
                                             @endif
                                         </div>
+
+                                        <!-- Copyright Warning -->
+                                        <div class="ms-auto">
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#copyrightModal"
+                                               class="text-danger d-flex align-items-center" style="margin-right: 30px; text-decoration: none;">
+                                                <span class="me-1">⚠️</span>
+                                                <span style="text-decoration: underline;">Copyright warning</span>
+                                            </a>
+                                        </div>
+
+
+                                        <div class="modal fade" id="copyrightModal" tabindex="-1" aria-labelledby="copyrightModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg"> <!-- Bigger modal -->
+                                                <div class="modal-content">
+                                                    <div class="modal-header border-0">
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body p-5 text-center">
+                                                        <img src="{{ showImage('') }}" alt="Warning" class="mb-2" style="width: 100px;">
+
+                                                        <p class="text-danger" style="text-align: justify; line-height: 1.4; font-size: 14px;">
+                                                            Skillchefs এর সাথে সম্পৃক্ত যেকোনো ভিডিও, টেক্সট বা কনটেন্ট অন্য কারো সাথে বিনিময় বা বিনামূল্যে আপলোড-শেয়ার করা, কিংবা সাথে ইমেইল-একাউন্ট শেয়ারিং করার মাধ্যমে অন্যকে প্রবেশাধিকার দেয়া আইনত অপরাধ এবং ৪ থেকে ১৪ বছরের জেল হতে পারে। শুধু তাই না, আপনি যদি কাউকে সাহায্য করেন, তাহলেও আপনি আইনের চোখে সমান অপরাধী হিসেবে বিবেচিত হবেন।
+                                                            <br><br>
+                                                            সাইবার সিকিউরিটি কেউ একা নিশ্চিত করতে পারে না। সবার মাঝে সচেতনতা তৈরি করতে হবে। সবারই একে অপরকে উৎসাহিত করতে হবে। খেয়াল রাখতে হবে, কেউ টাকার লোভে অবৈধ কাজ করে ফেলছে কিনা!
+                                                            <br><br>
+                                                            অন্য নামে একাউন্ট খুলে ব্রাউজার এক্সটেনশন ইনস্টল করে কনটেন্ট এক্সেস করে আবার ইনস্টলেশন খুলে ফেলা (কোনোটাই বৈধ নয়) যায় না। এমনটি যদি দেখা যায় তাহলে তুমি নিজেও ঝুঁকির মধ্যে পড়বে। তোমার ISP, আইপি এড্রেস, লোকেশন, ডিভাইস আইডি থেকে সমস্ত ডেটা খুঁজে বের করে তোমাকে সনাক্ত করা সম্ভব। বর্তমানে জিরো ট্রাস্ট নেটওয়ার্কিং করা হচ্ছে যাতে প্রত্যেক ইউজারের একাউন্ট কোন আইপি বা লোকেশন থেকে ব্যবহার হচ্ছে সেটা ট্র্যাকিং সম্ভব। সুতরাং কোনো চেষ্টা করার আগেই থেমে যাও (বিপদ থেকে বাঁচো)
+                                                            <br><br>
+                                                            আমরা অনলাইন ধরে চিহ্নিত করে দুই-একজনকে উদাহরণ হিসেবে রেখে সবাইকে জানিয়ে দিব যাতে সবাই টের পায় সংক্রান্ত হতে যাওয়া বিপদটা। তুমি যদি নিজেকে ও তোমার পরিবারকে ভালোবাসো, তাহলে এমন কিছুতে জড়িও না যেটা ভবিষ্যতের জন্য তোমার এবং তোমার পরিবারের জন্য চিন্তার কারণ।
+                                                            <br><br>
+                                                            <strong>একবার কেউ ধরা গেলে কিন্তু তোমাকে বাঁচাতে আসবে না।</strong>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
                                     </div>
                                 </div>
 
@@ -246,14 +288,12 @@
                                     </li>
 
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link learn-tab" id="Support-tab" data-bs-toggle="tab"
-                                                data-bs-target="#Support" data-id="Support" type="button" role="tab"
-                                                aria-controls="Support" aria-selected="false">
+                                        <button class="nav-link learn-tab" id="Support-tab" type="button"
+                                                data-bs-toggle="modal" data-bs-target="#supportModal">
                                             <i class="ri-live-line"></i>
                                             <span>{{ ___('student.Support') }}</span>
                                         </button>
                                     </li>
-
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link learn-tab" id="Review-tab" data-bs-toggle="tab"
                                             data-bs-target="#Review" data-id="Review" type="button" role="tab"
@@ -333,36 +373,87 @@
                                     </div>
 
 
-
-                                    @php
-                                    $support = \App\Models\Support::where('course_id',$data['enroll']->course_id)->where('status',1)->latest()->first();
-                                    @endphp
-
-                                    <div class="tab-pane fade " id="Support" role="tabpanel"
-                                         aria-labelledby="Support-tab">
-                                        <div class="row">
-                                            <div class="col-xl-12">
-                                                <div
-                                                    class="d-flex align-items-center justify-content-between flex-wrap border-bottom mb-20">
-                                                    <!-- Section Tittle -->
-                                                    <div class="small-tittle-two mb-20">
-                                                        <h2 class="title font-600 text-capitalize">
-                                                            {{ ___('student.Support Link') }}</h2>
-                                                    </div>
+                                    <div class="modal fade" id="supportModal" tabindex="-1" aria-labelledby="supportModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header border-0 pb-2 d-flex flex-column align-items-center">
+                                                    <h5 class="modal-title text-primary fw-bold" id="supportModalLabel" style="font-size: 20px;">
+                                                        <i class="ri-customer-service-2-line me-2"></i> Support Registration
+                                                    </h5>
+                                                    <button type="button" class="btn-close position-absolute top-0 end-0 mt-3 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                @if($support)
-                                                    <div>
-                                                        <a target="_blank" href="{{ $support->support_link }}"
-                                                           class="btn btn-success">
-                                                            <i class="ri-live-line"></i> Join
-                                                        </a>
+                                                @if(@$data['support'])
 
+                                                <div class="modal-body">
+                                                    <div class="card border-0 shadow-sm rounded-3 p-3 mb-3 bg-white">
+                                                        <h6 class="text-center text-primary fw-bold mb-2" style="font-size: 16px;">
+                                                            <i class="ri-calendar-event-line me-2"></i>
+                                                            Meeting Title: {{ @$data['support']->title ?? 'N/A' }}
+                                                        </h6>
+
+                                                        <p class="text-center mb-2 text-muted" style="font-size: 13px;">
+                                                            <strong><i class="ri-user-line me-1"></i> Instructor:</strong>
+                                                            {{ @$data['enroll']->course->user->name ?? 'N/A' }}
+                                                        </p>
+
+                                                        <div class="row text-center" style="font-size: 13px;">
+                                                            <div class="col-6 border-end">
+                                                                <div class="text-success fw-semibold">Session Start</div>
+                                                                <div>
+                                                                    {{ @$data['support']->start_time ? \Carbon\Carbon::parse($data['support']->start_time)->format('h:i A') : 'N/A' }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="text-danger fw-semibold">Session End</div>
+                                                                <div>
+                                                                    {{ @$data['support']->end_time ? \Carbon\Carbon::parse($data['support']->end_time)->format('h:i A') : 'N/A' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <form id="supportRegistrationForm" action="{{ route('student.support.request') }}" method="POST" class="p-3 rounded-3">
+                                                        @csrf
+
+                                                        <input type="hidden" name="support_id" value="{{ @$data['support']->id }}">
+                                                        <input type="hidden" name="course_id" value="{{ @$data['support']->course_id }}">
+                                                        <input type="hidden" name="user_id" value="{{Auth::user()->id }}">
+
+                                                        <div class="mb-3">
+                                                            <label for="question" class="form-label fw-semibold">
+                                                                <i class="ri-question-answer-line me-1"></i> Your Question / Issue
+                                                            </label>
+                                                            <textarea
+                                                                class="form-control border rounded-2"
+                                                                id="question"
+                                                                name="question"
+                                                                rows="8"
+                                                                placeholder="Write your issue or question clearly..."
+                                                                required
+                                                                style="font-size: 14px; resize: none; min-height: 150px;"
+                                                            ></textarea>
+                                                        </div>
+
+                                                        <div class="text-end">
+                                                            <button type="submit" class="btn btn-primary px-4 rounded-pill">
+                                                                <i class="ri-send-plane-line me-1"></i> Submit Request
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                                @else
+                                                    <div style="background-color: #f8f9fa; border: 1px solid #dee2e6; padding: 15px 20px; border-radius: 8px; max-width: 400px; margin: 20px auto; text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                                        <h6 style="color: red; font-weight: 600; font-size: 1.1rem; margin: 0;">
+                                                            Support is currently unavailable. Please check back later.
+                                                        </h6>
                                                     </div>
                                                 @endif
                                             </div>
-
                                         </div>
                                     </div>
+
+
 
 
                                     <div class="tab-pane fade " id="Review" role="tabpanel"

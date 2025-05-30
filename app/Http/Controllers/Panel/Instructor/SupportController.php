@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Panel\Instructor;
 
 use App\Http\Controllers\Controller;
+use App\Models\LiveSupport;
 use App\Models\Support;
 use Illuminate\Http\Request;
 use Modules\Course\Http\Requests\Instructor\NoticeBoardRequest;
@@ -41,6 +42,7 @@ class SupportController extends Controller
 
     public function store(Request $request, $course_id)
     {
+
         try {
             $course= $this->course->model()->where('id', $course_id)->where('created_by', auth()->user()->id)->first(); // data
             $data = $request->all();
@@ -84,6 +86,26 @@ class SupportController extends Controller
             $support =Support::find($id);
             $support->delete();
             return redirect()->back()->with('success', 'Support Link Deleted Successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
+        }
+    }
+
+    public function studentList($support_id)
+    {
+        $data['title'] ='Support Student List';
+        $data['supportStudents'] = LiveSupport::where('support_id',$support_id)->paginate(10);
+        return view('panel.instructor.course.support.student-list', compact('data'));
+
+    }
+
+    public function studentterminate($id)
+    {
+        try {
+            $liveSupport =LiveSupport::find($id);
+            $liveSupport->status = 2;
+            $liveSupport->save();
+            return redirect()->back()->with('success', 'Support Student Terminated !');
         } catch (\Throwable $th) {
             return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
         }

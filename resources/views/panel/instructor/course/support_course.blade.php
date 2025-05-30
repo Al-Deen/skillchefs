@@ -37,7 +37,10 @@
                                                 <thead class="thead">
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th> Meeting Link</th>
+                                                    <th> Meeting Title</th>
+                                                    <th> Interval </th>
+                                                    <th>Start Time</th>
+                                                    <th>End Time </th>
                                                     <th> Created By</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
@@ -48,12 +51,12 @@
                                                 @foreach($data['supports'] as $key=> $support)
                                                     <tr>
                                                         <td>{{ @$key + 1 }}</td>
+                                                        <td>{{ @$support->title}}</td>
                                                         <td>
-                                                            <a target="_blank" href="{{ @$support->support_link }}"
-                                                               class="text-primary">
-                                                                {{ @$support->support_link }}
-                                                            </a>
+                                                            {{ @$support->interval}}
                                                         </td>
+                                                        <td>{{ \Carbon\Carbon::parse($support->start_time)->format('h:i A') }}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($support->end_time)->format('h:i A') }}</td>
                                                         <td> {{ @$support->user->name }}</td>
                                                         <td>
                                                             @if(@$support->status == 1)
@@ -63,6 +66,13 @@
                                                             @endif
                                                         </td>
                                                         <td>
+
+                                                            <li>
+                                                                <a href="{{ route('instructor.support.student-list', $support->id) }}"
+                                                                   class="action-success">
+                                                                    <i class="ri-team-line"></i>
+                                                                </a>
+                                                            </li>
                                                                     <li>
                                                                         <a href="{{ route('instructor.support.edit', $support->id) }}"
                                                                            class="action-success">

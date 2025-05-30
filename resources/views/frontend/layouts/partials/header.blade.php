@@ -51,6 +51,70 @@
 {{--                                                <a href="{{ route('home') }}"--}}
 {{--                                                    class="single">{{ ___('frontend.Home') }}</a>--}}
 {{--                                            </li>--}}
+
+
+                                            <li class="single-list">
+                                                <a href="javascript:;" class="single" data-bs-toggle="modal" data-bs-target="#supportModal">
+                                                    {{ ___('frontend.Support') }}
+                                                </a>
+                                            </li>
+
+
+
+                                            <div class="modal fade" id="supportModal" tabindex="-1" aria-labelledby="supportModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content border-0 rounded-4">
+
+                                                        @if(isset($data['liveSupportData']))
+                                                        <div class="modal-body text-center p-4">
+                                                            <p class="mb-1 text-muted small">
+                                                                <h4 class="text-secondary">{{ $data['liveSupportData']->support?->title }}</h4>
+                                                                 <h5 class="text-secondary">Course: {{  $data['liveSupportData']->support?->course->title }}</h5>
+                                                                <strong>Instructor:</strong> {{ $data['liveSupportData']->support?->user->name }}<br>
+                                                            </p>
+
+                                                            <h5 class="fw-bold mb-0">Your Serial</h5>
+                                                            <h2 class="display-4 fw-bold mb-3">{{ $data['liveSupportSerial'] ?? 'N/A' }}</h2>
+
+                                                            <p class="text-muted small mb-4">
+                                                            Your support will begin in approximately   <strong class="text-primary">{{ $data['waitingTime'] ?? 'N/A' }}</strong> minutes.
+                                                            </p>
+
+                                                            <div class="d-flex justify-content-between mx-5 mb-4">
+                                                                <div>
+                                                                    <div class="text-success fw-bold">Session Start</div>
+                                                                    <div>
+                                                                        {{ @$data['liveSupportData']->support?->start_time ? \Carbon\Carbon::parse(@$data['liveSupportData']->support?->start_time)->format('h:i A') : 'N/A' }}
+                                                                    </div>
+
+                                                                </div>
+                                                                <div>
+                                                                    <div class="text-danger fw-bold">Session End</div>
+                                                                    <div>  {{ @$data['liveSupportData']->support?->end_time ? \Carbon\Carbon::parse(@$data['liveSupportData']->support?->end_time)->format('h:i A') : 'N/A' }}</div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Buttons -->
+                                                            <div class="d-flex justify-content-center gap-10">
+                                                                <button type="button" class="btn btn-light border" data-bs-dismiss="modal">Leave</button>
+                                                                <a target="_blank" href="{{  @$data['liveSupportData']->support?->support_link }}" class="btn btn-primary px-4">Join Now</a>
+                                                            </div>
+                                                        </div>
+                                                        @else
+                                                            <div style="background-color: #f8f9fa; border: 1px solid #dee2e6; padding: 15px 20px; border-radius: 8px; max-width: 400px; margin: 20px auto; text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                                                <h6 style="color: red; font-weight: 600; font-size: 1.1rem; margin: 0;">
+                                                                    Support is currently unavailable. Please check back later.
+                                                                </h6>
+                                                            </div>
+                                                        @endif
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
                                             <li class="single-list">
                                                 <a href="javascript:;"
                                                     class="single menu-categories">{{ ___('frontend.Skills') }}</a>
@@ -168,3 +232,4 @@
         @include('frontend.include.mobile_footer_menu')
         <!-- /End-of footer Menu -->
     </header>
+

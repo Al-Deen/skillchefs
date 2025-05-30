@@ -54,13 +54,18 @@ class CheckoutController extends Controller
     {
 
         try {
-            if ($request->payment_method != 'offline') {
-                $payment_method = $request->payment_method;
-            } else {
-                $payment_method = 'offline';
-                $data['payment_type'] = $request->payment_type;
-                $data['additional_details'] = $request->additional_details;
-            }
+//            if ($request->payment_method != 'offline') {
+//                $payment_method = $request->payment_method;
+//            } else {
+//                $payment_method = 'offline';
+//                $data['payment_type'] = $request->payment_type;
+//                $data['additional_details'] = $request->additional_details;
+//            }
+
+            $payment_method = 'offline';
+            $data['payment_type'] = $request->payment_type;
+            $data['additional_details'] = $request->additional_details;
+
             if (!$payment_method) {
                 return redirect()->back()->with('danger', ___('alert.Please_select_payment_method'));
             }

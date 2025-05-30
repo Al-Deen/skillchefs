@@ -39,6 +39,7 @@ Route::prefix('student')->middleware(['student', 'auth', 'verified', 'phone_veri
         // end leader board
 
         Route::get('/my-learning', 'myLearning')->name('student.my_learning');
+        Route::post('/support.request', 'supportRequest')->name('student.support.request');
 
     });
     // course note

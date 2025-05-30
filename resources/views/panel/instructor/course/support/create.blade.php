@@ -25,9 +25,57 @@
                     <!-- Course Title -->
                     <div class="col-lg-12">
                         <div class="ot-contact-form mb-24">
+                            <label class="ot-contact-label">Meeting Title<span class="text-danger">*</span>  </label>
+                            <input class="form-control ot-contact-input" type="text" name="title" id="title"
+                                   value="{{ old('title') }}" placeholder="Enter Meeting Title" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="ot-contact-form mb-24">
                             <label class="ot-contact-label">Meeting Link<span class="text-danger">*</span>  </label>
                             <input class="form-control ot-contact-input" type="text" name="support_link" id="support_link"
-                                   value="{{ old('support_link') }}" placeholder="Book Title" required>
+                                   value="{{ old('support_link') }}" placeholder="Enter Meeting link" required>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="ot-contact-form mb-24">
+                            <label class="ot-contact-label">Start Time<span class="text-danger">*</span>  </label>
+                            <input class="form-control ot-contact-input" type="time" name="start_time" id="start_time"
+                                   value="{{ old('start_time') }}" placeholder="Enter Start Time " required>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="ot-contact-form mb-24">
+                            <label class="ot-contact-label">End Time<span class="text-danger">*</span>  </label>
+                            <input class="form-control ot-contact-input" type="time" name="end_time" id="end_time"
+                                   value="{{ old('end_time') }}" placeholder="Enter End Time" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="ot-contact-form mb-24">
+                            <label class="ot-contact-label">Interval <smal>(Mins)</smal><span class="text-danger">*</span>  </label>
+                            <input class="form-control ot-contact-input" type="number" name="interval" id="interval"
+                                   value="{{ old('interval') }}" placeholder="Enter Interval" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="ot-contact-form mb-24">
+                            <label class="ot-contact-label">Date<span class="text-danger">*</span>  </label>
+                            <input class="form-control ot-contact-input" type="date" name="current_date" id="current_date"
+                                   value="{{ old('current_date') }}" placeholder="Enter Date" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <!-- Course Price -->
+                        <div class="ot-contact-form">
+                            <label class="ot-contact-label">Status <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-control ot-contact-input select2" id="status" required
+                                    name="status">
+                                <option value="1"> Active</option>
+                                <option value="0"> Inactive</option>
+                            </select>
                         </div>
                     </div>
                 </div>

@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\LiveSupport;
+use App\Models\Support;
 use App\Traits\ApiReturnFormatTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 use Modules\Blog\Interfaces\BlogInterface;
 use Modules\Brand\Interfaces\BrandInterface;
 use Modules\Certificate\Interfaces\CertificateGenerateInterface;
@@ -78,7 +82,45 @@ class HomeController extends Controller
             $data['brand_section_title'] = ___('frontend.Trusted By Thousands');
 
 
-            return view('frontend.home', compact('data'));
+
+
+            $liveSupportInfo = Session::get('live_support_info');
+            $userId     = $liveSupportInfo['user_id'] ?? null;
+            $supportId  = $liveSupportInfo['support_id'] ?? null;
+            $courseId   = $liveSupportInfo['course_id'] ?? null;
+
+            $data['liveSupportData'] = LiveSupport::with('support')->where('support_id',$supportId)->where('course_id',$courseId)->where('user_id',$userId)->where('status',0)->first();
+            if ( $data['liveSupportData']) {
+                $pendingRequests = LiveSupport::where('support_id', $supportId)
+                    ->where('course_id', $courseId)
+                    ->where('status', 0)
+                    ->orderBy('start_time') // or created_at if needed
+                    ->get();
+                $serial = 1;
+                $waitingTime = 0;
+                $interval = 0;
+
+                foreach ($pendingRequests as $index => $request) {
+                    if ($request->user_id == $userId) {
+                        $serial = $index + 1;
+
+                        if ($index > 0) {
+                            $previousEndTime = Carbon::parse($pendingRequests[$index - 1]->end_time);
+                            $now = Carbon::now('Asia/Dhaka');
+                            $waitingTime = $previousEndTime->gt($now)
+                                ? $now->diffInMinutes($previousEndTime)
+                                : 0;
+                        }
+
+                        $interval = Carbon::parse($request->start_time)->diffInMinutes($request->end_time);
+                        break;
+                    }
+                }
+
+                $data['liveSupportSerial'] = $serial;
+                $data['waitingTime'] = $waitingTime;
+            }
+                return view('frontend.home', compact('data'));
         } catch (\Throwable $th) {
             return redirect()->route('home')->with('danger', ___('alert.something_went_wrong_please_try_again'));
         }

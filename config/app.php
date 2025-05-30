@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => env('TIME_REGION','UTC'),
+    'timezone' => env('TIME_REGION','Asia/Dhaka'),
 
     /*
     |--------------------------------------------------------------------------

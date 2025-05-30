@@ -185,6 +185,9 @@ Route::prefix('instructor')->middleware(['instructor', 'auth', 'verified', 'phon
         Route::get('/edit-support/{id}', 'edit')->name('instructor.support.edit');
         Route::post('/update-support/{id}', 'update')->name('instructor.support.update');
         Route::get('/delete-support/{id}', 'destroy')->name('instructor.support.delete');
+        Route::get('/support/student-list/{id}', 'studentList')->name('instructor.support.student-list');
+        Route::get('/support/student-terminate/{id}', 'studentterminate')->name('instructor.support.student-terminate');
+
 
     });
 
