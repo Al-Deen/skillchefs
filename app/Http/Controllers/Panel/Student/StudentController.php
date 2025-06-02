@@ -127,6 +127,35 @@ class StudentController extends Controller
             $data['lesson_id'] = $lesson_id;
 
             $data['support'] = Support::where('course_id',$data['enroll']->course_id)->where('status',1)->latest()->first();
+            // join support link - show
+            if ($data['support']) {
+            $data['aciveLiveSupportData'] = LiveSupport::with('support')->where('support_id',$data['support']->id)->where('course_id',$data['support']->course_id)->where('user_id',Auth::id())->where('status',1)->first();
+            $data['liveSupportData'] = LiveSupport::with('support')->where('support_id',$data['support']->id)->where('course_id',$data['support']->course_id)->where('user_id',Auth::id())->where('status',0)->orWhere('status',1)->first();
+
+            if ( $data['liveSupportData']) {
+                $pendingRequests = LiveSupport::where('support_id', $data['support']->id)
+                    ->where('course_id', $data['enroll']->course_id)
+                    ->where('status', 0)
+                    ->orderBy('created_at') // or created_at if needed
+                    ->get();
+                $serial = 0;
+                $waitingTime = 0;
+                foreach ($pendingRequests as $index => $request) {
+                    if ($request->user_id == Auth::id()) {
+                        $serial = $index + 1;
+                            $previousEndTime = Carbon::parse($pendingRequests[$index]->start_time);
+                            $now = Carbon::now('Asia/Dhaka');
+                            $waitingTime = $previousEndTime->gt($now)
+                                ? $now->diffInMinutes($previousEndTime)
+                                : 0;
+                    }
+                }
+
+                $data['liveSupportSerial'] = $serial;
+                $data['waitingTime'] = $waitingTime;
+            }
+            }
+
 
             return view($this->template . '.course.course_details', compact('data'));
         } catch (\Throwable $th) {
@@ -178,6 +207,7 @@ class StudentController extends Controller
 
     public function supportRequest(Request $request)
     {
+
         $request->validate([
             'support_id' => 'required|exists:supports,id',
             'course_id' => 'required|exists:courses,id',
@@ -192,13 +222,12 @@ class StudentController extends Controller
             ->first();
 
         // Set Bangladesh timezone
-        $currentTime = Carbon::now('Asia/Dhaka');
+        $currentTime = Carbon::now('Asia/Dhaka')->setSecond(0);
 
         if (!$existingLiveSupports) {
             $startTime = $currentTime;
         } else {
-            $lastEndTime = Carbon::parse($existingLiveSupports->end_time);
-
+            $lastEndTime = Carbon::parse($existingLiveSupports->end_time)->setSecond(0);
             if ($currentTime->lt($lastEndTime)) {
                 $startTime = $lastEndTime;
             } else {
@@ -206,9 +235,8 @@ class StudentController extends Controller
             }
         }
 
-        $endTime = (clone $startTime)->addMinutes($intervalMinutes);
-
-       LiveSupport::create([
+        $endTime = (clone $startTime)->addMinutes($intervalMinutes)->setSecond(0);
+         LiveSupport::create([
             'support_id' => $support->id,
             'course_id' => $request->course_id,
             'user_id' => auth()->id(),
@@ -217,13 +245,6 @@ class StudentController extends Controller
             'end_time' => $endTime,
             'status' => 0,
         ]);
-
-        Session::put('live_support_info', [
-            'user_id' =>  auth()->id(),
-            'support_id' => $support->id,
-            'course_id' => $request->course_id,
-        ]);
-
         return back()->with('success', 'Support request submitted successfully.');
     }
 

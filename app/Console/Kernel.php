@@ -20,6 +20,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+
+        $schedule->command('live-support:update-status')->everyMinute();
+        $schedule->command('support:update-status')->everyMinute();
+
         if (env('APP_DEMO')) {
             $schedule->command('command:db-seed')->everyMinute();
         }

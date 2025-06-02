@@ -18,19 +18,6 @@
         pointer-events: none;
         transition: all 1s ease-in-out;
     }
-
-    /*.video-watermark {*/
-    /*    position: absolute;*/
-    /*    color: red !important;*/
-    /*    font-size: 14px;*/
-    /*    z-index: 10;*/
-    /*    pointer-events: none;*/
-    /*    text-shadow: 1px 1px 2px black;*/
-    /*    background-color: rgba(0, 0, 0, 0.2);*/
-    /*    padding: 2px 5px;*/
-    /*    border-radius: 4px;*/
-    /*    transition: all 1s ease-in-out;*/
-    /*}*/
 </style>
 @section('content')
     <main>
@@ -262,9 +249,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
-
                                     </div>
                                 </div>
 
@@ -287,13 +271,29 @@
                                         </button>
                                     </li>
 
+                                  @if(isset($data['liveSupportData']) || isset($data['aciveLiveSupportData']))
+
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link learn-tab" id="Support-tab" type="button"
-                                                data-bs-toggle="modal" data-bs-target="#supportModal">
+                                                data-bs-toggle="modal" data-bs-target="#supportMeetModal" >
                                             <i class="ri-live-line"></i>
                                             <span>{{ ___('student.Support') }}</span>
                                         </button>
                                     </li>
+                                    @else
+
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link learn-tab" id="Support-tab" type="button"
+                                                    data-bs-toggle="modal" data-bs-target="#supportModal">
+                                                <i class="ri-live-line"></i>
+                                                <span>{{ ___('student.Support') }}</span>
+                                            </button>
+                                        </li>
+
+
+                                    @endif
+
+
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link learn-tab" id="Review-tab" data-bs-toggle="tab"
                                             data-bs-target="#Review" data-id="Review" type="button" role="tab"
@@ -371,7 +371,6 @@
 
                                         </div>
                                     </div>
-
 
                                     <div class="modal fade" id="supportModal" tabindex="-1" aria-labelledby="supportModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg">
@@ -453,6 +452,58 @@
                                         </div>
                                     </div>
 
+                          {{--   join support  show --start--}}
+                                    <div class="modal fade" id="supportMeetModal" tabindex="-1" aria-labelledby="supportModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content border-0 rounded-4">
+
+                                                @if(isset($data['liveSupportData']))
+                                                    <div class="modal-body text-center p-4">
+                                                        <p class="mb-1 text-muted small">
+                                                        <h4 class="text-secondary">{{ $data['liveSupportData']->support?->title }}</h4>
+                                                        <h5 class="text-secondary">Course: {{  $data['liveSupportData']->support?->course->title }}</h5>
+                                                        <strong>Instructor:</strong> {{ $data['liveSupportData']->support?->user->name }}<br>
+                                                        </p>
+
+                                                        <h5 class="fw-bold mb-0">Your Serial</h5>
+                                                        <h2 class="display-4 fw-bold mb-3">{{ $data['liveSupportSerial'] ?? 'N/A' }}</h2>
+
+                                                        <p class="text-muted small mb-4">
+                                                            Your support will begin in approximately   <strong class="text-primary">{{ $data['waitingTime'] ?? 'N/A' }}</strong> minutes.
+                                                        </p>
+
+                                                        <div class="d-flex justify-content-between mx-5 mb-4">
+                                                            <div>
+                                                                <div class="text-success fw-bold">Session Start</div>
+                                                                <div>
+                                                                    {{ @$data['liveSupportData']->support?->start_time ? \Carbon\Carbon::parse(@$data['liveSupportData']->support?->start_time)->format('h:i A') : 'N/A' }}
+                                                                </div>
+
+                                                            </div>
+                                                            <div>
+                                                                <div class="text-danger fw-bold">Session End</div>
+                                                                <div>  {{ @$data['liveSupportData']->support?->end_time ? \Carbon\Carbon::parse(@$data['liveSupportData']->support?->end_time)->format('h:i A') : 'N/A' }}</div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Buttons -->
+                                                        <div class="d-flex justify-content-center gap-10">
+                                                            <button type="button" class="btn btn-light border" data-bs-dismiss="modal">Leave</button>
+                                                            <a target="_blank" href="{{  @$data['liveSupportData']->support?->support_link }}" class="btn btn-primary px-4">Join Now</a>
+                                                        </div>
+                                                    </div>
+                                                @else
+                                                    <div style="background-color: #f8f9fa; border: 1px solid #dee2e6; padding: 15px 20px; border-radius: 8px; max-width: 400px; margin: 20px auto; text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                                        <h6 style="color: red; font-weight: 600; font-size: 1.1rem; margin: 0;">
+                                                            Support is currently unavailable. Please check back later.
+                                                        </h6>
+                                                    </div>
+                                                @endif
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- join support  show --end--}}
 
 
 

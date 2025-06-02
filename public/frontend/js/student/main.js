@@ -89,7 +89,8 @@ window.tabLoad = async (tab) => {
 
                    }
                 }else{
-                    errorHandler(message);
+                    //error msg off
+                   // errorHandler(message);
                 }
             })
             .catch((error) => {
