@@ -16,7 +16,7 @@ class UpdateSupportStatus extends Command
     {
         $now = Carbon::now('Asia/Dhaka');
 
-        $activatedSupports = Support::whereTime('start_time','<=', $now)->whereTime('end_time','>=', $now)->update(['status' => 1]);
+        $activatedSupports = Support::whereTime('start_time','<=', $now)->whereTime('end_time','>', $now)->update(['status' => 1]);
         if ($activatedSupports) {
             $this->info("Support(s) activated.");
         }

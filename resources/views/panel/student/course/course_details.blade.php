@@ -271,7 +271,7 @@
                                         </button>
                                     </li>
 
-                                  @if(isset($data['liveSupportData']) || isset($data['aciveLiveSupportData']))
+                                  @if(isset($data['aciveLiveSupportData']))
 
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link learn-tab" id="Support-tab" type="button"
@@ -416,8 +416,6 @@
 
                                                         <input type="hidden" name="support_id" value="{{ @$data['support']->id }}">
                                                         <input type="hidden" name="course_id" value="{{ @$data['support']->course_id }}">
-                                                        <input type="hidden" name="user_id" value="{{Auth::user()->id }}">
-
                                                         <div class="mb-3">
                                                             <label for="question" class="form-label fw-semibold">
                                                                 <i class="ri-question-answer-line me-1"></i> Your Question / Issue
@@ -468,9 +466,11 @@
                                                         <h5 class="fw-bold mb-0">Your Serial</h5>
                                                         <h2 class="display-4 fw-bold mb-3">{{ $data['liveSupportSerial'] ?? 'N/A' }}</h2>
 
+                                                       @if( @$data['liveSupportData']->status == 0)
                                                         <p class="text-muted small mb-4">
                                                             Your support will begin in approximately   <strong class="text-primary">{{ $data['waitingTime'] ?? 'N/A' }}</strong> minutes.
                                                         </p>
+                                                        @endif
 
                                                         <div class="d-flex justify-content-between mx-5 mb-4">
                                                             <div>

@@ -11,6 +11,8 @@ class Kernel extends ConsoleKernel
 
     protected $command = [
         Commands\DatabaseMigrate::class,
+        Commands\LiveSupportStatusUpdate::class,
+        Commands\UpdateSupportStatus::class,
     ];
     /**
      * Define the application's command schedule.

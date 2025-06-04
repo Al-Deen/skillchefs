@@ -126,34 +126,56 @@ class StudentController extends Controller
             $this->enrollRepository->visited($data['enroll']);
             $data['lesson_id'] = $lesson_id;
 
+
             $data['support'] = Support::where('course_id',$data['enroll']->course_id)->where('status',1)->latest()->first();
             // join support link - show
             if ($data['support']) {
-            $data['aciveLiveSupportData'] = LiveSupport::with('support')->where('support_id',$data['support']->id)->where('course_id',$data['support']->course_id)->where('user_id',Auth::id())->where('status',1)->first();
-            $data['liveSupportData'] = LiveSupport::with('support')->where('support_id',$data['support']->id)->where('course_id',$data['support']->course_id)->where('user_id',Auth::id())->where('status',0)->orWhere('status',1)->first();
+            $data['aciveLiveSupportData'] = LiveSupport::with('support')->where('support_id',$data['support']->id)->where('course_id',$data['support']->course_id)->where('user_id',Auth::id())->first();
+            $data['liveSupportData'] = LiveSupport::with('support')->where('support_id',$data['support']->id)->where('course_id',$data['support']->course_id)->where('user_id',Auth::id())->first();
 
-            if ( $data['liveSupportData']) {
-                $pendingRequests = LiveSupport::where('support_id', $data['support']->id)
-                    ->where('course_id', $data['enroll']->course_id)
-                    ->where('status', 0)
-                    ->orderBy('created_at') // or created_at if needed
-                    ->get();
-                $serial = 0;
-                $waitingTime = 0;
-                foreach ($pendingRequests as $index => $request) {
-                    if ($request->user_id == Auth::id()) {
-                        $serial = $index + 1;
-                            $previousEndTime = Carbon::parse($pendingRequests[$index]->start_time);
+                if ($data['liveSupportData']) {
+                    $pendingRequests = LiveSupport::where('support_id', $data['support']->id)
+                        ->where('course_id', $data['enroll']->course_id)
+                        ->orderBy('created_at')
+                        ->get();
+
+                    $serial = 0;
+                    $waitingTime = 0;
+                    $statusOneOrTwoExists = false;
+                    $serialCounter = 1;
+
+                    foreach ($pendingRequests as $index => $request) {
+                        if ($request->status == 1 || $request->status == 2) {
+                            // Active or processing
+                            if ($request->user_id == Auth::id()) {
+                                $serial = 1;
+                            }
+                            $statusOneOrTwoExists = true;
+                        } elseif ($request->status == 0) {
+                            if (!$statusOneOrTwoExists) {
+                                $serialCounter = 1;
+                            } else {
+                                $serialCounter++;
+                            }
+
+                            if ($request->user_id == Auth::id()) {
+                                $serial = $serialCounter;
+                            }
+                        }
+
+                        // Waiting time calculation (already correct)
+                        if ($request->user_id == Auth::id() && ($request->status == 0 || $request->status == 1)) {
+                            $previousEndTime = Carbon::parse($request->start_time);
                             $now = Carbon::now('Asia/Dhaka');
                             $waitingTime = $previousEndTime->gt($now)
                                 ? $now->diffInMinutes($previousEndTime)
                                 : 0;
+                        }
                     }
-                }
 
-                $data['liveSupportSerial'] = $serial;
-                $data['waitingTime'] = $waitingTime;
-            }
+                    $data['liveSupportSerial'] = $serial;
+                    $data['waitingTime'] = $waitingTime;
+                }
             }
 
 
@@ -207,7 +229,6 @@ class StudentController extends Controller
 
     public function supportRequest(Request $request)
     {
-
         $request->validate([
             'support_id' => 'required|exists:supports,id',
             'course_id' => 'required|exists:courses,id',
@@ -221,22 +242,21 @@ class StudentController extends Controller
             ->orderByDesc('end_time')
             ->first();
 
-        // Set Bangladesh timezone
-        $currentTime = Carbon::now('Asia/Dhaka')->setSecond(0);
+        // Always start with seconds = 0
+        $currentTime = Carbon::now('Asia/Dhaka')->minute(Carbon::now()->minute)->second(0);
 
         if (!$existingLiveSupports) {
             $startTime = $currentTime;
         } else {
             $lastEndTime = Carbon::parse($existingLiveSupports->end_time)->setSecond(0);
-            if ($currentTime->lt($lastEndTime)) {
-                $startTime = $lastEndTime;
-            } else {
-                $startTime = $currentTime;
-            }
+            $startTime = $currentTime->lt($lastEndTime) ? $lastEndTime : $currentTime;
         }
 
+        // Force both start and end time seconds to 0
+        $startTime->setSecond(0);
         $endTime = (clone $startTime)->addMinutes($intervalMinutes)->setSecond(0);
-         LiveSupport::create([
+
+        LiveSupport::create([
             'support_id' => $support->id,
             'course_id' => $request->course_id,
             'user_id' => auth()->id(),
@@ -245,9 +265,9 @@ class StudentController extends Controller
             'end_time' => $endTime,
             'status' => 0,
         ]);
+
         return back()->with('success', 'Support request submitted successfully.');
     }
-
 
 
     public function logout()
