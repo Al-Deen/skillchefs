@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Panel\Instructor;
 use App\Http\Controllers\Controller;
 use App\Models\LiveSupport;
 use App\Models\Support;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Modules\Course\Http\Requests\Instructor\NoticeBoardRequest;
 use App\Traits\ApiReturnFormatTrait;
@@ -99,13 +100,46 @@ class SupportController extends Controller
 
     }
 
+//    public function studentterminate($id)
+//    {
+//        try {
+//            $liveSupport =LiveSupport::find($id);
+//            $liveSupport->status = 2;
+//            $liveSupport->save();
+//            return redirect()->back()->with('success', 'Support Student Terminated !');
+//        } catch (\Throwable $th) {
+//            return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
+//        }
+//    }
+
     public function studentterminate($id)
     {
         try {
-            $liveSupport =LiveSupport::find($id);
-            $liveSupport->status = 2;
-            $liveSupport->save();
-            return redirect()->back()->with('success', 'Support Student Terminated !');
+            $activeLiveSupport = LiveSupport::findOrFail($id);
+            $support = Support::findOrFail($activeLiveSupport->support_id);
+            $interval = $support->interval;
+
+            // Step 1: Current time, seconds always set to 00
+            $currentTime = Carbon::now('Asia/Dhaka')->second(0);
+
+            // Step 2: Update the terminated student's status to 2
+            $activeLiveSupport->status = 2;
+            $activeLiveSupport->save();
+
+            // Step 3: Get next two pending students (status = 0)
+            $nextLiveSupports = LiveSupport::where('support_id', $support->id)
+                ->where('status', 0)
+                ->orderBy('id','asc')
+                ->get();
+
+            foreach ($nextLiveSupports as $nextSupport) {
+                $nextSupport->start_time = $currentTime->copy()->format('Y-m-d H:i:00');
+                $currentTime->addMinutes($interval);
+                $nextSupport->end_time = $currentTime->copy()->format('Y-m-d H:i:00');
+                $nextSupport->save();
+            }
+
+            return redirect()->back()->with('success', 'Support Student Terminated!');
         } catch (\Throwable $th) {
             return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
         }

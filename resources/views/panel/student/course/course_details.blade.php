@@ -463,10 +463,10 @@
                                                         <strong>Instructor:</strong> {{ $data['liveSupportData']->support?->user->name }}<br>
                                                         </p>
 
+                                                        @if( @$data['liveSupportData']->status == 0)
+
                                                         <h5 class="fw-bold mb-0">Your Serial</h5>
                                                         <h2 class="display-4 fw-bold mb-3">{{ $data['liveSupportSerial'] ?? 'N/A' }}</h2>
-
-                                                       @if( @$data['liveSupportData']->status == 0)
                                                         <p class="text-muted small mb-4">
                                                             Your support will begin in approximately   <strong class="text-primary">{{ $data['waitingTime'] ?? 'N/A' }}</strong> minutes.
                                                         </p>
@@ -635,4 +635,16 @@
             }, 3000); // every 3 seconds it will move
         });
     </script>
+
+
+    @if(isset($data['aciveLiveSupportData']))
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const supportModal = new bootstrap.Modal(document.getElementById('supportMeetModal'));
+            supportModal.show();
+        });
+     </script>
+    @endif
+
+
 @endsection
