@@ -46,4 +46,9 @@ class Section extends Model
     {
         return $this->hasMany(Lesson::class)->orderBy('order', 'asc');
     }
+
+    public function allAssignment()
+    {
+        return $this->hasMany(Assignment::class);
+    }
 }

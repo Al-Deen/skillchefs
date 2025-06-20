@@ -105,6 +105,53 @@
                                                 @endforeach
                                                 <!-- Single video -->
                                             </ul>
+                                            <h6 style="float:left;">Assignments</h6>
+                                            <br>
+
+                                            @php
+                                                $section_id = $section->id;
+                                                $course_id = $section->course_id;
+                                                $assignments = \Modules\Course\Entities\Assignment::where('section_id', $section_id)
+                                                    ->where('course_id', $course_id)
+                                                    ->where('status_id', 22)
+                                                    ->get();
+                                            @endphp
+
+                                            <ul class="listing-video">
+                                                @foreach ($assignments as $key => $assignment)
+                                                    @php
+                                                        $submission = @$assignment
+                                                            ->assignmentSubmit()
+                                                            ->where('user_id', $data['enroll']->user_id)
+                                                            ->first();
+                                                    @endphp
+
+                                                    <li class="single-list {{ @$assignment->id == @$data['assignment_id'] ? ' active' : '' }}">
+                                                        <div class="mb-8 d-flex align-items-center w-100">
+                                                            <div class="check-remember-me">
+                                                                <label>
+                                                                    <input class="ot-checkbox" type="checkbox"
+                                                                           {{ @$submission->is_submitted == 11 ? 'checked' : '' }} disabled />
+                                                                    <span class="ot-checkmark"></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="d-flex justify-content-between align-items-center w-100" id="assignment-start">
+                                                                <div>
+                                                                    <h6 class="title mb-0">{{ $assignment->title }}</h6>
+                                                                </div>
+
+                                                                <div class="d-flex align-items-center note_action">
+                                                                        <button class="btn btn-sm btn-outline-secondary ms-2"
+                                                                                onclick="mainModalOpen(`{{ route('student.assignment.details', [encryptFunction($data['enroll']->id), encryptFunction($assignment->id)]) }}`)">
+                                                                            <i class="ri-eye-line"></i>
+                                                                        </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
 
                                         </div>
                                     </div>
@@ -126,3 +173,24 @@
 
     </div>
 </div>
+
+{{--<div class="d-flex align-content-between w-100" id="assignment-start">--}}
+{{--    <div>--}}
+{{--        <h6 class="title mb-0">{{ $assignment->title }} </h6>--}}
+{{--    </div>--}}
+{{--    <div class="ml-auto d-flex align-items-center note_action">--}}
+{{--        @if (@$submission->is_submitted == 11)--}}
+{{--            <span class="ms-2 text-14 text-success">{{ ___('student.Submitted') }}</span>--}}
+{{--        @else--}}
+{{--            @if (now() > $assignment->deadline)--}}
+{{--                <span class="ms-2 text-14 text-danger">{{ ___('student.Expired') }}</span>--}}
+{{--            @else--}}
+{{--                <button class="btn btn-sm btn-outline-secondary ml-2"--}}
+{{--                        onclick="mainModalOpen({{ route('student.assignment.details', [encryptFunction($data['enroll']->id), encryptFunction($assignment->id)]) }})">--}}
+{{--                    <i class="ri-eye-line"></i>--}}
+{{--                </button>--}}
+{{--            @endif--}}
+{{--        @endif--}}
+{{--    </div>--}}
+{{--</div>--}}
+

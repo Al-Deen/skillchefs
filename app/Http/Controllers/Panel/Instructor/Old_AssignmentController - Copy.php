@@ -11,7 +11,6 @@ use Modules\Course\Http\Requests\Instructor\AssignmentSubmitReviewRequest;
 use Modules\Course\Interfaces\AssignmentInterface;
 use Modules\Course\Interfaces\AssignmentSubmitInterface;
 use Modules\Course\Interfaces\CourseInterface;
-use Modules\Course\Interfaces\SectionInterface;
 
 class AssignmentController extends Controller
 {
@@ -21,14 +20,12 @@ class AssignmentController extends Controller
     protected $assignment;
     protected $course;
     protected $assignmentSubmit;
-    protected $section;
 
-    public function __construct(SectionInterface $sectionInterface, AssignmentInterface $assignmentInterface, CourseInterface $courseInterface, AssignmentSubmitInterface $assignmentSubmitInterface)
+    public function __construct(AssignmentInterface $assignmentInterface, CourseInterface $courseInterface, AssignmentSubmitInterface $assignmentSubmitInterface)
     {
         $this->assignment = $assignmentInterface;
         $this->course = $courseInterface;
         $this->assignmentSubmit = $assignmentSubmitInterface;
-        $this->section = $sectionInterface;
     }
     /**
      * Display a listing of the resource.
@@ -148,15 +145,15 @@ class AssignmentController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create($section_id)
+    public function create($course_id)
     {
 
         try {
-            $data['section'] = $this->section->model()->where('id', $section_id)->where('created_by', auth()->user()->id)->first(); // data
-            if (!$data['section']) {
-                return $this->responseWithError(___('alert.course_section_not_found'), [], 400); // return error response
+            $data['course'] = $this->course->model()->where('id', $course_id)->where('created_by', auth()->user()->id)->first(); // data
+            if (!$data['course']) {
+                return $this->responseWithError(___('alert.course_not_found'), [], 400); // return error response
             }
-            $data['url'] = route('instructor.assignment.store', $section_id); // url
+            $data['url'] = route('instructor.assignment.store', $course_id); // url
             $data['title'] = ___('course.Create Course Assignment'); // title
             @$data['button'] = ___('common.Save');
             $html = view('panel.instructor.modal.assignment.create', compact('data'))->render(); // render view
@@ -171,15 +168,10 @@ class AssignmentController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(AssignmentRequest $request, $section_id)
+    public function store(AssignmentRequest $request, $course_id)
     {
         try {
-            $data['section'] = $this->section->model()->where('id', $section_id)->where('created_by', auth()->user()->id)->first(); // data
-            if (!$data['section']) {
-                return $this->responseWithError(___('alert.course_section_not_found'), [], 400); // return error response
-            }
-            $request->merge(['section_id' => $section_id]);
-            $request->merge(['course_id' => $data['section']->course_id]);
+            $request->merge(['course_id' => $course_id]);
             $request->merge(['title' => $request->assignment_title]);
             $result = $this->assignment->store($request);
             if ($result->original['result']) {

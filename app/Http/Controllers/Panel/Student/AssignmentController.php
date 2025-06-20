@@ -32,6 +32,7 @@ class AssignmentController extends Controller
             $assignment = @$enroll->course->assignments->where('id', $assignment_id)->first();
             if ($enroll && @$assignment) {
                 $data['assignment'] = $assignment;
+                $data['enroll'] = $enroll;
                 $data['url'] = route('student.assignment.store', [encryptFunction($enroll_id), encryptFunction($assignment_id)]); // url
                 $data['title'] = ___('course.Assignment Details'); // title
                 @$data['button'] = ___('common.Submit');

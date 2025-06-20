@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
             $table->string('title', 255);
+            $table->foreignId('section_id')->nullable()->constrained('sections')->onDelete('cascade');
             $table->foreignId('course_id')->nullable()->constrained('courses')->onDelete('cascade');
             $table->longText('details')->nullable();
             $table->foreignId('assignment_file')->nullable()->constrained('uploads')->onDelete('set null');

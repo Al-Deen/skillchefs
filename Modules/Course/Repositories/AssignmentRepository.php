@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Modules\Course\Entities\Assignment;
 use Modules\Course\Entities\Course;
 use Modules\Course\Entities\CourseCategory;
+use Modules\Course\Entities\Section;
 use Modules\Course\Interfaces\AssignmentInterface;
 
 class AssignmentRepository implements AssignmentInterface
@@ -22,14 +23,16 @@ class AssignmentRepository implements AssignmentInterface
     protected $courseCategoryModel;
     protected $userModel;
     protected $statusModel;
+    private $sectionModel;
 
-    public function __construct(Assignment $assignmentModel, Course $courseModel, CourseCategory $courseCategoryModel, User $userModel, Status $statusModel)
+    public function __construct(Assignment $assignmentModel,Section $sectionModel, Course $courseModel, CourseCategory $courseCategoryModel, User $userModel, Status $statusModel)
     {
         $this->model = $assignmentModel;
         $this->courseModel = $courseModel;
         $this->courseCategoryModel = $courseCategoryModel;
         $this->userModel = $userModel;
         $this->statusModel = $statusModel;
+        $this->sectionModel = $sectionModel;
     }
 
     public function all()
@@ -82,6 +85,14 @@ class AssignmentRepository implements AssignmentInterface
 
         DB::beginTransaction(); // start database transaction
         try {
+
+            // find sections by section_id
+            $section = $this->sectionModel->where('id', $request->section_id)->first();
+            if (!$section) {
+                return $this->responseWithError(___('alert.course_section_not_found'), [], 400);
+            }
+
+
             // find course by course_id
             $course = $this->courseModel->where('id', $request->course_id)->first();
             if (!$course) {
@@ -93,6 +104,7 @@ class AssignmentRepository implements AssignmentInterface
             $assignmentModel->marks = $request->marks;
             $assignmentModel->pass_marks = $request->pass_marks;
             $assignmentModel->deadline = $request->deadline;
+            $assignmentModel->section_id = $request->section_id;
             $assignmentModel->course_id = $request->course_id;
             $assignmentModel->note = $request->note;
             $assignmentModel->status_id = $request->status_id;

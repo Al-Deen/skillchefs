@@ -310,14 +310,14 @@
                                             <span>{{ ___('student.Announcements') }}</span>
                                         </button>
                                     </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link learn-tab" id="assignment-tab" data-bs-toggle="tab"
-                                            data-bs-target="#Assignment" type="button" role="tab"
-                                            data-id="Assignment" aria-controls="Assignment" aria-selected="false">
-                                            <i class="ri-tools-line"></i>
-                                            <span>{{ ___('student.Assignments') }}</span>
-                                        </button>
-                                    </li>
+{{--                                    <li class="nav-item" role="presentation">--}}
+{{--                                        <button class="nav-link learn-tab" id="assignment-tab" data-bs-toggle="tab"--}}
+{{--                                            data-bs-target="#Assignment" type="button" role="tab"--}}
+{{--                                            data-id="Assignment" aria-controls="Assignment" aria-selected="false">--}}
+{{--                                            <i class="ri-tools-line"></i>--}}
+{{--                                            <span>{{ ___('student.Assignments') }}</span>--}}
+{{--                                        </button>--}}
+{{--                                    </li>--}}
                                 </ul>
                                 <!-- Video Review Content -->
                                 <div class="tab-content course-play" id="myTabContent">
@@ -575,24 +575,24 @@
                                         </div>
                                     </div>
                                     <!-- assignment-tab -->
-                                    <div class="tab-pane fade " id="Assignment" role="tabpanel"
-                                        aria-labelledby="assignment-tab">
-                                        <div class="row">
-                                            <div class="col-xl-12">
-                                                <div
-                                                    class="d-flex align-items-center justify-content-between flex-wrap border-bottom mb-20">
-                                                    <!-- Section Tittle -->
-                                                    <div class="small-tittle-two mb-20">
-                                                        <h2 class="title font-600 text-capitalize">
-                                                            {{ ___('student.Assignments') }}</h2>
-                                                    </div>
-                                                </div>
-                                                <ul class="assignment-area" id="assignments_list">
+{{--                                    <div class="tab-pane fade " id="Assignment" role="tabpanel"--}}
+{{--                                        aria-labelledby="assignment-tab">--}}
+{{--                                        <div class="row">--}}
+{{--                                            <div class="col-xl-12">--}}
+{{--                                                <div--}}
+{{--                                                    class="d-flex align-items-center justify-content-between flex-wrap border-bottom mb-20">--}}
+{{--                                                    <!-- Section Tittle -->--}}
+{{--                                                    <div class="small-tittle-two mb-20">--}}
+{{--                                                        <h2 class="title font-600 text-capitalize">--}}
+{{--                                                            {{ ___('student.Assignments') }}</h2>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                                <ul class="assignment-area" id="assignments_list">--}}
 
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+{{--                                                </ul>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
 
 
                                 </div>

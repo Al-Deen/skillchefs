@@ -149,7 +149,7 @@ Route::prefix('instructor')->middleware(['instructor', 'auth', 'verified', 'phon
         Route::get('/delete-question/{id}', 'destroy')->name('instructor.question.delete');
     });
 
-    // start course assignment
+    // New -- start course assignment
     Route::controller(AssignmentController::class)->group(function () {
         Route::get('assignment-list', 'index')->name('instructor.assignment.index');
         Route::get('assignment/submission/{id}', 'submission')->name('instructor.assignment.submission');
@@ -159,13 +159,39 @@ Route::prefix('instructor')->middleware(['instructor', 'auth', 'verified', 'phon
         Route::get('assignment/submission-download/{assignment_id}', 'assignmentSubmissionDownload')->name('instructor.assignment_submission.download'); // assignment submission download
 
         Route::get('assignment-view/{id}', 'view')->name('instructor.assignment.view');
+
         Route::get('/add-assignment/{id}', 'create')->name('instructor.assignment.add');
         Route::post('/store-assignment/{id}', 'store')->name('instructor.assignment.store');
+//        Route::get('assignment-view/{id}', 'view')->name('instructor.assignment.view');
+
         Route::get('/edit-assignment/{id}', 'edit')->name('instructor.assignment.edit');
         Route::post('/update-assignment/{id}', 'update')->name('instructor.assignment.update');
         Route::get('/delete-assignment/{id}', 'destroy')->name('instructor.assignment.delete');
-        Route::get('course/assignment/{id}', 'ajaxAssignment')->name('ajax.instructor.course.assignment'); // course assignment ajax
+//        Route::get('course/assignment/{id}', 'ajaxAssignment')->name('ajax.instructor.course.assignment');
     });
+    // New -- end course assignment
+
+
+
+
+
+    // start course assignment
+//    Route::controller(AssignmentController::class)->group(function () {
+//        Route::get('assignment-list', 'index')->name('instructor.assignment.index');
+//        Route::get('assignment/submission/{id}', 'submission')->name('instructor.assignment.submission');
+//        Route::get('assignment/review/{id}', 'review')->name('instructor.assignment.review');
+//        Route::post('assignment/marks/{id}', 'marks')->name('instructor.assignment.marks');
+//        Route::get('assignment/download/{assignment_id}', 'assignmentDownload')->name('instructor.assignment.download'); // assignment download
+//        Route::get('assignment/submission-download/{assignment_id}', 'assignmentSubmissionDownload')->name('instructor.assignment_submission.download'); // assignment submission download
+//
+//        Route::get('assignment-view/{id}', 'view')->name('instructor.assignment.view');
+//        Route::get('/add-assignment/{id}', 'create')->name('instructor.assignment.add');
+//        Route::post('/store-assignment/{id}', 'store')->name('instructor.assignment.store');
+//        Route::get('/edit-assignment/{id}', 'edit')->name('instructor.assignment.edit');
+//        Route::post('/update-assignment/{id}', 'update')->name('instructor.assignment.update');
+//        Route::get('/delete-assignment/{id}', 'destroy')->name('instructor.assignment.delete');
+//        Route::get('course/assignment/{id}', 'ajaxAssignment')->name('ajax.instructor.course.assignment'); // course assignment ajax
+//    });
     // end course assignment
 
     // start course noticeboard
