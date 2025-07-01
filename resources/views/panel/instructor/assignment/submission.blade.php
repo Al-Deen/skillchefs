@@ -68,6 +68,13 @@
                                             class="action-success main-modal-open">
                                             <i class="ri-eye-line"></i>
                                         </a>
+                                       @if(@$submission->is_reviewed)
+                                        <a title="Update" href="javascript:void(0)"
+                                           data-url="{{ route('instructor.assignment.review-update', encryptFunction($submission->id)) }}"
+                                           class="action-success main-modal-open">
+                                            <i class="ri-edit-line"></i>
+                                        </a>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty

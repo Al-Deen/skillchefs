@@ -306,6 +306,50 @@
                 @endif
                 {{-- end Students --}}
 
+
+                {{-- start Ambassador--}}
+
+                <li class="sidebar-menu-item">
+                    <a class="parent-item-content has-arrow">
+                        <i class="las la-chalkboard-teacher"></i>
+                        <span class="on-half-expanded">{{ ___('backend_sidebar.Ambassador') }}</span>
+                    </a>
+
+                    <!-- second layer child menu list start  -->
+                    <ul class="child-menu-list">
+
+{{--                        @if (hasPermission('instructor_list'))--}}
+                            <li class="sidebar-menu-item {{ set_menu(['admin.ambassador.requests']) }}">
+                                <a
+                                    href="{{ route('admin.ambassador.requests') }}">{{ ___('backend_sidebar.Requested Ambassador') }}</a>
+                            </li>
+{{--                        @endif--}}
+{{--                        @if (hasPermission('instructor_suspend_list'))--}}
+                            <li class="sidebar-menu-item {{ set_menu(['admin.instructor.suspends']) }}">
+                                <a
+                                    href="{{ route('admin.instructor.suspends') }}">{{ ___('backend_sidebar.Suspended Instructor') }}</a>
+                            </li>
+{{--                        @endif--}}
+
+{{--                        @if (hasPermission('instructor_list'))--}}
+                            <li
+                                class="sidebar-menu-item {{ set_menu(['admin.instructor.index', 'admin/instructor/edit/*']) }}">
+                                <a
+                                    href="{{ route('admin.instructor.index') }}">{{ ___('backend_sidebar.Instructor List') }}</a>
+                            </li>
+{{--                        @endif--}}
+
+{{--                        @if (hasPermission('instructor_create'))--}}
+                            <li class="sidebar-menu-item {{ set_menu(['admin.instructor.create']) }}">
+                                <a
+                                    href="{{ route('admin.instructor.create') }}">{{ ___('backend_sidebar.Create Instructor') }}</a>
+                            </li>
+{{--                        @endif--}}
+
+                    </ul>
+                </li>
+                {{-- end Ambassador--}}
+
                 {{-- start Reviews --}}
                 @if (hasPermission('review_list'))
                     <li class="sidebar-menu-item">

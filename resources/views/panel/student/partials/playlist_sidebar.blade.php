@@ -105,9 +105,6 @@
                                                 @endforeach
                                                 <!-- Single video -->
                                             </ul>
-                                            <h6 style="float:left;">Assignments</h6>
-                                            <br>
-
                                             @php
                                                 $section_id = $section->id;
                                                 $course_id = $section->course_id;

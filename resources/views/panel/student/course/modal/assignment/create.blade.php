@@ -26,11 +26,16 @@
                         </div>
 
                     </div>
+
                     @if ($data['assignment']->assignmentFile)
+                        @php
+                                 $fileFullName = $data['assignment']->assignmentFile->name;
+                                 $filename = implode('-', array_slice(explode('-', $fileFullName), 4));
+                        @endphp
                         <h6 class="title mb-25">
                             <strong>{{ ___('student.Attachment') }} : </strong>
                             <a href="{{ route('student.assignment.download', [$data['enroll_id'], encryptFunction($data['assignment']->id)]) }}"
-                                class="ms-5" href=""><i class="ri-download-2-fill"></i></a>
+                                class="ms-5" href=""><i class="ri-download-2-fill"></i> {{$filename}}</a>
                         </h6>
                     @endif
                     <h6 class="title mb-25">

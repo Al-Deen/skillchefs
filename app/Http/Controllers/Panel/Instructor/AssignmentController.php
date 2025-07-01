@@ -86,6 +86,23 @@ class AssignmentController extends Controller
         }
     }
 
+    public function reviewUpdate($assignment_id)
+    {
+        try {
+            $data['assignmentSubmission'] = $this->assignmentSubmit->model()->where('id', decryptFunction($assignment_id))->first(); // data
+            if (!$data['assignmentSubmission']) {
+                return $this->responseWithError('danger', ___('alert.Assignment not found'));
+            }
+            $data['url'] = route('instructor.assignment.marks', [$assignment_id]); // url
+            $data['title'] = ___('course.Assignment Submission Details'); // title
+            @$data['button'] = ___('common.Update');
+            $html = view('panel.instructor.modal.assignment.review-update', compact('data'))->render(); // render view
+            return $this->responseWithSuccess(___('alert.data_retrieve_success'), $html); // return success response
+        } catch (\Throwable $th) {
+            return $this->responseWithError(___('alert.something_went_wrong_please_try_again'), [], 400); // return error response
+        }
+    }
+
     public function assignmentDownload($assignment_id)
     {
         try {

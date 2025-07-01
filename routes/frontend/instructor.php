@@ -154,6 +154,7 @@ Route::prefix('instructor')->middleware(['instructor', 'auth', 'verified', 'phon
         Route::get('assignment-list', 'index')->name('instructor.assignment.index');
         Route::get('assignment/submission/{id}', 'submission')->name('instructor.assignment.submission');
         Route::get('assignment/review/{id}', 'review')->name('instructor.assignment.review');
+        Route::get('assignment/review/update/{id}', 'reviewUpdate')->name('instructor.assignment.review-update');
         Route::post('assignment/marks/{id}', 'marks')->name('instructor.assignment.marks');
         Route::get('assignment/download/{assignment_id}', 'assignmentDownload')->name('instructor.assignment.download'); // assignment download
         Route::get('assignment/submission-download/{assignment_id}', 'assignmentSubmissionDownload')->name('instructor.assignment_submission.download'); // assignment submission download
