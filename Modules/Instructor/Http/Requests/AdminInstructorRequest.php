@@ -21,10 +21,8 @@ class AdminInstructorRequest extends FormRequest
                 "date_of_birth" => "required|max:30",
                 "gender" => "required|max:30",
                 "address" => "nullable|max:255",
-                "country_id" => "required|max:30",
                 "designation" => "required|max:255",
                 "about_me" => "nullable|max:800",
-                "profile_image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1048",
             ];
         } elseif ($this->slug == 'security') {
             return [
@@ -65,15 +63,10 @@ class AdminInstructorRequest extends FormRequest
             "gender.max" => ___('validation.gender_must_be_less_than_30_characters'),
             "address.required" => ___('validation.address_is_required'),
             "address.max" => ___('validation.address_must_be_less_than_255_characters'),
-            "country_id.required" => ___('validation.country_is_required'),
-            "country_id.max" => ___('validation.country_must_be_less_than_30_characters'),
             "designation.required" => ___('validation.designation_is_required'),
             "designation.max" => ___('validation.designation_must_be_less_than_255_characters'),
             "about_me.required" => ___('validation.about_me_is_required'),
             "about_me.max" => ___('validation.about_me_must_be_less_than_800_characters'),
-            "profile_image.image" => ___('validation.profile_image_must_be_an_image'),
-            "profile_image.mimes" => ___('validation.profile_image_must_be_a_file_of_type:jpeg,png,jpg,gif,svg'),
-            "profile_image.max" => ___('validation.profile_image_must_be_less_than_1048_kilobytes'),
             // general
 
             // security

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\AmbassadorController;
 use App\Http\Controllers\Backend\BookController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\RoleController;
@@ -100,6 +101,25 @@ use App\Http\Controllers\Backend\AuthenticationController;
                  Route::get('/view/book-short-file/{id}', 'shortFilePDFView')->name('book.short-file.view');
                  Route::get('/view/full-file-book/{id}', 'fullFilePDFView')->name('book.fullfile.view');
                  Route::get('/delete-book/{id}', 'delete')->name('book.destroy');
+         });
+
+         Route::prefix('ambassador')->group(function () {
+             Route::controller(AmbassadorController::class)->group(function () {
+                 Route::get('/list', 'index')->name('admin.ambassador.index');
+                 Route::get('/requests', 'requests')->name('admin.ambassador.requests');
+                Route::get('/suspended', 'suspends')->name('admin.ambassador.suspends');
+
+
+                Route::get('/create', 'create')->name('admin.ambassador.create');
+                 Route::post('/store', 'store')->name('admin.ambassador.store');
+                 Route::get('/edit/{id}/{slug}', 'edit')->name('admin.ambassador.edit');
+                 Route::post('/update/{id}/{slug}', 'update')->name('admin.ambassador.update');
+
+                 Route::get('/login/{id}', 'login')->name('admin.ambassador.login');
+                 Route::get('/approve/{id}', 'approve')->name('admin.ambassador.approve');
+                 Route::get('/suspend/{id}', 'suspend')->name('admin.ambassador.suspend');
+                 Route::get('/re-activate/{id}', 'reActivate')->name('admin.ambassador.re_activate');
+             });
          });
 
      });

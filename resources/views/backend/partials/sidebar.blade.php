@@ -325,24 +325,24 @@
                             </li>
 {{--                        @endif--}}
 {{--                        @if (hasPermission('instructor_suspend_list'))--}}
-                            <li class="sidebar-menu-item {{ set_menu(['admin.instructor.suspends']) }}">
+                            <li class="sidebar-menu-item {{ set_menu(['admin.ambassador.suspends']) }}">
                                 <a
-                                    href="{{ route('admin.instructor.suspends') }}">{{ ___('backend_sidebar.Suspended Instructor') }}</a>
+                                    href="{{ route('admin.ambassador.suspends') }}">{{ ___('backend_sidebar.Suspended Ambassador') }}</a>
                             </li>
 {{--                        @endif--}}
 
 {{--                        @if (hasPermission('instructor_list'))--}}
                             <li
-                                class="sidebar-menu-item {{ set_menu(['admin.instructor.index', 'admin/instructor/edit/*']) }}">
+                                class="sidebar-menu-item {{ set_menu(['admin.ambassador.index', 'admin/ambassador/edit/*']) }}">
                                 <a
-                                    href="{{ route('admin.instructor.index') }}">{{ ___('backend_sidebar.Instructor List') }}</a>
+                                    href="{{ route('admin.ambassador.index') }}">{{ ___('backend_sidebar.Ambassador List') }}</a>
                             </li>
 {{--                        @endif--}}
 
 {{--                        @if (hasPermission('instructor_create'))--}}
-                            <li class="sidebar-menu-item {{ set_menu(['admin.instructor.create']) }}">
+                            <li class="sidebar-menu-item {{ set_menu(['admin.ambassador.create']) }}">
                                 <a
-                                    href="{{ route('admin.instructor.create') }}">{{ ___('backend_sidebar.Create Instructor') }}</a>
+                                    href="{{ route('admin.ambassador.create') }}">{{ ___('backend_sidebar.Create Ambassador') }}</a>
                             </li>
 {{--                        @endif--}}
 
