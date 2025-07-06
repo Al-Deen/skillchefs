@@ -759,6 +759,12 @@
                             {{-- End payment method --}}
 
 
+                            <li class="sidebar-menu-item">
+                                <a
+                                    href="{{ route('settings.ambassador-page-setting') }}">{{ ___('settings.Ambassador page setting') }}</a>
+                            </li>
+
+
 
                         </ul>
                     </li>

@@ -7,6 +7,7 @@ use App\Events\UserEmailVerifyEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\frontend\instructor\InstructorRegistration;
 use App\Models\Ambassador;
+use App\Models\AmbassadorSetting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,9 @@ class AmbassadorAuthController extends Controller
     public function becomeAmbassador()
     {
         try {
-            $data['title']      = ___('frontend.Become An Ambassador'); // title
+            $data['title']      = ___('frontend.Become An Ambassador');
+            $data['ambassador_settings'] = AmbassadorSetting::first();
+
             return view('frontend.auth.become_ambassador', compact('data'));
         } catch (\Throwable $th) {
             return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));

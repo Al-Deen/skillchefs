@@ -85,6 +85,9 @@ use App\Http\Controllers\Backend\AuthenticationController;
         Route::get('/email-setting',                 'mailSetting')->name('settings.mail-setting')->middleware('PermissionCheck:email_settings_read');
         Route::post('/email-setting',                'updateMailSetting')->name('settings.mail-setting')->middleware('PermissionCheck:email_settings_update');
 
+        Route::get('/ambassador-page-setting',                 'ambassadorPageSetting')->name('settings.ambassador-page-setting');
+        Route::post('/ambassador-page-setting/update',                'updateAmbassadorPageSetting')->name('settings.update-ambassador-setting');
+
         //Theme Change
         Route::post('/change-theme',                 'changeTheme')->name('changeTheme');
     });

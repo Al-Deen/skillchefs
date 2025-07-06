@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\AmbassadorSetting;
 use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -157,7 +158,7 @@ class SettingController extends Controller
         }
     }
     // Twilio setting end
-    
+
     // mail settings start
     public function mailSetting()
     {
@@ -193,4 +194,64 @@ class SettingController extends Controller
         Cache::put('user_theme', $request->theme_mode);
         return true;
     }
+
+
+    public function ambassadorPageSetting()
+    {
+        $data['title'] = ___('settings.Ambassador Page Setting');
+        $data['data'] = AmbassadorSetting::first();
+        return view('backend.settings.ambassador-page-settings', compact('data'));
+    }
+
+
+    public function updateAmbassadorPageSetting(Request $request)
+    {
+        try {
+            if (env('APP_DEMO')) {
+                return redirect()->back()->with('danger', ___('alert.you_can_not_change_in_demo_mode'));
+            }
+
+            $request->validate([
+                'title' => 'nullable|string|max:255',
+                'description' => 'nullable|string',
+                'points' => 'nullable|array',
+                'points.*.title' => 'required_with:points|string|max:255',
+                'points.*.description' => 'required_with:points|string',
+                'questions' => 'nullable|array',
+                'questions.*.title' => 'required_with:questions|string|max:255',
+            ]);
+
+            $pointTitles = [];
+            $pointDescriptions = [];
+
+            if ($request->points) {
+                foreach ($request->points as $point) {
+                    $pointTitles[] = $point['title'];
+                    $pointDescriptions[] = $point['description'];
+                }
+            }
+
+            $questions = [];
+            if ($request->questions) {
+                foreach ($request->questions as $question) {
+                    $questions[] = $question['title'];
+                }
+            }
+
+            $setting = AmbassadorSetting::firstOrNew();
+
+            $setting->title = $request->title;
+            $setting->description = $request->description;
+            $setting->point_title = json_encode($pointTitles);
+            $setting->point_description = json_encode($pointDescriptions);
+            $setting->questions = json_encode($questions);
+            $setting->save();
+
+            return redirect()->back()->with('success', ___('alert.Successfully Data Updated.'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
+        }
+    }
+
+
 }
