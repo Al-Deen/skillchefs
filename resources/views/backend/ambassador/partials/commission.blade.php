@@ -34,7 +34,7 @@
                                 <span class="fillable">*</span>
                             </label>
                             <input class="form-control ot-input @error('commission') is-invalid @enderror"
-                                value="{{ @$data['instructor']->commission }}" name="commission" type="number"
+                                value="{{ @$data['ambassador']->commission }}" name="commission" type="number"
                                 id="commission" placeholder="10">
                             @error('commission')
                                 <div id="validationServer04Feedback" class="invalid-feedback">
@@ -48,7 +48,7 @@
                                 <span class="fillable">*</span>
                             </label>
                             <input class="form-control ot-input @error('event_commission') is-invalid @enderror"
-                                value="{{ @$data['instructor']->user->event_commission }}" name="event_commission"
+                                value="{{ @$data['ambassador']->user->event_commission }}" name="event_commission"
                                 type="number" id="event_commission" placeholder="10">
                             @error('event_commission')
                                 <div id="validationServer04Feedback" class="invalid-feedback">

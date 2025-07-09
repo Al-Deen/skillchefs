@@ -21,7 +21,7 @@ class AmbassadorAuthController extends Controller
         try {
             $data['title']      = ___('frontend.Become An Ambassador');
             $data['ambassador_settings'] = AmbassadorSetting::first();
-
+            $data['ambassadors'] =Ambassador::active()->get();
             return view('frontend.auth.become_ambassador', compact('data'));
         } catch (\Throwable $th) {
             return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));

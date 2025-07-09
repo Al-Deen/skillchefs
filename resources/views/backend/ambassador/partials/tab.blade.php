@@ -45,32 +45,14 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link  {{ menu_active_by_url(route('admin.instructor.edit', [ $data['ambassador']->id, 'security'])) }}"
-                                        href="{{ route('admin.instructor.edit', [ $data['ambassador']->id, 'security']) }}">
+                                    <a class="nav-link  {{ menu_active_by_url(route('admin.ambassador.edit', [ $data['ambassador']->id, 'security'])) }}"
+                                        href="{{ route('admin.ambassador.edit', [ $data['ambassador']->id, 'security']) }}">
                                         {{ ___('Instructor.Security') }}
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link  {{ menu_active_by_url(route('admin.instructor.edit', [ $data['ambassador']->id, 'educations'])) }}"
-                                        href="{{ route('admin.instructor.edit', [ $data['ambassador']->id, 'educations']) }}">
-                                        {{ ___('Instructor.Educations') }}
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link  {{ menu_active_by_url(route('admin.instructor.edit', [ $data['ambassador']->id, 'experiences'])) }}"
-                                        href="{{ route('admin.instructor.edit', [ $data['ambassador']->id, 'experiences']) }}">
-                                        {{ ___('instructor.Experiences') }}
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link  {{ menu_active_by_url(route('admin.instructor.edit', [ $data['ambassador']->id, 'skill'])) }}"
-                                        href="{{ route('admin.instructor.edit', [ $data['ambassador']->id, 'skill']) }}">
-                                        {{ ___('instructor.Skills & Expertise') }}
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link  {{ menu_active_by_url(route('admin.instructor.edit', [ $data['ambassador']->id, 'commission'])) }}"
-                                        href="{{ route('admin.instructor.edit', [ $data['ambassador']->id, 'commission']) }}">
+                                    <a class="nav-link  {{ menu_active_by_url(route('admin.ambassador.edit', [ $data['ambassador']->id, 'commission'])) }}"
+                                        href="{{ route('admin.ambassador.edit', [ $data['ambassador']->id, 'commission']) }}">
                                         {{ ___('instructor.Commission') }}
                                     </a>
                                 </li>
@@ -107,11 +89,7 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
-
-                    {{-- instructor Profile --}}
                     <div class="table-basic table-content">
                         <nav>
                             <ul class="nav nav-pills">
@@ -122,45 +100,23 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link  {{ menu_active_by_url(route('admin.instructor.edit', [ $data['ambassador']->id, 'security'])) }}"
-                                        href="{{ route('admin.instructor.edit', [ $data['ambassador']->id, 'security']) }}">
+                                    <a class="nav-link  {{ menu_active_by_url(route('admin.ambassador.edit', [ $data['ambassador']->id, 'security'])) }}"
+                                        href="{{ route('admin.ambassador.edit', [ $data['ambassador']->id, 'security']) }}">
                                         {{ ___('Instructor.Security') }}
                                     </a>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link  {{ menu_active_by_url(route('admin.instructor.edit', [ $data['ambassador']->id, 'educations'])) }}"
-                                        href="{{ route('admin.instructor.edit', [ $data['ambassador']->id, 'educations']) }}">
-                                        {{ ___('Instructor.Educations') }}
-                                    </a>
-                                </li>
                                 <li class="nav-item">
-                                    <a class="nav-link  {{ menu_active_by_url(route('admin.instructor.edit', [ $data['ambassador']->id, 'experiences'])) }}"
-                                        href="{{ route('admin.instructor.edit', [ $data['ambassador']->id, 'experiences']) }}">
-                                        {{ ___('instructor.Experiences') }}
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link  {{ menu_active_by_url(route('admin.instructor.edit', [ $data['ambassador']->id, 'skill'])) }}"
-                                        href="{{ route('admin.instructor.edit', [ $data['ambassador']->id, 'skill']) }}">
-                                        {{ ___('instructor.Skills & Expertise') }}
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link  {{ menu_active_by_url(route('admin.instructor.edit', [ $data['ambassador']->id, 'commission'])) }}"
-                                        href="{{ route('admin.instructor.edit', [ $data['ambassador']->id, 'commission']) }}">
+                                    <a class="nav-link  {{ menu_active_by_url(route('admin.ambassador.edit', [ $data['ambassador']->id, 'commission'])) }}"
+                                        href="{{ route('admin.ambassador.edit', [ $data['ambassador']->id, 'commission']) }}">
                                         {{ ___('instructor.Commission') }}
                                     </a>
                                 </li>
                             </ul>
                         </nav>
                     </div>
-
-
                 </div>
             </div>
         </div>
-
         <!-- profile menu body end -->
     </div>
 </div>

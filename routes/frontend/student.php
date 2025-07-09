@@ -57,6 +57,7 @@ Route::prefix('student')->middleware(['student', 'auth', 'verified', 'phone_veri
         Route::get('assignment/details/{enroll_id}/{assignment_id}', 'assignmentDetails')->name('student.assignment.details'); // student enroll course progress
         Route::post('assignment/store/{lesson_id}/{assignment_id}', 'assignmentStore')->name('student.assignment.store'); // student enroll course
         Route::get('assignment/download/{enroll_id}/{assignment_id}', 'assignmentDownload')->name('student.assignment.download'); // student enroll course progress
+        Route::get('assignment/preview/{id}', 'preview')->name('student.assignment.preview');
     });
     // course assignment
 

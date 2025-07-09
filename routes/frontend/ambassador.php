@@ -50,40 +50,17 @@ Route::prefix('ambassador')->middleware(['ambassador', 'auth'])->group(function 
                 Route::get('profile/{slug?}', 'setting')->name('ambassador.setting');
                 Route::post('/update-profile', 'updateProfile')->name('ambassador.update_profile');
                 Route::post('update-password', 'updatePassword')->name('ambassador.update_password');
-
-//                Route::get('add-skills', 'addSkill')->name('instructor.add.skill');
-//                Route::post('store-skills', 'storeSkill')->name('instructor.store.skill');
             });
-
-            // Instructor education
             Route::controller(EducationController::class)->group(function () {
-                // add institute
                 Route::get('add-institute', 'addInstitute')->name('ambassador.addInstitute');
                 Route::post('store-institute', 'storeInstitute')->name('ambassador.store.institute');
                 Route::get('edit-institute/{key}', 'editInstitute')->name('ambassador.edit.institute');
                 Route::post('update-institute/{key}', 'updateInstitute')->name('ambassador.update.institute');
                 Route::get('delete-institute/{key}', 'deleteInstitute')->name('ambassador.delete.institute');
             });
-            // Instructor education
-
-            // Instructor experience
-//            Route::controller(ExperienceController::class)->group(function () {
-//                // add institute
-//                Route::get('add-experience', 'addExperience')->name('instructor.add.experience');
-//                Route::post('store-experience', 'storeExperience')->name('instructor.store.experience');
-//                Route::get('edit-experience/{key}', 'editExperience')->name('instructor.edit.experience');
-//                Route::post('update-experience/{key}', 'updateExperience')->name('instructor.update.experience');
-//                Route::get('delete-experience/{key}', 'deleteExperience')->name('instructor.delete.experience');
-//            });
-            // Instructor experience
-
         });
     });
-
 });
-// End instructor Dashboard Related routes
 
-//Route::controller(AmbassadorController::class)->group(function () {
-//    Route::get('/instractors', 'index')->name('instractors');
-//    Route::get('/instructor-details', 'details')->name('instructorDetails');
-//});
+
+

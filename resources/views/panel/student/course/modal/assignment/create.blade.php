@@ -27,17 +27,41 @@
 
                     </div>
 
+{{--                    @if ($data['assignment']->assignmentFile)--}}
+{{--                        @php--}}
+{{--                                 $fileFullName = $data['assignment']->assignmentFile->name;--}}
+{{--                                 $filename = implode('-', array_slice(explode('-', $fileFullName), 4));--}}
+{{--                        @endphp--}}
+{{--                        <h6 class="title mb-25">--}}
+{{--                            <strong>{{ ___('student.Attachment') }} : </strong>--}}
+{{--                            <a href="{{ route('student.assignment.download', [$data['enroll_id'], encryptFunction($data['assignment']->id)]) }}"--}}
+{{--                                class="ms-5" href=""><i class="ri-download-2-fill"></i> {{$filename}}</a>--}}
+{{--                        </h6>--}}
+{{--                    @endif--}}
+
+
                     @if ($data['assignment']->assignmentFile)
                         @php
-                                 $fileFullName = $data['assignment']->assignmentFile->name;
-                                 $filename = implode('-', array_slice(explode('-', $fileFullName), 4));
+                            $fileFullName = $data['assignment']->assignmentFile->name;
+                            $filename = implode('-', array_slice(explode('-', $fileFullName), 4));
                         @endphp
+
                         <h6 class="title mb-25">
                             <strong>{{ ___('student.Attachment') }} : </strong>
+
+                            <a href="{{ route('student.assignment.preview', encryptFunction($data['assignment']->id)) }}"
+                               target="_blank" class="btn btn-sm btn-outline-primary ms-2">
+                                <i class="ri-eye-line"></i> {{ ___('student.View') }}
+                            </a>
+
+                            <!-- Download Button -->
                             <a href="{{ route('student.assignment.download', [$data['enroll_id'], encryptFunction($data['assignment']->id)]) }}"
-                                class="ms-5" href=""><i class="ri-download-2-fill"></i> {{$filename}}</a>
+                               class="btn btn-sm btn-outline-secondary ms-2">
+                                <i class="ri-download-2-fill"></i> {{ $filename }}
+                            </a>
                         </h6>
                     @endif
+
                     <h6 class="title mb-25">
                         <strong>{{ ___('student.Details')}} : </strong>
                         <p class="pera mb-6">
@@ -69,6 +93,34 @@
                             <span class="ms-2 text-14 text-success">{{ ___('student.Submitted') }}</span>
                         </h6>
                         @endif
+
+                       @if (now() < $data['assignment']->deadline)
+                                <form action="{{ $data['url'] }}" class="row p-2" method="post" id="modal_values"
+                                      enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="ot-contact-form mb-24">
+                                        <label for="content" class="form-label ">{{ ___('course.File Upload') }}</label>
+                                        <div class="ot_fileUploader left-side mb-2 file-upload-browse">
+                                            <input class="form-control form-control file_placeholder" type="text"
+                                                   placeholder="{{ ___('student.Assignment File') }}" id="placeholder">
+                                            <button class="border-0" type="button">
+                                                <label class="btn-uplode" for="assignment_file">{{ ___('student.Brouse') }}</label>
+                                                <input type="file" class="d-none form-control" name="assignment_file"
+                                                       accept=".pdf,.doc,.docx" id="assignment_file">
+                                            </button>
+                                        </div>
+                                        <div class="invalid-feedback d-inline error-assignment_file"></div>
+                                    </div>
+
+                                    <div class="btn-wrapper d-flex flex-wrap gap-10 mt-20">
+                                        <button class="btn-primary-fill " type="button"
+                                                onclick="submitMainForm()">{{ @$data['button'] }}</button>
+                                        <button class="btn-primary-outline close-modal"
+                                                type="button">{{ ___('student.Discard') }}</button>
+                                    </div>
+                                </form>
+
+                       @else
 
                         <div class="text-center border-bottom pb-2 mb-4">
                             <h3 class="text-primary fw-bold">
@@ -109,6 +161,7 @@
                                 </h4>
                             </div>
                         @endif
+                    @endif
                     @else
                         @if (now() > $data['assignment']->deadline)
                             <h6 class="title mb-25 mt-25">

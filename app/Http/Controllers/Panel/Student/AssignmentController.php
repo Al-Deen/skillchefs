@@ -6,9 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Traits\ApiReturnFormatTrait;
 use App\Traits\CommonHelperTrait;
 use Illuminate\Support\Facades\Auth;
+use Modules\Course\Entities\Assignment;
 use Modules\Course\Http\Requests\AssignmentSubmitRequest;
 use Modules\Course\Interfaces\AssignmentSubmitInterface;
 use Modules\Order\Interfaces\EnrollInterface;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
+
 
 class AssignmentController extends Controller
 {
@@ -82,5 +86,26 @@ class AssignmentController extends Controller
         } catch (\Throwable $th) {
             return $this->responseWithError(___('alert.something_went_wrong_please_try_again'), [], 400); // return error response
         }
+    }
+
+    public function preview($id)
+    {
+        $assignment = Assignment::with('assignmentFile')->findOrFail(decryptFunction($id));
+
+        // check relation exists
+        if (!$assignment->assignmentFile || !$assignment->assignmentFile->name) {
+            abort(404, 'File not found.');
+        }
+
+        $fileName = $assignment->assignmentFile->name; // actual filename with extension
+        $filePath = public_path('uploads/course/assignment/assignment_file/' . $fileName);
+
+        if (!File::exists($filePath)) {
+            abort(404, 'File does not exist on the server.');
+        }
+
+        return response()->file($filePath, [
+            'Content-Type' => File::mimeType($filePath)
+        ]);
     }
 }

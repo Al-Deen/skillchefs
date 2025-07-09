@@ -124,6 +124,15 @@
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end">
 
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                       href="{{ route('admin.ambassador.view', [$ambassador->id]) }}">
+                                                            <span class="icon mr-2">
+                                                                <i class="fa-solid fa-eye"></i>
+                                                            </span>
+                                                        {{ ___('common.view') }}
+                                                    </a>
+                                                </li>
 
                                                     <li>
                                                         <a class="dropdown-item"

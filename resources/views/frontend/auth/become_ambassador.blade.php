@@ -24,8 +24,6 @@
                 <p style="text-align: center; font-size: 16px; max-width: 700px; margin: 0 auto 40px;">
                     {{ @$data['ambassador_settings']?->description }}
                 </p>
-
-
                 @php
 
                      $data['point_title']  = json_decode( $data['ambassador_settings']?->point_title);
@@ -46,20 +44,20 @@
                 </div>
             </section>
 
-            <section>
-                <div class="row justify-content-center">
-                    <div class="col-12">
-                        <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-12">
-                            <div class="about-caption text-center mb-5 mt-4">
-                                <h2 class="mb-3" style="font-weight: 600; font-size: 28px;">
+            <section class="d-flex align-items-center justify-content-center">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xxl-6 col-xl-6 col-lg-8 col-md-10">
+                            <div class="about-caption text-center p-4 rounded shadow" style="background-color: #ffffff;">
+                                <h2 class="mb-3 fw-semibold" style="font-size: 32px;">
                                     Ready to Make an Impact?
                                 </h2>
-                                <p class="mb-4" style="font-size: 16px; color: #6c757d;">
+                                <p class="mb-4 text-muted" style="font-size: 16px;">
                                     Join our Ambassador Program and represent the future of learning!
                                 </p>
                                 <button type="button"
-                                        class="btn btn-lg btn-primary shadow-sm px-5 py-2"
-                                        style="border-radius: 50px; font-weight: 500; font-size: 18px; transition: all 0.3s ease-in-out;"
+                                        class="btn btn-lg btn-primary shadow px-5 py-2"
+                                        style="border-radius: 50px; font-weight: 500; font-size: 18px; transition: transform 0.3s ease-in-out;"
                                         data-bs-toggle="modal"
                                         data-bs-target="#registrationModal"
                                         onmouseover="this.style.transform='scale(1.05)'"
@@ -69,9 +67,51 @@
                                 </button>
                             </div>
                         </div>
-            </div>
-            </div>
+                    </div>
+                </div>
             </section>
+
+            <section class="ot-brand-area section-padding2">
+                @if (!empty($data['ambassadors']))
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-xl-12">
+                                <div class="section-tittle text-center mb-15">
+                                    <h3 class="text-capitalize font-600">Ambassdors</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 ">
+                                <div class="brand-wrapper brand-active swiper arrow-style">
+                                    <div class="swiper-wrapper">
+                                        @if (!empty($data['ambassadors']))
+                                            @foreach ($data['ambassadors'] as $ambassadors)
+                                                <div class="swiper-slide mb-20 mt-24">
+                                                    <div class="brand-box">
+                                                        <img class="img-cover"
+                                                             src="{{ showImage(@$ambassadors->user->image_id, 'default-1.jpeg') }}"
+                                                             alt="img">
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                    </div>
+                                    {{-- Arrow Style --}}
+                                    <div class="swiper-button-next swiper-btn">
+                                        <i class="ri-arrow-right-line"></i>
+                                    </div>
+                                    <div class="swiper-button-prev swiper-btn">
+                                        <i class="ri-arrow-left-line"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+            </section>
+
             <div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -178,46 +218,57 @@
 
 @endsection
 @section('scripts')
-<script>
-    // Activate "Question" tab on Next click
-    document.getElementById('nextBtn').addEventListener('click', function () {
-        let tabTrigger = new bootstrap.Tab(document.querySelector('#question-tab'));
-        tabTrigger.show();
-    });
-
-    // Activate "Basic" tab on Previous click
-    document.getElementById('previousBtn').addEventListener('click', function () {
-        let tabTrigger = new bootstrap.Tab(document.querySelector('#basic-tab'));
-        tabTrigger.show();
-    });
-</script>
-
-@section('scripts')
     <script>
+
         document.getElementById('nextBtn').addEventListener('click', function () {
+            // Remove previous validation messages
             document.querySelectorAll('.text-danger.validation-error').forEach(el => el.remove());
+
             let isValid = true;
             const requiredFields = document.querySelectorAll('#basic input[required]');
 
             requiredFields.forEach(field => {
                 if (!field.value.trim()) {
                     isValid = false;
+
                     const errorMessage = document.createElement('div');
                     errorMessage.className = 'text-danger validation-error';
                     errorMessage.innerText = field.placeholder.replace("*", "") + ' is required.';
+
+                    // Append error only if not already shown
                     if (!field.nextElementSibling || !field.nextElementSibling.classList.contains('validation-error')) {
                         field.parentNode.appendChild(errorMessage);
                     }
                 }
             });
+
             if (isValid) {
+                // Show Question tab only if all required fields are filled
                 let tabTrigger = new bootstrap.Tab(document.querySelector('#question-tab'));
                 tabTrigger.show();
             }
         });
+
+    </script>
+@endsection
+@section('scripts')
+    <script>
+        document.getElementById('previousBtn').addEventListener('click', function () {
+            let tabTrigger = new bootstrap.Tab(document.querySelector('#basic-tab'));
+            tabTrigger.show();
+        });
+
+        // Activate "Question" tab on Next click
+        document.getElementById('nextBtn').addEventListener('click', function () {
+            let tabTrigger = new bootstrap.Tab(document.querySelector('#question-tab'));
+            tabTrigger.show();
+        });
+
+        // Activate "Basic" tab on Previous click
         document.getElementById('previousBtn').addEventListener('click', function () {
             let tabTrigger = new bootstrap.Tab(document.querySelector('#basic-tab'));
             tabTrigger.show();
         });
     </script>
 @endsection
+

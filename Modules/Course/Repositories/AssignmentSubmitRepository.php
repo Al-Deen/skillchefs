@@ -32,43 +32,60 @@ class AssignmentSubmitRepository implements AssignmentSubmitInterface
 
     public function store($request, $enroll_id, $assignment_id)
     {
-
-        DB::beginTransaction(); // start database transaction
+        DB::beginTransaction();
         try {
             $enroll_id = decryptFunction($enroll_id);
             $assignment_id = decryptFunction($assignment_id);
-            $assignmentModel = $this->assignmentModel->where('id', $assignment_id)->first(); // get assignment model
+
+            $assignmentModel = $this->assignmentModel->where('id', $assignment_id)->first();
             if (!$assignmentModel) {
-                return $this->responseWithError(___('alert.Assignment not found'), [], 400); // return error response
+                return $this->responseWithError(___('alert.Assignment not found'), [], 400);
             }
-            $assignmentSubmitModel = $this->model->where('user_id', Auth::id())->where('assignment_id', $assignment_id)->first(); // get assignment submit model
-            if ($assignmentSubmitModel) {
-                return $this->responseWithError(___('alert.Assignment already submitted'), [], 400); // return error response
+            $assignmentSubmitModel = $this->model
+                ->where('user_id', Auth::id())
+                ->where('assignment_id', $assignment_id)
+                ->first();
+
+            if (!$assignmentSubmitModel) {
+                $assignmentSubmitModel = new $this->model;
+                $assignmentSubmitModel->user_id = Auth::id();
+                $assignmentSubmitModel->assignment_id = $assignment_id;
+                $assignmentSubmitModel->enroll_id = $enroll_id;
             }
-            $assignmentSubmitModel = $this->model; // get assignment submit model
-            $assignmentSubmitModel->user_id = Auth::id(); // user_id
-            $assignmentSubmitModel->assignment_id = $assignment_id; // assignment_id
-            $assignmentSubmitModel->enroll_id = $enroll_id; // enroll_id
-            $assignmentSubmitModel->is_submitted = 11; // is_submitted
-            // assignment_file upload
+            $assignmentSubmitModel->is_submitted = 11;
             if ($request->hasFile('assignment_file')) {
-                $upload = $this->uploadFile($request->assignment_file, 'course/assignment/submission/assignment_file', [], '', 'file'); // upload file and resize image 35x35
+                $upload = $this->uploadFile(
+                    $request->assignment_file,
+                    'course/assignment/submission/assignment_file',
+                    [],
+                    '',
+                    'file'
+                );
+
                 if ($upload['status']) {
                     $assignmentSubmitModel->assignment_file = $upload['upload_id'];
                 } else {
                     return $this->responseWithError($upload['message'], [], 400);
                 }
             }
-            $assignmentSubmitModel->save(); // save data in database table
 
-            DB::commit(); // commit database transaction
-            return $this->responseWithSuccess(___('alert.Course assignment submitted successfully.')); // return success response
+            $assignmentSubmitModel->save();
+
+            DB::commit();
+
+            // যদি আপডেট হয় তাহলে আলাদা মেসেজ দিতে পারি (ঐচ্ছিক)
+            $message = $assignmentSubmitModel->wasRecentlyCreated
+                ? ___('alert.Course assignment submitted successfully.')
+                : ___('alert.Course assignment updated successfully.');
+
+            return $this->responseWithSuccess($message);
         } catch (\Throwable $th) {
-            DB::rollBack(); // rollback database transaction
-            return $this->responseWithError($th->getMessage(), [], 400); // return error response
+            DB::rollBack();
+            return $this->responseWithError($th->getMessage(), [], 400);
         }
     }
-    
+
+
     public function review($request, $assignment_id)
     {
         DB::beginTransaction(); // start database transaction

@@ -368,9 +368,10 @@
                                                 <button class="btn text-primary border-0 p-0 action-success"
                                                     onclick="mainModalOpen(`{{ route('ambassador.edit.institute', [$key]) }}`)"><i
                                                         class="ri-pencil-line"></i></button>
-                                                <button class="btn text-tertiary border-0 p-0 action-danger"
-                                                    onclick="destroyFunction(`{{ route('ambassador.delete.institute', [$key]) }}` )"><i
-                                                        class="ri-delete-bin-line"></i></button>
+                                                <button class="btn text-danger border-0 p-0 action-danger"
+                                                        onclick="confirmDelete('{{ route('ambassador.delete.institute', [$key]) }}')">
+                                                    <i class="ri-delete-bin-line"></i>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -800,4 +801,11 @@
 @endsection
 
 @section('scripts')
+    <script>
+        function confirmDelete(url) {
+            if (confirm('Are you sure you want to delete ?')) {
+                window.location.href = url;
+            }
+        }
+    </script>
 @endsection

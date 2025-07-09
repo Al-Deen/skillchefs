@@ -146,22 +146,22 @@
                                 </div>
                             @enderror
                         </div>
-{{--                        <div class="col-xl-12 col-md-6 mb-3">--}}
-{{--                            <label for="designation" class="form-label ">--}}
-{{--                                {{ ___('ambassador.Profile Image') }}--}}
-{{--                            </label>--}}
-{{--                            <div @if ($data['ambassador']->user->image) data-val="{{ showImage($data['ambassador']->user->image->original) }}" @endif--}}
-{{--                                data-name="profile_image" class="file @error('profile_image') is-invalid @enderror"--}}
-{{--                                data-height="200px ">--}}
-{{--                            </div>--}}
-{{--                            <small--}}
-{{--                                class="text-muted">{{ ___('placeholder.NB : Profile image size will 100px x 100px and not more than 1mb') }}</small>--}}
-{{--                            @error('profile_image')--}}
-{{--                                <div id="validationServer04Feedback" class="invalid-feedback">--}}
-{{--                                    {{ $message }}--}}
-{{--                                </div>--}}
-{{--                            @enderror--}}
-{{--                        </div>--}}
+                        <div class="col-xl-12 col-md-6 mb-3">
+                            <label for="designation" class="form-label ">
+                                {{ ___('ambassador.Profile Image') }}
+                            </label>
+                            <div @if ($data['ambassador']->user->image) data-val="{{ showImage($data['ambassador']->user->image->original) }}" @endif
+                                data-name="profile_image" class="file @error('profile_image') is-invalid @enderror"
+                                data-height="200px ">
+                            </div>
+                            <small
+                                class="text-muted">{{ ___('placeholder.NB : Profile image size will 100px x 100px and not more than 1mb') }}</small>
+                            @error('profile_image')
+                                <div id="validationServer04Feedback" class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
 
                     </div>
                 </div>

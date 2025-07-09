@@ -151,38 +151,22 @@ class AmbassadorController extends Controller
 
     }
 
-
-    public function update(Request $request, $id, $slug)
+    public function view($id)
     {
-            DB::beginTransaction();
-            try {
-
-                $ambassador = Ambassador::where('user_id', $id)->first();
-
-                $ambassador->gender = $request->gender;
-                $ambassador->address = $request->address;
-                $ambassador->about_me = $request->about_me;
-                $ambassador->designation = $request->designation;
-                $ambassador->save(); // save data in database table
-
-                $user = $ambassador->user;
-
-//                if ($request->hasFile('profile_image')) {
-//                    $upload = $this->uploadFile($request->profile_image, 'instructor/profile', [], '', 'image'); // upload file and resize image 35x35
-//                    if ($upload['status']) {
-//                        $user->image_id = $upload['upload_id'];
-//                    }
-//                }
-                $user->name = $request->name;
-                $user->phone = $request->phone;
-                $user->save();
-                DB::commit(); // commit database transaction
-                return redirect()->back()->with('success', ___('alert.Profile updated successfully'));
-            } catch (\Throwable $th) {
-                DB::rollBack(); // rollback database transaction
-                return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
+        try {
+            $data['ambassador'] = Ambassador::where('id', $id)->first();
+            if (!$data['ambassador']) {
+                return redirect()->back()->with('danger', ___('alert.ambassador_not_found'));
             }
+            $data['title'] = ___('ambassador.Ambassador Information'); // title
+            return view('backend.ambassador.view', compact('data'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
+        }
+
     }
+
+
 
     public function suspends(Request $request)
     {
@@ -211,4 +195,125 @@ class AmbassadorController extends Controller
         }
 
     }
+
+    public function update(Request $request, $id, $slug)
+    {
+        try {
+            $ambassador = Ambassador::where('id', $id)->first();
+            if ($slug == 'general') {
+                return $this->updateProfile($request, $ambassador->user_id);
+            } elseif ($slug == 'security') {
+                return $this->updatePassword($request, $ambassador->user_id);
+            } elseif ($slug == 'commission') {
+                return $this->updateCommission($request, $ambassador->user_id);
+            } else {
+                return $this->responseWithError(___('alert.Invalid request.'), [], 400); // return error response
+            }
+            return redirect()->back()->with('success', ___('alert.Profile updated successfully'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
+        }
+    }
+
+    protected function updateProfile(Request $request, $userId)
+    {
+        DB::beginTransaction();
+        try {
+            if (env('APP_DEMO')) {
+                return redirect()->back()->with('danger', ___('alert.you_can_not_change_in_demo_mode'));
+            }
+
+            $ambassador = Ambassador::where('user_id', $userId)->firstOrFail();
+            $user = $ambassador->user;
+
+            $ambassador->date_of_birth   = $request->date_of_birth ? date_db_format($request->date_of_birth) : null;
+            $ambassador->gender          = $request->gender;
+            $ambassador->address         = $request->address;
+            $ambassador->country_id      = $request->country_id;
+            $ambassador->about_me        = $request->about_me;
+            $ambassador->designation     = $request->designation;
+            $ambassador->save();
+
+            $user->name         = $request->name;
+            $user->phone        = $request->phone;
+            $user->facebook_id  = $request->facebook_id;
+            $user->linkedin_id  = $request->linkedin_id;
+            $user->instagram_id = $request->instagram_id;
+            $user->quora_id     = $request->quora_id;
+
+            if ($request->hasFile('profile_image')) {
+                $upload = $this->uploadFile($request->profile_image, 'ambassador/profile', [], '', 'image');
+                if ($upload['status']) {
+                    $user->image_id = $upload['upload_id'];
+                } else {
+                    return redirect()->back()->with('danger', $upload['message']);
+                }
+            }
+
+            $user->save();
+            DB::commit();
+
+            return redirect()->back()->with('success', ___('alert.Profile updated successfully.'));
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
+        }
+    }
+
+    protected function updatePassword(Request $request, $userId)
+    {
+        DB::beginTransaction();
+        try {
+            if (env('APP_DEMO')) {
+                return redirect()->back()->with('danger', ___('alert.you_can_not_change_in_demo_mode'));
+            }
+            $user = User::findOrFail($userId);
+            if (!Hash::check($request->old_password, $user->password)) {
+                return redirect()->back()->with('danger', ___('alert.Old password does not match.'));
+            }
+            $user->password = Hash::make($request->password);
+            $user->save();
+            DB::commit();
+            return redirect()->back()->with('success', ___('alert.Password updated successfully.'));
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
+        }
+    }
+
+    protected function updateCommission(Request $request, $userId)
+    {
+        DB::beginTransaction();
+
+        try {
+            if (env('APP_DEMO')) {
+                return redirect()->back()->with('danger', ___('alert.you_can_not_change_in_demo_mode'));
+            }
+
+            // Check if password matches the logged-in user
+            if (!Hash::check($request->password, auth()->user()->password)) {
+                return redirect()->back()->with('danger', ___('alert.Password does not match.'));
+            }
+
+            // Get or create Instructor
+            $ambassador =Ambassador::where('user_id',$userId)->first();
+            $ambassador->commission = $request->commission;
+            $ambassador->save();
+
+            // Update event commission on user
+            $user = User::findOrFail($userId);
+            $user->event_commission = $request->event_commission;
+            $user->save();
+
+            DB::commit();
+            return redirect()->back()->with('success', ___('alert.Commission updated successfully.'));
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
+        }
+    }
+
+
+
+
 }

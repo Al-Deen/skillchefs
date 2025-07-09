@@ -118,6 +118,8 @@ use App\Http\Controllers\Backend\AuthenticationController;
                  Route::get('/edit/{id}/{slug}', 'edit')->name('admin.ambassador.edit');
                  Route::post('/update/{id}/{slug}', 'update')->name('admin.ambassador.update');
 
+                 Route::get('/view/{id}', 'view')->name('admin.ambassador.view');
+
                  Route::get('/login/{id}', 'login')->name('admin.ambassador.login');
                  Route::get('/approve/{id}', 'approve')->name('admin.ambassador.approve');
                  Route::get('/suspend/{id}', 'suspend')->name('admin.ambassador.suspend');
