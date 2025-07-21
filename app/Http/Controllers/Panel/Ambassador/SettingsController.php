@@ -12,11 +12,11 @@ use Modules\Instructor\Http\Requests\PasswordRequest;
 use Modules\Instructor\Http\Requests\SkillRequest;
 use Modules\Instructor\Interfaces\InstructorInterface;
 use Illuminate\Http\Request;
+use App\Traits\FileUploadTrait;
 
 class SettingsController extends Controller
 {
-
-    use ApiReturnFormatTrait, CommonHelperTrait;
+    use ApiReturnFormatTrait, CommonHelperTrait, FileUploadTrait;
 
     protected $instructorRepository;
     protected $template = 'panel.ambassador';

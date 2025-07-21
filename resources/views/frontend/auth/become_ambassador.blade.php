@@ -7,6 +7,50 @@
         input, textarea {
             text-transform: none !important;
         }
+
+
+        .ambassador-card {
+            background: transparent;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .ambassador-img-box {
+            background-color: #fff;
+            padding: 15px 10px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+            width: 180px;
+            margin: 0 auto 12px auto;
+            position: relative;
+        }
+
+        .ambassador-img-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .ambassador-role {
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 10px;
+            color: #333;
+        }
+
+        .ambassador-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffc107; /* golden-yellow */
+            margin-bottom: 4px;
+        }
+
+        .ambassador-designation {
+            font-size: 13px;
+            color: #eee;
+        }
+
     </style>
 
     <!--Bradcam S t a r t -->
@@ -77,27 +121,27 @@
                         <div class="row justify-content-center">
                             <div class="col-xl-12">
                                 <div class="section-tittle text-center mb-15">
-                                    <h3 class="text-capitalize font-600">Ambassdors</h3>
+                                    <h3 class="text-capitalize font-600">Latest Ambassadors</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 ">
+                            <div class="col-12">
                                 <div class="brand-wrapper brand-active swiper arrow-style">
                                     <div class="swiper-wrapper">
-                                        @if (!empty($data['ambassadors']))
-                                            @foreach ($data['ambassadors'] as $ambassadors)
-                                                <div class="swiper-slide mb-20 mt-24">
-                                                    <div class="brand-box">
-                                                        <img class="img-cover"
-                                                             src="{{ showImage(@$ambassadors->user->image_id, 'default-1.jpeg') }}"
-                                                             alt="img">
+                                        @foreach ($data['ambassadors'] as $ambassador)
+                                            <div class="swiper-slide mb-20 mt-24">
+                                                <div class="ambassador-card text-center">
+                                                    <div class="ambassador-img-box">
+                                                        <img src="{{ showImage(@$ambassador->user->image_id, 'default-1.jpeg') }}" alt="img">
+                                                        <p class="ambassador-role">Course Moderator<br>& Advisor</p>
                                                     </div>
+                                                    <h5 class="ambassador-name">{{ @$ambassador->user->name }}</h5>
+                                                    <p class="ambassador-designation">{{ @$ambassador?->university}}</p>
                                                 </div>
-                                            @endforeach
-                                        @endif
+                                            </div>
+                                        @endforeach
                                     </div>
-                                    {{-- Arrow Style --}}
                                     <div class="swiper-button-next swiper-btn">
                                         <i class="ri-arrow-right-line"></i>
                                     </div>
@@ -109,8 +153,8 @@
                         </div>
                     </div>
                 @endif
-
             </section>
+
 
             <div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -131,7 +175,8 @@
                             </ul>
 
                             <!-- Form -->
-                            <form action="{{ route('ambassador.sign_up') }}" method="POST" enctype="multipart/form-data">
+
+                              <form id="registrationForm" action="{{ route('ambassador.sign_up') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="tab-content">
                                     <!-- Basic Info Tab -->
@@ -149,11 +194,11 @@
                                                 </div>
 
                                                 <div class="form-group mb-3">
-                                                    <input class="form-control" name="password" type="password" placeholder="Enter Password " required>
+                                                    <input class="form-control" name="password" type="password" placeholder="*Enter Password " required>
                                                 </div>
 
                                                 <div class="form-group mb-3">
-                                                    <input type="text" class="form-control" name="facebook_id" placeholder="Facebook profile">
+                                                    <input type="text" class="form-control" name="facebook_id" placeholder="*Facebook profile" required>
                                                 </div>
 
                                             </div>
@@ -167,13 +212,13 @@
                                                 </div>
 
                                                 <div class="form-group mb-3">
-                                                    <input type="text" class="form-control" name="linkedin_id" placeholder="LinkedIn profile">
+                                                    <input type="text" class="form-control" name="linkedin_id" placeholder="*LinkedIn profile" required>
                                                 </div>
                                                 <div class="form-group mb-3">
-                                                    <input type="text" class="form-control" name="instagram_id" placeholder="Instagram profile">
+                                                    <input type="text" class="form-control" name="instagram_id" placeholder="*Instagram profile" required>
                                                 </div>
                                                 <div class="form-group mb-3">
-                                                    <input type="text" class="form-control" name="quora_id" placeholder="Quora profile">
+                                                    <input type="text" class="form-control" name="quora_id" placeholder="*Quora profile" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -188,8 +233,8 @@
                                             @if(is_array($data['questions']))
                                                 @foreach($data['questions'] ?? [] as $index => $question)
                                                     <div class="col-md-6">
-                                                        <input type="hidden" name="questions[{{ $index }}][title]" value="{{ $question }}">
-                                                        <textarea class="form-control mb-3" name="questions[{{ $index }}][answer]" style="height: 80px;" placeholder="{{ $question }}"></textarea>
+                                                        <input type="hidden" name="questions[{{ $index }}][title]" value="{{ $question }}" required >
+                                                        <textarea class="form-control mb-3" name="questions[{{ $index }}][answer]" required style="height: 80px;" placeholder="{{ $question }}"></textarea>
                                                     </div>
                                                 @endforeach
                                             @endif
@@ -219,9 +264,8 @@
 @endsection
 @section('scripts')
     <script>
-
+        // Handle Next button
         document.getElementById('nextBtn').addEventListener('click', function () {
-            // Remove previous validation messages
             document.querySelectorAll('.text-danger.validation-error').forEach(el => el.remove());
 
             let isValid = true;
@@ -235,7 +279,6 @@
                     errorMessage.className = 'text-danger validation-error';
                     errorMessage.innerText = field.placeholder.replace("*", "") + ' is required.';
 
-                    // Append error only if not already shown
                     if (!field.nextElementSibling || !field.nextElementSibling.classList.contains('validation-error')) {
                         field.parentNode.appendChild(errorMessage);
                     }
@@ -243,13 +286,38 @@
             });
 
             if (isValid) {
-                // Show Question tab only if all required fields are filled
                 let tabTrigger = new bootstrap.Tab(document.querySelector('#question-tab'));
                 tabTrigger.show();
             }
         });
 
+        // Prevent form submission if required fields are empty
+        document.getElementById('registrationForm').addEventListener('submit', function (e) {
+            let isValid = true;
+            document.querySelectorAll('.text-danger.validation-error').forEach(el => el.remove());
+
+            const allRequiredFields = document.querySelectorAll('#registrationForm input[required], #registrationForm textarea[required]');
+
+            allRequiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+
+                    const errorMessage = document.createElement('div');
+                    errorMessage.className = 'text-danger validation-error';
+                    errorMessage.innerText = field.placeholder.replace("*", "") + ' is required.';
+
+                    if (!field.nextElementSibling || !field.nextElementSibling.classList.contains('validation-error')) {
+                        field.parentNode.appendChild(errorMessage);
+                    }
+                }
+            });
+
+            if (!isValid) {
+                e.preventDefault(); // Prevent form submission
+            }
+        });
     </script>
+
 @endsection
 @section('scripts')
     <script>
