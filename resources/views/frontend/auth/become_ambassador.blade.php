@@ -27,11 +27,10 @@
 
         .ambassador-img-box img {
             width: 100%;
-            height: auto;
+            height: 100px;  /* fixed height */
             border-radius: 10px;
             object-fit: cover;
         }
-
         .ambassador-role {
             font-size: 14px;
             font-weight: 500;
@@ -49,6 +48,9 @@
         .ambassador-designation {
             font-size: 13px;
             color: #eee;
+        }
+        .ot-brand-area .arrow-style .swiper-btn {
+            top: 52%;
         }
 
     </style>
@@ -133,11 +135,10 @@
                                             <div class="swiper-slide mb-20 mt-24">
                                                 <div class="ambassador-card text-center">
                                                     <div class="ambassador-img-box">
-                                                        <img src="{{ showImage(@$ambassador->user->image_id, 'default-1.jpeg') }}" alt="img">
-                                                        <p class="ambassador-role">Course Moderator<br>& Advisor</p>
+                                                        <img src="{{ showImage(@$ambassador->user->image->original, 'default-1.jpeg') }}" alt="img">
+                                                        <p class="ambassador-role">{{ @$ambassador->university }}</p>
                                                     </div>
                                                     <h5 class="ambassador-name">{{ @$ambassador->user->name }}</h5>
-                                                    <p class="ambassador-designation">{{ @$ambassador?->university}}</p>
                                                 </div>
                                             </div>
                                         @endforeach
