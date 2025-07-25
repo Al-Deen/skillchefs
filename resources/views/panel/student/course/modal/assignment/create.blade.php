@@ -26,37 +26,30 @@
                         </div>
 
                     </div>
-
-{{--                    @if ($data['assignment']->assignmentFile)--}}
-{{--                        @php--}}
-{{--                                 $fileFullName = $data['assignment']->assignmentFile->name;--}}
-{{--                                 $filename = implode('-', array_slice(explode('-', $fileFullName), 4));--}}
-{{--                        @endphp--}}
-{{--                        <h6 class="title mb-25">--}}
-{{--                            <strong>{{ ___('student.Attachment') }} : </strong>--}}
-{{--                            <a href="{{ route('student.assignment.download', [$data['enroll_id'], encryptFunction($data['assignment']->id)]) }}"--}}
-{{--                                class="ms-5" href=""><i class="ri-download-2-fill"></i> {{$filename}}</a>--}}
-{{--                        </h6>--}}
-{{--                    @endif--}}
-
-
                     @if ($data['assignment']->assignmentFile)
                         @php
-                            $fileFullName = $data['assignment']->assignmentFile->name;
-                            $filename = implode('-', array_slice(explode('-', $fileFullName), 4));
+                              $user = \Illuminate\Support\Facades\Auth::user();
+                              $filePath = $data['assignment']->assignmentFile->original;
+                              $fileFullName = $data['assignment']->assignmentFile->name;
+                              $filename = implode('-', array_slice(explode('-', $fileFullName), 4));
+
                         @endphp
+
+                      <div>
+                          <input type="hidden" id="getFile" value="{{ asset('storage/' . $filePath) }}">
+                          <input type="hidden" id="userPhone" value="{{ $user->phone ?? '' }}">
+                          <input type="hidden" id="userName" value="{{ $user->name ?? '' }}">
+                      </div>
 
                         <h6 class="title mb-25">
                             <strong>{{ ___('student.Attachment') }} : </strong>
 
-                            <a href="{{ route('student.assignment.preview', encryptFunction($data['assignment']->id)) }}"
-                               target="_blank" class="btn btn-sm btn-outline-primary ms-2">
-                                <i class="ri-eye-line"></i> {{ ___('student.View') }}
-                            </a>
-
+                            <button class="btn btn-sm btn-primary ms-2" id="bookPreview">
+                                <i class="ri-book-open-line"></i> Preview
+                            </button>
                             <!-- Download Button -->
                             <a href="{{ route('student.assignment.download', [$data['enroll_id'], encryptFunction($data['assignment']->id)]) }}"
-                               class="btn btn-sm btn-outline-secondary ms-2">
+                               class="btn btn-sm btn-secondary ms-2">
                                 <i class="ri-download-2-fill"></i> {{ $filename }}
                             </a>
                         </h6>
@@ -200,5 +193,185 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="float: right;">
+                    <h5 class="modal-title text-center w-100">   {{ $data['assignment']->title }}</h5> <!-- Centered Title -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <canvas id="pdfViewerCanvas" style="width: 100%;"></canvas>
+                    <div class="pdf-controls text-center mt-3">
+                        <button id="prevPage" class="btn btn-secondary">Previous</button>
+                        <span>Page: <span id="pageNumber"></span> / <span id="totalPages"></span></span>
+                        <button id="nextPage" class="btn btn-secondary btn_Modaltop">Next</button>
+                    </div>
+                    <div class="pdf-jump text-center mt-3">
+                        <label for="jumpToPage">Jump to page:</label>
+                        <input type="number" id="jumpToPage" min="1" class="form-control d-inline-block w-auto"
+                               style="display: inline-block; width: 100px;" />
+                        <button id="jumpToPageBtn" class="btn btn-primary">Go</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="{{ asset('frontend/js/student/__modal.min.js') }}"></script>
+<!-- jQuery first -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Then Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- pdf.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+
+<script>
+    let pdfDoc = null,
+        currentPage = 1,
+        totalPages = 0,
+        scale = 1.5,
+        canvas = document.getElementById('pdfViewerCanvas'),
+        ctx = canvas.getContext('2d');
+
+    // Open modal and load the PDF
+    document.getElementById('bookPreview').addEventListener('click', function() {
+        $('#pdfModal').modal('show');
+        loadPDF();
+    });
+
+    function loadPDF() {
+        const fileInput = document.querySelector("#getFile");
+        const url = encodeURI(fileInput.value);
+        var pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+
+        pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+            pdfDoc = pdfDoc_;
+            totalPages = pdfDoc.numPages;
+            document.getElementById('totalPages').textContent = totalPages;
+            renderPage(currentPage);
+        }).catch(function(error) {
+            $('#pdfModal').modal('show');
+        });
+    }
+
+    function renderPage(pageNum) {
+        pdfDoc.getPage(pageNum).then(function(page) {
+            var viewport = page.getViewport({
+                scale: scale
+            });
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            var renderContext = {
+                canvasContext: ctx,
+                viewport: viewport
+            };
+
+            // Render the PDF page
+            page.render(renderContext).promise.then(function() {
+                // After the PDF page is rendered, add the watermark
+                addWatermark();
+            });
+
+            // Update current page number
+            document.getElementById('pageNumber').textContent = pageNum;
+        });
+    }
+
+    function addWatermark() {
+        var userName = $('#userName').val();
+        var userPhone = $('#userPhone').val();
+
+        // Set watermark properties
+        ctx.font = "bold 40px Arial";
+        ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        // Calculate center position
+        const x = canvas.width / 2;
+        const y = canvas.height / 2;
+
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(-Math.PI / 4); // Diagonal
+
+        // Draw each line separately
+        ctx.fillText(userName, 0, -25); // Slightly above center
+        ctx.fillText(userPhone, 0, 25); // Slightly below center
+
+        ctx.restore();
+    }
+
+    // Go to the Previous Page
+    document.getElementById('prevPage').addEventListener('click', function() {
+        if (currentPage <= 1) {
+            return;
+        }
+        currentPage--;
+        renderPage(currentPage);
+    });
+
+    // Go to the Next Page
+    document.getElementById('nextPage').addEventListener('click', function() {
+        if (currentPage >= totalPages) {
+            return;
+        }
+        currentPage++;
+        renderPage(currentPage);
+    });
+
+    // Jump to a specific page
+    document.getElementById('jumpToPageBtn').addEventListener('click', function() {
+        var jumpToPageNum = parseInt(document.getElementById('jumpToPage').value);
+        if (jumpToPageNum >= 1 && jumpToPageNum <= totalPages) {
+            currentPage = jumpToPageNum;
+            renderPage(currentPage);
+        } else {
+            alert("Please enter a valid page number between 1 and " + totalPages);
+        }
+    });
+
+    // Disable right-click on the modal to prevent context menu (download/print)
+    document.getElementById('pdfModal').addEventListener('contextmenu', function(event) {
+        event.preventDefault();
+    });
+</script>
+
+<script>
+    $('#bookPreview').on('click', function() {
+        $('#pdfModal').modal('show');
+    });
+
+    $('.close').on('click', function() {
+        $('#pdfModal').modal('hide');
+    });
+</script>
+
+{{-- scroll to top features --}}
+<script>
+    const prevButton = document.querySelector("#prevPage");
+    const nextButton = document.querySelector("#nextPage");
+    const goButton = document.querySelector("#jumpToPageBtn");
+    const modal = document.querySelector("#pdfModal");
+
+    const scrollToTop = (button) => {
+        button.addEventListener("click", () => {
+            modal.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+            console.log("Scrolled to top of the modal");
+        });
+    };
+    scrollToTop(prevButton);
+    scrollToTop(nextButton);
+    scrollToTop(goButton);
+</script>

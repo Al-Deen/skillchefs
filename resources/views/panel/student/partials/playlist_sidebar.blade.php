@@ -134,22 +134,15 @@
                                                                 </label>
                                                             </div>
 
-                                                            <div class="d-flex justify-content-between align-items-center w-100" id="assignment-start">
+                                                            <div class="d-flex justify-content-between align-items-center w-100"
+                                                                 id="assignment-start"
+                                                                 style="cursor: pointer;"
+                                                                 onclick="mainModalOpen(`{{ route('student.assignment.details', [encryptFunction($data['enroll']->id), encryptFunction($assignment->id)]) }}`)">
                                                                 <div>
-                                                                    <h6 class="title mb-0"
-                                                                        style="cursor: pointer;"
-                                                                        onclick="mainModalOpen(`{{ route('student.assignment.details', [encryptFunction($data['enroll']->id), encryptFunction($assignment->id)]) }}`)">
+                                                                    <h6 class="title mb-0">
                                                                         {{ $assignment->title }}
                                                                     </h6>
                                                                 </div>
-
-                                                                {{-- Remove this part if no more button needed --}}
-                                                                {{-- <div class="d-flex align-items-center note_action">
-                                                                    <button class="btn btn-sm btn-outline-secondary ms-2"
-                                                                            onclick="mainModalOpen(`{{ route('student.assignment.details', [encryptFunction($data['enroll']->id), encryptFunction($assignment->id)]) }}`)">
-                                                                        <i class="ri-eye-line"></i>
-                                                                    </button>
-                                                                </div> --}}
                                                             </div>
                                                         </div>
                                                     </li>
