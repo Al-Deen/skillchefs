@@ -231,147 +231,151 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 
 <script>
-    let pdfDoc = null,
-        currentPage = 1,
-        totalPages = 0,
-        scale = 1.5,
-        canvas = document.getElementById('pdfViewerCanvas'),
-        ctx = canvas.getContext('2d');
+    $(document).ready(function() {
+        let pdfDoc = null,
+            currentPage = 1,
+            totalPages = 0,
+            scale = 1.5,
+            canvas = document.getElementById('pdfViewerCanvas'),
+            ctx = canvas.getContext('2d');
 
-    // Open modal and load the PDF
-    document.getElementById('bookPreview').addEventListener('click', function() {
-        $('#pdfModal').modal('show');
-        loadPDF();
-    });
 
-    function loadPDF() {
-        const fileInput = document.querySelector("#getFile");
-        const url = encodeURI(fileInput.value);
-        var pdfjsLib = window['pdfjs-dist/build/pdf'];
-        pdfjsLib.GlobalWorkerOptions.workerSrc =
-            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+        function loadPDF(url) {
+            var pdfjsLib = window['pdfjs-dist/build/pdf'];
+            pdfjsLib.GlobalWorkerOptions.workerSrc =
+                'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
 
-        pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
-            pdfDoc = pdfDoc_;
-            totalPages = pdfDoc.numPages;
-            document.getElementById('totalPages').textContent = totalPages;
-            renderPage(currentPage);
-        }).catch(function(error) {
+            pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+                pdfDoc = pdfDoc_;
+                totalPages = pdfDoc.numPages;
+                document.getElementById('totalPages').textContent = totalPages;
+                currentPage = 1;
+                renderPage(currentPage);
+            }).catch(function(error) {
+                alert("Failed to load PDF.");
+                console.error(error);
+            });
+        }
+
+
+        function renderPage(pageNum) {
+            pdfDoc.getPage(pageNum).then(function(page) {
+                var viewport = page.getViewport({ scale: scale });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                var renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+
+                page.render(renderContext).promise.then(function() {
+                    addWatermark();
+                });
+
+                document.getElementById('pageNumber').textContent = pageNum;
+            });
+        }
+
+
+        function addWatermark() {
+            var userName = $('#userName').val();
+            var userPhone = $('#userPhone').val();
+
+            ctx.font = "bold 40px Arial";
+            ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+
+            const x = canvas.width / 2;
+            const y = canvas.height / 2;
+
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(-Math.PI / 4);
+
+            ctx.fillText(userName, 0, -25);
+            ctx.fillText(userPhone, 0, 25);
+
+            ctx.restore();
+        }
+
+
+        $('#bookPreview').on('click', function() {
+            let url = $('#getFile').val();
+            if(!url) {
+                alert("No file URL found.");
+                return;
+            }
             $('#pdfModal').modal('show');
+            loadPDF(encodeURI(url));
         });
-    }
 
-    function renderPage(pageNum) {
-        pdfDoc.getPage(pageNum).then(function(page) {
-            var viewport = page.getViewport({
-                scale: scale
-            });
-            canvas.height = viewport.height;
-            canvas.width = viewport.width;
-
-            var renderContext = {
-                canvasContext: ctx,
-                viewport: viewport
-            };
-
-            // Render the PDF page
-            page.render(renderContext).promise.then(function() {
-                // After the PDF page is rendered, add the watermark
-                addWatermark();
-            });
-
-            // Update current page number
-            document.getElementById('pageNumber').textContent = pageNum;
-        });
-    }
-
-    function addWatermark() {
-        var userName = $('#userName').val();
-        var userPhone = $('#userPhone').val();
-
-        // Set watermark properties
-        ctx.font = "bold 40px Arial";
-        ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-
-        // Calculate center position
-        const x = canvas.width / 2;
-        const y = canvas.height / 2;
-
-        ctx.save();
-        ctx.translate(x, y);
-        ctx.rotate(-Math.PI / 4); // Diagonal
-
-        // Draw each line separately
-        ctx.fillText(userName, 0, -25); // Slightly above center
-        ctx.fillText(userPhone, 0, 25); // Slightly below center
-
-        ctx.restore();
-    }
-
-    // Go to the Previous Page
-    document.getElementById('prevPage').addEventListener('click', function() {
-        if (currentPage <= 1) {
-            return;
-        }
-        currentPage--;
-        renderPage(currentPage);
-    });
-
-    // Go to the Next Page
-    document.getElementById('nextPage').addEventListener('click', function() {
-        if (currentPage >= totalPages) {
-            return;
-        }
-        currentPage++;
-        renderPage(currentPage);
-    });
-
-    // Jump to a specific page
-    document.getElementById('jumpToPageBtn').addEventListener('click', function() {
-        var jumpToPageNum = parseInt(document.getElementById('jumpToPage').value);
-        if (jumpToPageNum >= 1 && jumpToPageNum <= totalPages) {
-            currentPage = jumpToPageNum;
+        $('#prevPage').on('click', function() {
+            if (currentPage <= 1) return;
+            currentPage--;
             renderPage(currentPage);
-        } else {
-            alert("Please enter a valid page number between 1 and " + totalPages);
+            scrollModalToTop();
+        });
+
+        $('#nextPage').on('click', function() {
+            if (currentPage >= totalPages) return;
+            currentPage++;
+            renderPage(currentPage);
+            scrollModalToTop();
+        });
+
+        $('#jumpToPageBtn').on('click', function() {
+            var jumpToPageNum = parseInt($('#jumpToPage').val());
+            if (jumpToPageNum >= 1 && jumpToPageNum <= totalPages) {
+                currentPage = jumpToPageNum;
+                renderPage(currentPage);
+                scrollModalToTop();
+            } else {
+                alert("Please enter a valid page number between 1 and " + totalPages);
+            }
+        });
+
+
+        $('.close, .close-icon').on('click', function() {
+            $('#pdfModal').modal('hide');
+        });
+
+        $('#pdfModal').on('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        function scrollModalToTop() {
+            let modalBody = document.querySelector('#pdfModal .modal-body');
+            if (modalBody) {
+                modalBody.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
         }
-    });
-
-    // Disable right-click on the modal to prevent context menu (download/print)
-    document.getElementById('pdfModal').addEventListener('contextmenu', function(event) {
-        event.preventDefault();
-    });
-</script>
-
-<script>
-    $('#bookPreview').on('click', function() {
-        $('#pdfModal').modal('show');
-    });
-
-    $('.close').on('click', function() {
-        $('#pdfModal').modal('hide');
     });
 </script>
 
 {{-- scroll to top features --}}
 <script>
-    const prevButton = document.querySelector("#prevPage");
-    const nextButton = document.querySelector("#nextPage");
-    const goButton = document.querySelector("#jumpToPageBtn");
-    const modal = document.querySelector("#pdfModal");
+$(document).ready(function() {
+const prevButton = document.querySelector("#prevPage");
+const nextButton = document.querySelector("#nextPage");
+const goButton = document.querySelector("#jumpToPageBtn");
+const modal = document.querySelector("#pdfModal");
 
-    const scrollToTop = (button) => {
-        button.addEventListener("click", () => {
-            modal.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-            console.log("Scrolled to top of the modal");
-        });
-    };
-    scrollToTop(prevButton);
-    scrollToTop(nextButton);
-    scrollToTop(goButton);
+const scrollToTop = (button) => {
+button.addEventListener("click", () => {
+modal.scrollTo({
+top: 0,
+behavior: "smooth"
+});
+console.log("Scrolled to top of the modal");
+});
+};
+
+scrollToTop(prevButton);
+scrollToTop(nextButton);
+scrollToTop(goButton);
+});
 </script>
