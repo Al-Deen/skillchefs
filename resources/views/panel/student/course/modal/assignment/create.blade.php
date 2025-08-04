@@ -112,7 +112,7 @@
                                       enctype="multipart/form-data">
                                     @csrf
                                     <div class="ot-contact-form mb-24">
-                                        <label for="content" class="form-label ">{{ ___('course.File Upload') }}</label>
+                                        <label for="content" class="form-label ">File Upload (PDF)</label>
                                         <div class="ot_fileUploader left-side mb-2 file-upload-browse">
                                             <input class="form-control form-control file_placeholder" type="text"
                                                    placeholder="{{ ___('student.Assignment File') }}" id="placeholder">
@@ -186,14 +186,14 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="ot-contact-form mb-24">
-                                <label for="content" class="form-label ">{{ ___('course.File Upload') }}</label>
+                                <label for="content" class="form-label ">File Upload (PDF)</label>
                                 <div class="ot_fileUploader left-side mb-2 file-upload-browse">
                                     <input class="form-control form-control file_placeholder" type="text"
                                            placeholder="{{ ___('student.Assignment File') }}" id="placeholder">
                                     <button class="border-0" type="button">
                                         <label class="btn-uplode" for="assignment_file">{{ ___('student.Brouse') }}</label>
                                         <input type="file" class="d-none form-control" name="assignment_file"
-                                               accept=".pdf,.doc,.docx" id="assignment_file">
+                                               accept=".pdf" id="assignment_file">
                                     </button>
                                 </div>
                                 <div class="invalid-feedback d-inline error-assignment_file"></div>

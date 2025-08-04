@@ -14,7 +14,7 @@ class AssignmentSubmitRequest extends FormRequest
     public function rules()
     {
         return [
-            'assignment_file' => 'required|mimes:pdf,doc,docx',
+            'assignment_file' => 'required|mimes:pdf',
         ];
     }
 
