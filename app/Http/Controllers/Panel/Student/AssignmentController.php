@@ -12,6 +12,9 @@ use Modules\Course\Interfaces\AssignmentSubmitInterface;
 use Modules\Order\Interfaces\EnrollInterface;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
+use setasign\Fpdi\Fpdi;
+use App\Helpers\WatermarkPdf;
+
 
 
 class AssignmentController extends Controller
@@ -56,23 +59,43 @@ class AssignmentController extends Controller
         try {
             $enroll_id = decryptFunction($enroll);
             $assignment_id = decryptFunction($assignment_id);
-            $enroll = $this->enrollRepository->model()->where('user_id', Auth::id())->where('id', $enroll_id)->first();
+
+            $enroll = $this->enrollRepository->model()
+                ->where('user_id', Auth::id())
+                ->where('id', $enroll_id)
+                ->first();
+
             $assignment = @$enroll->course->assignments->where('id', $assignment_id)->first();
-            if ($enroll && @$assignment) {
-                $file = @$assignment->assignmentFile->original;
-                if ($file) {
-                    return downloadFile($file); // download file
-                } else {
-                    return redirect()->back()->with('danger', ___('alert.File not found')); // return error response
-                }
-            } else {
-                return redirect()->back()->with('danger', ___('alert.Enroll not found')); // return error response
+
+            if (!$enroll || !$assignment) {
+                return redirect()->back()->with('danger', ___('alert.Enroll not found'));
             }
+
+            $filePath = $assignment->assignmentFile->original;
+            $fullPath = storage_path('app/public/' . $filePath);
+
+            if (!file_exists($fullPath)) {
+                return redirect()->back()->with('danger', ___('alert.File not found'));
+            }
+
+            $user = Auth::user();
+            $userName = $user->name ?? 'Unknown';
+            $userPhone = $user->phone ?? 'N/A';
+
+            // Temp output path
+            $outputName = 'watermarked_' . basename($filePath);
+            $outputPath = storage_path('app/temp/' . $outputName);
+
+            // Add watermark helper call
+            WatermarkPdf::addWatermark($fullPath, $outputPath, $userName, $userPhone);
+
+            return response()->download($outputPath)->deleteFileAfterSend(true);
+
         } catch (\Throwable $th) {
-            return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again')); // return error response
+            report($th);
+            return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
         }
     }
-
     public function assignmentStore(AssignmentSubmitRequest $request, $enroll_id, $assignment_id)
     {
 

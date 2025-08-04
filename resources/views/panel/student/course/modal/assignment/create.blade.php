@@ -77,6 +77,7 @@
                                        ->assignmentSubmit()
                                        ->where('user_id', $data['enroll']->user_id)
                                        ->first();
+
                     @endphp
 
                     @if($submission)
@@ -85,6 +86,25 @@
                             <strong>{{ ___('student.Submit Status')}} : </strong>
                             <span class="ms-2 text-14 text-success">{{ ___('student.Submitted') }}</span>
                         </h6>
+
+                            @if ($submission->assignmentFile)
+                                @php
+                                    $user = \Illuminate\Support\Facades\Auth::user();
+                                    $submitFilePath = $submission->assignmentFile->original;
+                                    $submitFileFullName = $submission->assignmentFile->name;
+                                    $submitFilename = implode('-', array_slice(explode('-', $submitFileFullName), 4));
+                                @endphp
+                            <div>
+                                <input type="hidden" id="submitFilePath" value="{{ asset('storage/' . $submitFilePath) }}">
+                            </div>
+
+                                <h6 class="title mb-25">
+                                    <strong>Submitted Attachment : </strong>
+                                    <button class="btn btn-sm btn-success ms-2" id="submitFilePreview">
+                                        <i class="ri-book-open-line"></i>   {{ $submitFilename }}
+                                    </button>
+                                </h6>
+                           @endif
                         @endif
 
                        @if (now() < $data['assignment']->deadline)
@@ -305,6 +325,16 @@
             let url = $('#getFile').val();
             if(!url) {
                 alert("No file URL found.");
+                return;
+            }
+            $('#pdfModal').modal('show');
+            loadPDF(encodeURI(url));
+        });
+
+        $('#submitFilePreview').on('click', function() {
+            let url = $('#submitFilePath').val();
+            if(!url) {
+                alert("No submitted file URL found.");
                 return;
             }
             $('#pdfModal').modal('show');
