@@ -119,7 +119,7 @@
                                             <button class="border-0" type="button">
                                                 <label class="btn-uplode" for="assignment_file">{{ ___('student.Brouse') }}</label>
                                                 <input type="file" class="d-none form-control" name="assignment_file"
-                                                       accept=".pdf,.doc,.docx" id="assignment_file">
+                                                       accept=".pdf" id="assignment_file">
                                             </button>
                                         </div>
                                         <div class="invalid-feedback d-inline error-assignment_file"></div>
