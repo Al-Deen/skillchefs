@@ -53,16 +53,15 @@ class CheckoutController extends Controller
     public function payment(CheckoutRequest $request)
     {
 
-        try {
-//            if ($request->payment_method != 'offline') {
-//                $payment_method = $request->payment_method;
-//            } else {
-//                $payment_method = 'offline';
-//                $data['payment_type'] = $request->payment_type;
-//                $data['additional_details'] = $request->additional_details;
-//            }
 
-            $payment_method = 'offline';
+        try {
+            if ($request->payment_method != 'offline') {
+                $payment_method = $request->payment_method;
+            } else {
+                $payment_method = 'offline';
+                $data['payment_type'] = $request->payment_type;
+                $data['additional_details'] = $request->additional_details;
+            }
             $data['payment_type'] = $request->payment_type;
             $data['additional_details'] = $request->additional_details;
 

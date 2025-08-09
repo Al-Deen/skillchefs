@@ -24,45 +24,46 @@ $amount = 0 ;
     <!-- checkout area S t a r t-->
     <section class="ot-checkout-area section-padding bottom-padding">
         <div class="container">
-            <form action="{{ route('checkout.payment') }}" method="post">
+            <form  action="{{ route('checkout.payment') }}" method="post">
                 @csrf
                 <div class="row gutter-x-55">
                     <div class="col-lg-8">
                         <div class="billing-info">
                             <div class="payment-system">
-{{--                                <div class="d-flex">--}}
+                                <div class="d-flex">
 
-{{--                                    @foreach ($data['payment_method'] as $payment_method)--}}
-{{--                                    <label class="card cursor payment-gateway-wrapper" @if($payment_method->name == 'Paynet') onClick="showPaynet()" @endif>--}}
-{{--                                        <div class="payment-gateway-list d-flex  justify-content-between align-items-center">--}}
-{{--                                            <div class="single-gateway-item">--}}
-{{--                                                <div class="payment-icon">--}}
-{{--                                                    <img src="{{ showImage(@$data['course']->image->original, 'payments/' . @$payment_method->name . '.png') }}"--}}
-{{--                                                        alt="img" class="cover-image" width="100">--}}
-{{--                                                </div>--}}
-{{--                                                <div class="payment-content d-flex gap-10" >--}}
-{{--                                                    <!-- Radio -->--}}
-{{--                                                    @if($payment_method->name == 'offline')--}}
-{{--                                                    <input name="payment_method" class="radio" type="radio" value="offline">--}}
-{{--                                                    @elseif($payment_method->name == 'Paynet')--}}
-{{--                                                    <input name="payment_method" class="radio" type="radio" value="Paynet">--}}
-{{--                                                    @else--}}
-{{--                                                        <input name="payment_method" class="radio" type="radio" value="{{ encrypt($payment_method->name) }}">--}}
-{{--                                                    @endif--}}
-{{--                                                    --}}{{-- <input name="payment_method" class="radio" type="radio" value="{{ $payment_method->name == 'offline' ? 'offline' : encrypt($payment_method->name) }}"> --}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </label>--}}
-{{--                                    @endforeach--}}
-{{--                                </div>--}}
+                                    @foreach ($data['payment_method'] as $payment_method)
+
+                                    <label class="card cursor payment-gateway-wrapper" @if($payment_method->name == 'Paynet') onClick="showPaynet()" @endif>
+                                        <div class="payment-gateway-list d-flex  justify-content-between align-items-center">
+                                            <div class="single-gateway-item">
+                                                <div class="payment-icon">
+                                                    <img src="{{ showImage(@$data['course']->image->original, 'payments/' . @$payment_method->name . '.png') }}"
+                                                        alt="img" class="cover-image" width="100">
+                                                </div>
+                                                <div class="payment-content d-flex gap-10" >
+                                                    <!-- Radio -->
+                                                    @if($payment_method->name == 'offline')
+                                                    <input name="payment_method" class="radio" type="radio" value="offline">
+                                                    @elseif($payment_method->name == 'Paynet')
+                                                    <input name="payment_method" class="radio" type="radio" value="Paynet">
+                                                    @else
+                                                        <input name="payment_method" class="radio" type="radio" value="{{ $payment_method->name }}" checked>
+                                                    @endif
+                                                     <input name="payment_method" class="radio" type="radio"  value="{{ $payment_method->name == 'offline' ? 'offline' : $payment_method->name }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                    @endforeach
+                                </div>
                                 @if(module('Offline'))
                                     @include('offline::frontend.partials.offline_checkout')
                                 @endif
 
-                                @if(module('PaynetGateway'))
-                                    @include('paynetgateway::__payment_info', ['amount' => @$amount])
-                                @endif
+{{--                                @if(module('PaynetGateway'))--}}
+{{--                                    @include('paynetgateway::__payment_info', ['amount' => @$amount])--}}
+{{--                                @endif--}}
 
                                 <div class="mt-2 mb-40">
                                     @error('payment_method')
@@ -162,9 +163,20 @@ $amount = 0 ;
                                     @endif
                                 </p>
                             </div>
+
+                            <div>
+                                <label>
+                                    <input type="checkbox" id="termsCheck" required >
+                                    I agree to the
+                                    <a href="/page/terms-and-condition" target="_blank">Terms & Conditions</a>
+                                </label>
+                                <br><br>
+                            </div>
+
+
                             <div class="checkout-btn d-grid mb-16" id="complete_payment">
                                 <button class="btn-primary-fill btn-block"
-                                    type="submit">{{ ___('frontend.Complete Payment') }}</button>
+                                    type="submit" id="payBtn" >{{ ___('frontend.Complete Payment') }}</button>
                             </div>
                         </div>
                     </div>
@@ -177,15 +189,9 @@ $amount = 0 ;
 @endsection
 @section('scripts')
     <script src="{{ asset('frontend/js/__course.js')}}" type="module"></script>
-
     <script>
-
-
-        // function showPaynet() {
-        //     $('#complete_payment').addClass('d-none');
-        // }
-
-
-
+        function showPaynet() {
+            $('#complete_payment').addClass('d-none');
+        }
     </script>
 @endsection

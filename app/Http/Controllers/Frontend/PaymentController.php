@@ -27,18 +27,21 @@ class PaymentController extends Controller
     }
     public function verify(Request $request, $gateway)
     {
-        $payment_method = PaymentMethod::where('name', $gateway)->first();
 
+
+        $payment_method = PaymentMethod::where('name', $gateway)->first();
         try {
             if (@$request->get('status') == 'cancel') {
+                Order::where('id',$request->value_b)->delete();
                 return redirect()->route('checkout.index')->with('danger', ___('alert.Cancelled_payment'));
             } elseif (@$request->get('status') == 'fail') {
+                 Order::where('id',$request->value_b)->delete();
                 return redirect()->route('checkout.index')->with('danger', ___('alert.Failed_payment'));
             }
             $payment = $this->paymentRepository->findPaymentMethod($payment_method->name);
 
             $order = $payment->verify($request);
-         
+
 
             if (@$order) {
                 if ($order->status == 'processing') {
@@ -96,7 +99,7 @@ class PaymentController extends Controller
 
     public function eventVerify(Request $request, $gateway)
     {
-        
+
         $payment_method = PaymentMethod::where('name', $gateway)->first();
         try {
             if (@$request->get('status') == 'cancel') {
