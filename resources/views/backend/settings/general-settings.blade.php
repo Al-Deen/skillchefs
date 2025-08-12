@@ -363,6 +363,21 @@
                             </div>
                         </div>
                         <!-- Payment Gateway End-->
+                        <div class="col-md-6 favicon-uploader">
+                            <div class="d-flex flex-column">
+                                <label class="form-label" for="empty_table">{{ ___('settings.Payment Method Logo') }}</label>
+                                <div class="ot_fileUploader left-side mb-3">
+                                    <input class="form-control" type="text" placeholder="{{ ___('common.browse') }}"
+                                           readonly="" id="placeholder5">
+                                    <button class="primary-btn-small-input" type="button">
+                                        <label class="btn btn-lg ot-btn-primary"
+                                               for="fileBrouse5">{{ ___('common.browse') }}</label>
+                                        <input type="file" class="d-none form-control" name="payment_method_logo"
+                                               id="fileBrouse5" accept="image/*">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
 

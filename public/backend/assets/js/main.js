@@ -163,6 +163,7 @@
     var fileInp2 = document.getElementById("fileBrouse2");
     var fileInp3 = document.getElementById("fileBrouse3");
     var fileInp4 = document.getElementById("fileBrouse4");
+    var fileInp5 = document.getElementById("fileBrouse5");
 
     if (fileInp) {
         fileInp.addEventListener("change", showFileName);
@@ -201,6 +202,16 @@
         document.getElementById("placeholder4").placeholder = fileName;
         }
     }
+
+        if (fileInp5) {
+            fileInp5.addEventListener("change", showFileName);
+
+            function showFileName(event) {
+                var fileInp = event.srcElement;
+                var fileName = fileInp.files[0].name;
+                document.getElementById("placeholder5").placeholder = fileName;
+            }
+        }
 
     });
 

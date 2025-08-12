@@ -1,5 +1,13 @@
 @include('frontend.partials.lang-static')
 <!-- Footer S t a r t -->
+<style>
+    .payment-method-img {
+        max-width: 100%;
+        height: auto;
+        display: inline-block;
+        vertical-align: middle;
+    }
+</style>
 <footer>
     <div class="footer-wrapper footer-bg">
         <div class="footer-area footer-padding">
@@ -37,7 +45,7 @@
                                                         @if (@$child_link->is_page)
                                                             <a href="{{ footerLink($child_link->page_id) }}" class="wow fadeInUp"
                                                                 data-wow-delay="0.1s">
-                                                                {{ @$child_link->name }} 
+                                                                {{ @$child_link->name }}
                                                             </a>
                                                         @else
                                                             <a href="{{ @$child_link->link }}" class="wow fadeInUp"
@@ -57,6 +65,13 @@
                 </div>
             </div>
         </div>
+
+        <footer class="text-white">
+            <div class="container  text-center">
+                {{ paymentMethodLogo() }}
+            </div>
+        </footer>
+
         <!-- footer-bottom area -->
         <div class="footer-bottom-area">
             <div class="container">

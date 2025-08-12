@@ -911,6 +911,12 @@ function darkLogo($light = true)
     echo $html;
 }
 
+function paymentMethodLogo($light = true)
+{
+    $html = ('<a href="' . url('/') . '"> <img src="' . showImage(setting('payment_method_logo'), 'logo.png') . '" alt="img"  class="payment-method-img"></a>');
+    echo $html;
+}
+
 function gallery($slug)
 {
     if (Cache::has('galleries')) {

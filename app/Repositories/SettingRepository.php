@@ -146,7 +146,7 @@ class SettingRepository implements SettingInterface
                 }
                 $setting->save();
                 $setting_symbol = $this->model::where('name', 'currency_symbol')->first();
-                
+
                 if ($setting_symbol) {
                     $setting_symbol->value = $currency->symbol;
                 } else {
@@ -200,7 +200,7 @@ class SettingRepository implements SettingInterface
                     $this->setEnvironmentValue('TIME_REGION', $request->timezone);
                 }
                 $setting->save();
-               
+
                 if (!$result->original['result']) {
                     return $this->responseWithError(___('alert.language_terms_updated_failed'));
                 }
@@ -357,6 +357,38 @@ class SettingRepository implements SettingInterface
                     $setting->name = 'empty_table';
                     if ($request->hasFile('empty_table')) {
                         $upload = $this->customUpload($request->empty_table, 'backend/uploads/settings/empty_table');
+                        if ($upload['status']) {
+                            $setting->value = $upload['data']['original'];
+                        } else {
+                            return $this->responseWithError($upload['message'], [], 400);
+                        }
+                    }
+                    $setting->save();
+                }
+            }
+
+
+            if ($request->has('payment_method_logo') && $request->file('payment_method_logo')->isValid()) {
+                $setting = $this->model::where('name', 'payment_method_logo')->first();
+                if ($setting) {
+                    if ($request->hasFile('payment_method_logo')) {
+                        $upload = $this->customUpload($request->payment_method_logo, 'backend/uploads/settings/payment_method_logo');
+                        if ($upload['status']) {
+                            if (@$setting->value) {
+                                $this->delete(@$setting->value);
+                            }
+                            $setting->value = $upload['data']['original'];
+                        } else {
+                            return $this->responseWithError($upload['message'], [], 400);
+                        }
+                    }
+                    $setting->save();
+
+                } else {
+                    $setting = new $this->model;
+                    $setting->name = 'payment_method_logo';
+                    if ($request->hasFile('payment_method_logo')) {
+                        $upload = $this->customUpload($request->payment_method_logo, 'backend/uploads/settings/payment_method_logo');
                         if ($upload['status']) {
                             $setting->value = $upload['data']['original'];
                         } else {

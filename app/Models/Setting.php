@@ -21,16 +21,18 @@ class Setting extends Model
         static::created(function ($settings) { // when courses created then forget cache
             cache()->forget('setting');
             cache()->forget('light_logo');
+            cache()->forget('payment_method_logo');
             cache()->forget('half_light_logo');
             cache()->forget('dark_logo');
             cache()->forget('half_dark_logo');
             cache()->forget('currency_symbol');
             cache()->forget('app_base_settings');
         });
-        
+
         static::saved(function ($settings) { // when courses created then forget cache
             cache()->forget('setting');
             cache()->forget('light_logo');
+            cache()->forget('payment_method_logo');
             cache()->forget('half_light_logo');
             cache()->forget('dark_logo');
             cache()->forget('half_dark_logo');
@@ -41,6 +43,7 @@ class Setting extends Model
         static::updated(function ($settings) { // when courses updated then forget cache
             cache()->forget('setting');
             cache()->forget('light_logo');
+            cache()->forget('payment_method_logo');
             cache()->forget('half_light_logo');
             cache()->forget('dark_logo');
             cache()->forget('half_dark_logo');
@@ -62,6 +65,11 @@ class Setting extends Model
     public function favicon()
     {
         return $this->belongsTo(Upload::class, 'favicon', 'id');
+    }
+
+    public function paymentMethodLogo()
+    {
+        return $this->belongsTo(Upload::class, 'payment_method_logo', 'id');
     }
 
 }

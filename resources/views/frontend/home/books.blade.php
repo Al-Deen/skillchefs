@@ -1,4 +1,20 @@
      <!-- Blog Area S t a r t -->
+     <style>
+         .blog-img {
+             border-radius: 8px;
+             text-align: center;
+             padding-top: 10px;
+         }
+
+         .img-cover {
+             display: inline-block;
+             max-width: 65%;
+             height: 230px;
+             object-fit: cover;
+             transition: transform 0.3s ease;
+         }
+
+     </style>
      <section class="ot-blog-area section-padding section-bg-two" id="ot_blog_area" @if(@$section->color) style="background:{{ @$section->color }}" @endif>
          @if (!empty($bookData['books']))
              <div class="container">
@@ -19,20 +35,21 @@
                          <div class="col-xl-3 col-lg-4 col-md-6">
                              <div class="blog-single h-calc radius-8">
                                  <div class="blog-img-cap">
-                                     <div class="blog-img imgEffect">
+                                     <div class="blog-img">
                                          <a href="{{ route('frontend.bookDetails', $book->slug) }}">
                                              <img src="{{ asset($book->thumbnail) }}"
-                                                  alt="img" class="img-cover">
+                                                  alt="img"
+                                                  class="img-cover">
                                          </a>
                                      </div>
                                      <div class="blog-cap">
                                          <a href="{{ route('frontend.bookDetails', $book->slug) }}">
-                                             <h4 class="title colorEffect line-clamp-2 text-15 font-500">
+                                             <h4 class="title colorEffect pt-3 text-16 font-500 text-center">
                                                  {{ @$book->title }}
                                              </h4>
                                          </a>
                                          @if (@$book->user->role_id != 5)
-                                             <div class="course-widget-author d-flex align-items-center">
+                                             <div class="course-widget-author d-flex align-items-center" style="margin-left: 25px;">
                                                  <div class="course-widget-author-img">
                                                      <img src="{{ showImage(@$book->user->image->original) }}" class="img-cover" alt="img">
                                                  </div>
@@ -40,7 +57,7 @@
                                                      <a href="javascript:void(0);">
                                                          <h4 class="text-14 font-500 text-primary-hover  mb-0">{{ @$book->user->name }}</h4>
                                                      </a>
-                                                     <p class="text-gray text-12 font-400  line-clamp-1">{{ ___('common.Admin') }}</p>
+                                                     <p class="text-gray text-12 font-400">{{ ___('common.Admin') }}</p>
                                                  </div>
                                              </div>
                                          @else
@@ -52,7 +69,7 @@
                                                      <a href="{{ route('frontend.instructor.details', [$book->user->name, $book->user->id]) }}">
                                                          <h4 class="text-14 font-500 text-primary-hover  mb-0">{{ @$book->user->name }}</h4>
                                                      </a>
-                                                     <p class="text-gray text-12 font-400  line-clamp-1">{{ @$book->user->instructor->designation }}
+                                                     <p class="text-gray text-12 font-400 ">{{ @$book->user->instructor->designation }}
                                                      </p>
                                                  </div>
                                              </div>
