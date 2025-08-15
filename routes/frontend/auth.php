@@ -4,7 +4,6 @@
 use App\Http\Controllers\Panel\Ambassador\AmbassadorAuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\AuthController;
-use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\Panel\Student\StudentAuthController;
 use App\Http\Controllers\Panel\Instructor\InstructorAuthController;
 

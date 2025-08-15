@@ -48,7 +48,7 @@ Route::prefix('v1/student')->middleware(['auth:sanctum'])->group(function () {
         Route::post('/resend-otp-phone',                 'resentOTPForPhone')->name('student.api.resend_otp_phone');
     });
 
-    
+
     Route::controller(StudentController::class)->group(function () {
 
         Route::get('/profile',                              'profile')->name('student.api.profile');

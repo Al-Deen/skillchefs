@@ -168,7 +168,7 @@ $amount = 0 ;
                                 <label>
                                     <input type="checkbox" id="termsCheck" required >
                                     I agree to the
-                                    <a href="/page/terms-and-condition" target="_blank">Terms & Conditions</a>
+                                    <a href="/page/terms-and-condition" target="_blank">Terms & Conditions</a>, <a href="/page/privacy-policy" target="_blank">Privacy & Policy</a> and <a href="/page/cancellation-refund-policy" target="_blank">Cancellation & Refund Policy</a>
                                 </label>
                                 <br><br>
                             </div>

@@ -1,12 +1,12 @@
      <!-- Blog Area S t a r t -->
      <style>
-         .blog-img {
+         .book-img {
              border-radius: 8px;
              text-align: center;
              padding-top: 10px;
          }
 
-         .img-cover {
+         .book-img-cover {
              display: inline-block;
              max-width: 65%;
              height: 230px;
@@ -35,11 +35,11 @@
                          <div class="col-xl-3 col-lg-4 col-md-6">
                              <div class="blog-single h-calc radius-8">
                                  <div class="blog-img-cap">
-                                     <div class="blog-img">
+                                     <div class="book-img">
                                          <a href="{{ route('frontend.bookDetails', $book->slug) }}">
                                              <img src="{{ asset($book->thumbnail) }}"
                                                   alt="img"
-                                                  class="img-cover">
+                                                  class="book-img-cover">
                                          </a>
                                      </div>
                                      <div class="blog-cap">
