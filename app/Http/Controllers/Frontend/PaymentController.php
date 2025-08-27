@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Book;
 use Illuminate\Http\Request;
 use Modules\Event\Entities\EventRegistration;
 use Modules\Order\Entities\Order;
@@ -45,7 +46,13 @@ class PaymentController extends Controller
 
             if (@$order) {
                 if ($order->status == 'processing') {
-                    $result = $this->enrollRepository->store($order);
+                    if ($order->orderItems[0]->book_id){
+                        session()->put('book_id', $order->orderItems[0]->book_id);
+                        $result = $this->enrollRepository->bookStore($order);
+                    }else{
+                        $result = $this->enrollRepository->store($order);
+                    }
+
                     if ($result->original['result']) {
                         $order->update([
                             'status' => 'paid',
@@ -146,6 +153,7 @@ class PaymentController extends Controller
 
     public function status(Request $request)
     {
+
         try {
             $orderId = $request->get('order_id', null);
             if (!empty(session()->get('order_id', null))) {
@@ -158,6 +166,11 @@ class PaymentController extends Controller
             $order = Order::where('id', $orderId)
                 ->where('user_id', auth()->id())
                 ->first();
+            $bookId = session()->pull('book_id', null);
+             if ($bookId){
+                 $book = Book::find($bookId);
+                 return redirect()->route('frontend.bookDetails',['slug' => $book->slug])->with('success', ___('alert.Payment successfully completed'));
+             }
 
             if (!empty($order)) {
                 return redirect('/student/courses')->with('success', ___('alert.Payment successfully completed'));

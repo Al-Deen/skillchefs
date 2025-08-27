@@ -34,6 +34,11 @@ Route::prefix('student')->middleware(['student', 'auth', 'verified', 'phone_veri
         Route::get('/course-activities', 'courseActivities')->name('student.course_activities');
         // end course activity
 
+        // start Book
+          Route::get('books', 'books')->name('student.books'); // student books
+          Route::get('book/{slug}/learn/', 'BookLearn')->name('student.book.learn'); // student course
+        // end Book
+
         // start leader board
         Route::get('/leader-board', 'leaderBoard')->name('student.leader_board');
         // end leader board

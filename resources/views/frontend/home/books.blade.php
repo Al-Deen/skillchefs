@@ -74,21 +74,31 @@
                                                  </div>
                                              </div>
                                          @endif
-                                         <div class="widget-footer">
-                                             <div class="d-flex justify-content-between align-items-center flex-wrap">
-                                                 <div class="pricing mt-2">
-                                                     @if ($book->is_free == 1)
-                                                         <h4>{{ ___('frontend.Free') }}</h4>
-                                                     @else
-                                                         <h4 class="prev-prise">
-                                                             <span>{{ showPrice($book->price) }}</span>
-                                                         </h4>
-                                                     @endif
-                                                 </div>
-                                                 <a href="{{ route('frontend.bookDetails', $book->slug) }}" class="btn-primary-outline mb-10"><i
-                                                         class="ri-shopping-cart-line"></i> {{ ___('frontend.Enroll') }} </a>
+
+                                         @if (auth()->check() && auth()->user()->userBookEnroll->count() > 0)
+                                             <div class="widget-footer">
+                                             <div class="d-flex justify-content-between align-items-center flex-wrap mb-10">
+                                                 <a href="{{ route('student.book.learn', [$book->slug]) }}"
+                                                    class="btn-primary-outline w-100">{{ ___('student.Start Learning') }}</a>
                                              </div>
-                                         </div>
+                                             </div>
+                                         @else
+                                             <div class="widget-footer">
+                                                 <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                                     <div class="pricing mt-2">
+                                                         @if ($book->is_free == 1)
+                                                             <h4>{{ ___('frontend.Free') }}</h4>
+                                                         @else
+                                                             <h4 class="prev-prise">
+                                                                 <span>{{ showPrice($book->price) }}</span>
+                                                             </h4>
+                                                         @endif
+                                                     </div>
+                                                     <a href="{{ route('frontend.bookDetails', $book->slug) }}" class="btn-primary-outline mb-10"><i
+                                                             class="ri-shopping-cart-line"></i> {{ ___('frontend.Enroll') }} </a>
+                                                 </div>
+                                             </div>
+                                         @endif
                                      </div>
                                  </div>
                              </div>

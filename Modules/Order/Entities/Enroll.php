@@ -2,6 +2,7 @@
 
 namespace Modules\Order\Entities;
 
+use App\Models\Book;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,6 +21,7 @@ class Enroll extends Model
     protected $fillable = [
         'order_id',
         'course_id',
+        'book_id',
         'user_id',
         'progress',
         'is_completed',
@@ -50,6 +52,12 @@ class Enroll extends Model
     public function course()
     {
         return $this->belongsTo(Course::class);
+    }
+
+    // relation with book
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
     }
 
     // user relation

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\CartInterface;
+use App\Models\Book;
 use App\Traits\ApiReturnFormatTrait;
 use Illuminate\Http\Request;
 use Modules\Course\Interfaces\CourseInterface;
@@ -46,6 +47,8 @@ class CartController extends Controller
             return redirect()->route('home')->with('danger', ___('alert.something_went_wrong_please_try_again'));
         }
     }
+
+
 
     // add to cart function start
     public function add(Request $request)
@@ -164,7 +167,6 @@ class CartController extends Controller
             return $this->responseWithError(___('alert.something_went_wrong_please_try_again'), [], 400); // return error response
         }
     }
-
     // add to cart function end
 
     // start remove from cart
@@ -187,6 +189,93 @@ class CartController extends Controller
             return redirect()->route('cart.index')->with('success', ___('alert.Course_removed_from_cart'));
         } catch (\Throwable $th) {
             return redirect()->route('cart.index')->with('danger', ___('alert.something_went_wrong_please_try_again'));
+        }
+    }
+
+
+    // Book
+
+    public function cartAddBook(Request $request)
+    {
+
+        try {
+
+            $data['book'] = Book::find(decrypt($request->slug));
+            if (!$data['book']) {
+                return $this->responseWithError(___('alert.Book_not_found'), [], 400); // return error response
+            }
+
+            if (!auth()->check()) {
+                return $this->responseWithError(___('alert.Please_login_to_add_book'), [], 400); // return error response
+            }
+
+            if (auth()->user()->phone == null) {
+                return $this->responseWithError(___('alert.Please Add your phone number to your Account'), [], 400); // return error response
+            }
+
+            if (auth()->user()->role_id != 4) {
+                return $this->responseWithError(___('alert.You_are_not_a_student'), [], 400); // return error response
+            }
+            if (@$data['book']->is_free || @$data['book']->price <= 0) {
+
+                try {
+                    $cart['carts'] = [
+                        [
+                            'book_id' => $data['book']->id,
+                        ],
+                    ];
+                    $result = $this->orderRepository->bookStore($cart);
+                    if ($result->original['result']) {
+                        $this->enrollRepository->bookStore($result->original['data']);
+                        $result->original['data'];
+                        $result->original['data']->update([
+                            'status' => 'paid',
+                            'paid_amount' => 0,
+                            'due_amount' => 0,
+                        ]);
+                        $data = [
+                            'book' => 'free',
+                        ];
+                        return $this->responseWithSuccess(___('alert.Book_enrolled_successfully'), $data); // return success response from ApiReturnFormatTrait
+                    } else {
+                        return $this->responseWithError(___('alert.something_went_wrong_please_try_again'), [], 400); // return error response
+                    }
+                } catch (\Throwable $th) {
+                    return $this->responseWithError(___('alert.something_went_wrong_please_try_again'), [], 400); // return error response
+                }
+            }
+            // add to cart to session
+            $books = session()->get('cart');
+            if ($books) {
+                $books = array_column($books, 'book_id');
+                if (in_array($data['book']->id, $books)) {
+                    return $this->responseWithError(___('alert.Book_already_added_to_cart'), [], 200); // return error response
+                }
+            }
+            $cartData = [];
+
+            $cartData['course_id'] = $data['book']->id;
+            $cartData['book_id'] = $data['book']->id;
+            $cartData['course_title'] = $data['book']->title;
+            $cartData['slug'] = $data['book']->slug;
+            $cartData['author'] = $data['book']->instructor->name;
+            $cartData['price'] = $data['book']->price;
+            $cartData['rating'] = 0.0;
+            $cartData['total_review'] = 0;
+            $cartData['is_discount'] = 10;
+            $cartData['discount_type'] = 1;
+            $cartData['discount'] = 0;
+            $cartData['discount_price'] = 0;
+            $cartData['length'] = '0m';
+            $cartData['lessons'] =0;
+            $cartData['is_free'] = $data['book']->is_free;
+            $cartData['image'] = $data['book']->thumbnail;
+            session()->push('cart', $cartData);
+            $c_data['total_cart'] = count(session()->get('cart'));
+            return $this->responseWithSuccess(___('alert.Book_added_to_cart'), $c_data); // return success response from ApiReturnFormatTrait
+        } catch (\Throwable $th) {
+            dd($th);
+            return $this->responseWithError(___('alert.something_went_wrong_please_try_again'), [], 400); // return error response
         }
     }
 }

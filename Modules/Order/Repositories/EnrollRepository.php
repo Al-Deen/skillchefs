@@ -150,4 +150,44 @@ class EnrollRepository implements EnrollInterface
             'visited' => now(),
         ]);
     }
+
+    public function bookStore($orders)
+    {
+        DB::beginTransaction(); // start database transaction
+        try {
+            foreach ($orders->orderItems as $order_item) {
+                $enrollModel = new $this->model;
+                $enrollModel->order_item_id = $order_item->id;
+                $enrollModel->book_id = $order_item->book_id;
+                $enrollModel->user_id = $orders->user_id;
+                $enrollModel->instructor_id = $order_item->book->created_by;
+                $enrollModel->save();
+
+                $enrollModel->book->update([
+                    'total_sales' => @$enrollModel->course->total_sales + 1,
+                ]);
+
+                if ($enrollModel->teacher->role_id == Role::INSTRUCTOR) { // instructor
+                    $instructor = $enrollModel->teacher->instructor;
+                } else { // organization
+                    $instructor = $enrollModel->teacher->organization;
+                }
+                if (@$instructor) {
+                    $instructor->update([
+                        'balance' => $instructor->balance + $order_item->instructor_amount,
+                        'earnings' => $instructor->earnings + $order_item->instructor_amount,
+                    ]);
+                }
+                $this->income->store([
+                    'amount' => $order_item->total_amount,
+                    'note' => ___('common.Book sale'),
+                ]);
+            }
+            DB::commit(); // commit database transaction
+            return $this->responseWithSuccess(___('alert.Enroll created successfully.'), $enrollModel); // return success response
+        } catch (\Throwable $th) {
+            DB::rollBack(); // rollback database transaction
+            return $this->responseWithError($th->getMessage(), [], 400); // return error response
+        }
+    }
 }

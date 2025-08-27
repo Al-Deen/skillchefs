@@ -42,6 +42,7 @@
                                 {{ ___('student.My Courses') }}
                             </a>
                         </li>
+
                         @if (module('LiveClass'))
                             <li class="list {{ is_active(['student.live_class_list.index']) }}">
                                 <a href="{{ route('student.live_class_list.index', ['type=upcoming']) }}"
@@ -57,6 +58,16 @@
                                 {{ ___('student.Course Activities ') }}
                             </a>
                         </li>
+
+
+                        <li class="list {{ is_active(['student.books']) }}">
+                            <a href="{{ route('student.books') }}" class="single">
+                                <i class="ri-book-open-line"></i>
+                                {{ ___('student.My Books') }}
+                            </a>
+                        </li>
+
+
                         @if (module('Subscription'))
                         <li class="list {{ is_active(['student.package']) }}">
                             <a href="{{ route('student.package') }}" class="single">

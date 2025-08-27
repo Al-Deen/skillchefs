@@ -102,7 +102,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function purchaseCourses()
     {
-        return $this->hasMany('Modules\Order\Entities\Enroll', 'user_id', 'id');
+        return $this->hasMany('Modules\Order\Entities\Enroll', 'user_id', 'id')->whereNotNull('course_id');
     }
 
     public function courses()
@@ -112,7 +112,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function courseEnroll()
     {
-        return $this->hasMany('Modules\Order\Entities\Enroll', 'instructor_id', 'id');
+        return $this->hasMany('Modules\Order\Entities\Enroll', 'instructor_id', 'id')->whereNotNull('course_id');
     }
 
     public function userStatus()
@@ -127,7 +127,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function userCourseEnroll()
     {
-        return $this->hasMany('Modules\Order\Entities\Enroll', 'user_id', 'id');
+        return $this->hasMany('Modules\Order\Entities\Enroll', 'user_id', 'id')->whereNotNull('course_id');
+    }
+
+    public function userBookEnroll()
+    {
+        return $this->hasMany('Modules\Order\Entities\Enroll', 'user_id', 'id')->whereNotNull('book_id');
     }
 
     // for zoom

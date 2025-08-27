@@ -1,22 +1,8 @@
-@extends('frontend.layouts.master')
+@extends('panel.student.layouts.master')
 @section('title', @$data['title'])
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/plyr/plyr.css') }}" >
 @endsection
-@push('meta')
-    <meta itemprop="name" content="{{ @$data['course']->meta_title }}">
-    <meta itemprop="image" content="{{ showImage(@$data['course']->metaImage->original) }}">
-    <meta itemprop="description" content="{{ @$data['course']->meta_description }}">
-    <meta name="twitter:title" content="{{ @$data['course']->meta_title }}">
-    <meta name="twitter:image" content="{{ showImage(@$data['course']->metaImage->original) }}">
-    <meta name="twitter:description" content="{{ @$data['course']->meta_description }}">
-    <meta property="og:site_name" content="{{ @$data['course']->meta_title }}" />
-    <meta property="og:title" content="{{ @$data['course']->meta_title }}" />
-    <meta property="og:description" content="{{ @$data['course']->meta_description }}" />
-    <meta property="og:image" content="{{ showImage(@$data['course']->metaImage->original) }}" />
-    <meta name="description" content="{{ @$data['course']->meta_description }}">
-    <meta name="keywords" content="{{ @$data['course']->meta_keyword }}">
-
     <style>
         .pdf-controls {
             margin-top: 10px;
@@ -106,156 +92,75 @@
             color: #fff;
         }
     </style>
-@endpush
 @section('content')
-    <!--Bradcam S t a r t -->
-    @include('frontend.partials.breadcrumb', [
-        'breadcumb_title' => @$data['title'],
-    ])
-    <!--End-of Bradcam  -->
-
-
     <!-- course-details  S t a r t-->
+
+
+    @php
+        $user = \Illuminate\Support\Facades\Auth::user();
+    @endphp
+<div>
+    <input type="hidden" id="getFile" value="{{ asset(@$data['enroll']->book->full_file) }}">
+    <input type="hidden" id="userPhone" value="{{ $user->phone ?? '' }}">
+    <input type="hidden" id="userName" value="{{ $user->name ?? '' }}">
+</div>
+
+
     <div class="ot-course-details section-padding2">
         <div class="container px-3 px-md-5">
-            <div class="row d-flex align-items-center flex-row-reverse">
+            <div class="row">
                 <!-- Right side: Book Image -->
-                <div class="col-lg-6 col-md-12 text-center mb-4 mb-lg-0">
-                    <div>
-                        <img src="{{ asset(@$data['book']->thumbnail) }}" alt="img" class="img-fluid" style="max-width: 48%; height: auto;">
-                    </div>
-                    <div class="text-center mt-2">
-                        <button class="btn btn-primary mt-3" id="bookPreview">
-                            <i class="ri-book-open-line"></i> Preview
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Left side: Title, instructor -->
-                <div class="col-lg-6 col-md-12">
+                <div class="col-lg-12 col-md-12 text-center mb-2 mb-lg-0">
                     <h3 class="mb-3 text-center text-lg-start" id="book_title">
-                        <strong>{{ @$data['book']->title }}</strong>
+                        <strong>{{ @$data['enroll']->book->title }}</strong>
                     </h3>
-
-                    @php
-                        $user = \Illuminate\Support\Facades\Auth::user();
-                    @endphp
-
-                    <input type="hidden" id="getFile" value="{{ asset(@$data['book']->short_file) }}">
-                    <input type="hidden" id="userPhone" value="{{ $user->phone ?? '' }}">
-                    <input type="hidden" id="userName" value="{{ $user->name ?? '' }}">
-
-                    <div class="d-flex align-items-center gap-3 mt-4 flex-column flex-sm-row text-center text-sm-start">
-                        <div class="thumb">
-                            <img src="{{ showImage(@$data['book']->instructor->image->original) }}" alt="Instructor Image"
-                                 class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover;">
-                        </div>
-                        <div>
-                            <h5 class="mb-0">
-                                <a href="{{ route('frontend.instructor.details', [$data['book']->user->name, $data['book']->user->id]) }}">
-                                    {{ @$data['book']->instructor->name }}
-                                </a>
-                            </h5>
-                            <p class="mb-0">{{ @$data['book']->instructor->instructor->designation }}</p>
-                        </div>
+                    <div class="mb-3 text-center text-lg-start">
+                        <img src="{{ asset(@$data['enroll']->book->thumbnail) }}"
+                             alt="img" class="img-fluid" style="max-width: 50%; height: auto;">
                     </div>
 
+                    <!-- Instructor left, Button right -->
+                    <div class="col-lg-6">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <!-- Instructor left -->
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="thumb">
+                                    <img src="{{ showImage(@$data['enroll']->book->instructor->image->original) }}"
+                                         alt="Instructor Image"
+                                         class="rounded-circle"
+                                         style="width: 60px; height: 60px; object-fit: cover;">
+                                </div>
+                                <div>
+                                    <h5 class="mb-0">
+                                        <a href="{{ route('frontend.instructor.details', [$data['enroll']->book->user->name, $data['enroll']->book->user->id]) }}">
+                                            {{ @$data['enroll']->book->instructor->name }}
+                                        </a>
+                                    </h5>
+                                    <p class="mb-0">{{ @$data['enroll']->book->instructor->instructor->designation }}</p>
+                                </div>
+                            </div>
 
-                    @if (auth()->check() && auth()->user()->userBookEnroll->count() > 0)
-                        <div class="mt-5">
-                            <div class="d-flex justify-content-between align-items-center flex-wrap mb-10">
-                                <a href="{{ route('student.book.learn', [@$data['book']->slug]) }}"
-                                   class="btn btn-primary w-100">{{ ___('student.Start Learning') }}</a>
+                            <!-- Button right -->
+                            <div class="mr-10">
+                                <button class="btn btn-primary" id="bookPreview">
+                                    <i class="ri-book-open-line"></i> Open
+                                </button>
                             </div>
                         </div>
-                    @else
-
-                    <div class="mt-5" id="course-summary" data-val="{{ encrypt(@$data['book']->id) }}">
-                        <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
-                            @if ($data['book']->is_free == 1)
-                                <h4>{{ ___('frontend.Free') }}</h4>
-                            @else
-                                <h4>{{ showPrice(@$data['book']->price) }}</h4>
-                            @endif
-                        </div>
-
-                        @if (auth()->check())
-                            @if(auth()->user()->phone)
-                                <a href="javascript:void(0);"  class="btn-primary-fill mt-4 d-flex align-items-center justify-content-center w-100 bookCheckout">
-                                    {{ ___('frontend.Enroll Now') }}</a>
-                                @else
-                                <button
-                                    class="btn-primary-fill mt-4 d-flex align-items-center justify-content-center w-100 offer_couter validAuthcheckout">
-                                    {{ ___('frontend.Enroll Now') }}
-                                </button>
-                            @endif
-                        @else
-                            <button
-                                class="btn-primary-fill mt-4 d-flex align-items-center justify-content-center w-100 offer_couter authcheckout">
-                                {{ ___('frontend.Enroll Now') }}
-                            </button>
-                        @endif
                     </div>
-
-                    @endif
-
-
-
 
                 </div>
             </div>
-             <hr>
-            <br>
+
+            <hr>
             <div class="row">
                 <div class="col-xl-9 col-lg-8 col-md-12">
                     <div class="ot-course-details-inner">
                         <div class="course-tab-widget">
                             <ul class="course-details-list">
-                                <?= $data['book']->description ?>
+                                <?= $data['enroll']->book->description ?>
                             </ul>
                         </div>
-                        <br>
-                        @php
-                            $pointTiles =  json_decode($data['book']->point_title);
-                            $pointDescription =  json_decode($data['book']->point_description);
-                        @endphp
-                            <div class="course-tab-widget mt-4">
-                                <h2 class="course-details-title">Frequently Ask Questions</h2>
-                                @if (count($pointTiles) > 0)
-                                    <div class="theme-according mb-24" id="accordion1">
-                                        @foreach ($pointTiles as $key => $title)
-                                            <div class="card">
-                                                <div class="card-header pink_bg" id="four4">
-                                                    <h5 class="mb-0">
-                                                        <button class="btn btn-link text-white collapsed" data-bs-toggle="collapse"
-                                                                data-bs-target="#collapseFour{{ $key }}" aria-expanded="false" aria-controls="four4">
-                                                            <h6>{{ $title }}</h6>
-                                                        </button>
-                                                    </h5>
-                                                </div>
-                                                <div class="collapse" id="collapseFour{{ $key }}" data-parent="#accordion1">
-                                                    <div class="card-body">
-                                                        <ul class="course-video-lists">
-                                                            @foreach ($pointDescription as $key => $description)
-                                                                <li> <p>{{ $description }}</p> </li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                 @else
-                                    <div class="text-left">
-                                        <p class="text-left"> No Data Found</p>
-                                    </div>
-                                @endif
-
-                        </div>
-
-                        <!-- course details tab  -->
-
-                        <!-- COURSE_DETAILS_TABS::END    -->
                     </div>
                 </div>
                 <!-- modal for pdf view -->

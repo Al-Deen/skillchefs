@@ -46,6 +46,15 @@ Route::controller(CartController::class)->prefix('cart')->group(function () {
 });
 // end course cart add
 
+
+// start Book cart add
+Route::controller(CartController::class)->prefix('cart-book')->group(function () {
+    Route::get('add', 'cartAddBook')->name('cart-book.add');
+});
+// end Book cart add
+
+
+
 // start course checkout
 Route::controller(CheckoutController::class)->prefix('checkout')->middleware('auth')->group(function () {
     Route::get('/', 'index')->name('checkout.index');

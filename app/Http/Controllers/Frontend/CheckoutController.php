@@ -52,8 +52,6 @@ class CheckoutController extends Controller
 
     public function payment(CheckoutRequest $request)
     {
-
-
         try {
             if ($request->payment_method != 'offline') {
                 $payment_method = $request->payment_method;
@@ -69,7 +67,6 @@ class CheckoutController extends Controller
                 return redirect()->back()->with('danger', ___('alert.Please_select_payment_method'));
             }
             $data['carts'] = Session()->get('cart');
-
             if (!$data['carts']) {
                 return redirect()->route('home')->with('danger', ___('alert.Cart_is_empty'));
             }
@@ -78,64 +75,125 @@ class CheckoutController extends Controller
 
 
 
-            // order data
-            $result = $this->orderRepository->store($data);
+           // Check course or Book Condition
 
-            // dd($result->original['data'], $request->all());
+            if(isset($data['carts'][0]['book_id'])){
 
-
-            session()->put('order_id', $result->original['data']->id);
-            if ($result->original['result']) {
-                try {
-                    if ($result->original['data']->total_amount == 0 || $payment_method === 'offline') {
-                        if ($payment_method != 'offline') {
-                            $resultRepo = $this->enrollRepository->store($result->original['data']);
-                            if ($resultRepo->original['result']) {
-                                // subscription course enroll update
-                                if (module('Subscription') && setting('subscription_setup')) {
-                                    foreach ($data['carts'] as $key => $cart) {
-                                        $packageCourseRepository = new \Modules\Subscription\Repositories\PackageCourseRepository(new \Modules\Subscription\Entities\PackageCourse);
-                                        $package_course = $packageCourseRepository->model()->where(['course_id' => $cart['course_id'], 'status_id' => 4])->first();
-                                        if ($package_course) {
-                                            $packagePurchaseRepository = new \Modules\Subscription\Repositories\PackagePurchaseRepository(new \Modules\Subscription\Entities\PackagePurchase, new \Modules\Subscription\Entities\PackageLog);
-                                            $packagePurchaseRepository->updateCourseEnroll($package_course->package_id);
+                // order data
+                $result = $this->orderRepository->bookStore($data);
+                session()->put('order_id', $result->original['data']->id);
+                if ($result->original['result']) {
+                    try {
+                        if ($result->original['data']->total_amount == 0 || $payment_method === 'offline') {
+                            if ($payment_method != 'offline') {
+                                $resultRepo = $this->enrollRepository->store($result->original['data']);
+                                if ($resultRepo->original['result']) {
+                                    // subscription course enroll update
+                                    if (module('Subscription') && setting('subscription_setup')) {
+                                        foreach ($data['carts'] as $key => $cart) {
+                                            $packageCourseRepository = new \Modules\Subscription\Repositories\PackageCourseRepository(new \Modules\Subscription\Entities\PackageCourse);
+                                            $package_course = $packageCourseRepository->model()->where(['course_id' => $cart['course_id'], 'status_id' => 4])->first();
+                                            if ($package_course) {
+                                                $packagePurchaseRepository = new \Modules\Subscription\Repositories\PackagePurchaseRepository(new \Modules\Subscription\Entities\PackagePurchase, new \Modules\Subscription\Entities\PackageLog);
+                                                $packagePurchaseRepository->updateCourseEnroll($package_course->package_id);
+                                            }
                                         }
                                     }
-                                }
-                                // subscription course enroll update end
+                                    // subscription course enroll update end
 
-                                $result->original['data']->update([
-                                    'status' => 'paid',
-                                    'paid_amount' => 0,
-                                    'due_amount' => 0,
-                                ]);
-                                return redirect()->route('payment.status');
-                            } else {
-                                return redirect()->route('checkout.index')->with('danger', ___('alert.Payment gateway error'));
+                                    $result->original['data']->update([
+                                        'status' => 'paid',
+                                        'paid_amount' => 0,
+                                        'due_amount' => 0,
+                                    ]);
+                                    return redirect()->route('payment.status');
+                                } else {
+                                    return redirect()->route('checkout.index')->with('danger', ___('alert.Payment gateway error'));
+                                }
                             }
                         }
-                    }
-                    if ($payment_method === 'offline') {
-                        return redirect()->route('home')->with('success', ___('alert.Enroll successfully completed.Wait for admin approval'));
-                    }
-                    $payment = $this->paymentRepository->findPaymentMethod($payment_method);
-
-                    if($payment_method == 'Paynet'){
-                        $redirect = $payment->process($result->original['data'], $request->all());
-                    }else{
-                        $redirect = $payment->process($result->original['data']);
-                    }
+                        if ($payment_method === 'offline') {
+                            return redirect()->route('home')->with('success', ___('alert.Enroll successfully completed.Wait for admin approval'));
+                        }
 
 
-                    if (in_array($payment_method, $this->paymentRepository->withoutRedirect())) {
-                        return $redirect;
+                        $payment = $this->paymentRepository->findPaymentMethod($payment_method);
+
+                        if($payment_method == 'Paynet'){
+                            $redirect = $payment->process($result->original['data'], $request->all());
+                        }else{
+                            $redirect = $payment->process($result->original['data']);
+                        }
+
+
+                        if (in_array($payment_method, $this->paymentRepository->withoutRedirect())) {
+                            return $redirect;
+                        }
+                        return Redirect::away($redirect);
+                    } catch (\Throwable $th) {
+                        return redirect()->route('checkout.index')->with('danger', ___('alert.Payment gateway error'));
                     }
-                    return Redirect::away($redirect);
-                } catch (\Throwable $th) {
-                    return redirect()->route('checkout.index')->with('danger', ___('alert.Payment gateway error'));
+                } else {
+                    return redirect()->back()->with('danger', $result['message']);
                 }
-            } else {
-                return redirect()->back()->with('danger', $result['message']);
+
+            }else{
+                // order data
+                $result = $this->orderRepository->store($data);
+
+                session()->put('order_id', $result->original['data']->id);
+                if ($result->original['result']) {
+                    try {
+                        if ($result->original['data']->total_amount == 0 || $payment_method === 'offline') {
+                            if ($payment_method != 'offline') {
+                                $resultRepo = $this->enrollRepository->store($result->original['data']);
+                                if ($resultRepo->original['result']) {
+                                    // subscription course enroll update
+                                    if (module('Subscription') && setting('subscription_setup')) {
+                                        foreach ($data['carts'] as $key => $cart) {
+                                            $packageCourseRepository = new \Modules\Subscription\Repositories\PackageCourseRepository(new \Modules\Subscription\Entities\PackageCourse);
+                                            $package_course = $packageCourseRepository->model()->where(['course_id' => $cart['course_id'], 'status_id' => 4])->first();
+                                            if ($package_course) {
+                                                $packagePurchaseRepository = new \Modules\Subscription\Repositories\PackagePurchaseRepository(new \Modules\Subscription\Entities\PackagePurchase, new \Modules\Subscription\Entities\PackageLog);
+                                                $packagePurchaseRepository->updateCourseEnroll($package_course->package_id);
+                                            }
+                                        }
+                                    }
+                                    // subscription course enroll update end
+
+                                    $result->original['data']->update([
+                                        'status' => 'paid',
+                                        'paid_amount' => 0,
+                                        'due_amount' => 0,
+                                    ]);
+                                    return redirect()->route('payment.status');
+                                } else {
+                                    return redirect()->route('checkout.index')->with('danger', ___('alert.Payment gateway error'));
+                                }
+                            }
+                        }
+                        if ($payment_method === 'offline') {
+                            return redirect()->route('home')->with('success', ___('alert.Enroll successfully completed.Wait for admin approval'));
+                        }
+                        $payment = $this->paymentRepository->findPaymentMethod($payment_method);
+
+                        if($payment_method == 'Paynet'){
+                            $redirect = $payment->process($result->original['data'], $request->all());
+                        }else{
+                            $redirect = $payment->process($result->original['data']);
+                        }
+
+
+                        if (in_array($payment_method, $this->paymentRepository->withoutRedirect())) {
+                            return $redirect;
+                        }
+                        return Redirect::away($redirect);
+                    } catch (\Throwable $th) {
+                        return redirect()->route('checkout.index')->with('danger', ___('alert.Payment gateway error'));
+                    }
+                } else {
+                    return redirect()->back()->with('danger', $result['message']);
+                }
             }
         } catch (\Throwable $th) {
             dd($th );

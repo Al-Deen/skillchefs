@@ -70,11 +70,25 @@ class StudentController extends Controller
     {
         try {
             $data['title'] = ___('student.Student Courses'); // title
-            $data['enrolls'] = $this->enrollRepository->model()->where('user_id', Auth::id())->with('course:id,title,course_duration,course_category_id,slug,thumbnail')
+            $data['enrolls'] = $this->enrollRepository->model()->whereNotNull('course_id')->where('user_id', Auth::id())->with('course:id,title,course_duration,course_category_id,slug,thumbnail')
                 ->search($request)
                 ->latest()
                 ->paginate(10);
             return view($this->template . '.my_courses', compact('data'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
+        }
+    }
+
+    public function books(Request $request)
+    {
+        try {
+            $data['title'] = ___('student.Student Books'); // title
+            $data['enrolls'] = $this->enrollRepository->model()->whereNotNull('book_id')->where('user_id', Auth::id())->with('book:id,title,slug,thumbnail')
+                ->search($request)
+                ->latest()
+                ->paginate(10);
+            return view($this->template . '.my_books', compact('data'));
         } catch (\Throwable $th) {
             return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
         }
@@ -185,6 +199,21 @@ class StudentController extends Controller
         }
     }
 
+
+    public function BookLearn($slug)
+    {
+        try {
+            $data['title'] = ___('student.Student Book Learn'); // title
+            $data['enroll'] = $this->enrollRepository->model()->where('user_id', Auth::id())->whereHas('book', function ($q) use ($slug) {
+                $q->where('slug', $slug);
+            })->with('book')->first();
+            return view($this->template . '.book_details', compact('data'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
+        }
+    }
+
+
     public function courseEnrollProgress(Request $request)
     {
         try {
@@ -203,7 +232,7 @@ class StudentController extends Controller
     public function courseActivities(Request $request)
     {
         try {
-            $data['enrolls'] = $this->enrollRepository->model()->where('user_id', Auth::id())->with('course:id,title,course_duration,point,course_category_id,slug')
+            $data['enrolls'] = $this->enrollRepository->model()->whereNotNull('course_id')->where('user_id', Auth::id())->with('course:id,title,course_duration,point,course_category_id,slug')
                 ->search($request)
                 ->latest()
                 ->paginate(10);
@@ -214,6 +243,8 @@ class StudentController extends Controller
         }
     }
     // course activities
+
+
 
     public function leaderBoard()
     {

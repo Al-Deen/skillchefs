@@ -1,5 +1,5 @@
 "use strict";
-
+// For Course
 var endpoint = $("meta[name='baseurl']").attr("content");
 var addToCartRoute = `${endpoint}/cart/add`;
 var cartRoute = `${endpoint}/cart`;
@@ -9,6 +9,10 @@ var paymentRoute = `${endpoint}/checkout/payment`;
 var removeCartRoute = `${endpoint}/cart/remove`;
 var loginRoute = `${endpoint}/sign-in`;
 var studentDashboardRoute = `${endpoint}/student/dashboard`;
+
+
+//For Book
+var addToCartBookRoute = `${endpoint}/cart-book/add`;
 
 // Start  course detail page video player
 $('#player').length &&
@@ -67,6 +71,45 @@ window.cartForm = async (...prams) => {
 };
 // End add to function for course detail page
 
+// for book Details
+window.bookCartForm = async (...prams) => {
+    try {
+        const response = await fetch(
+            addToCartBookRoute + "?" + new URLSearchParams({ slug: prams[0], type: prams[1] })
+        );
+        if (response.ok) {
+            const { result, message, data } = await response.json();
+            if (result) {
+                if (data?.course == "free") {
+                    successHandler(message);
+                    location.reload();
+                    return;
+                }
+                $('#total_cart').html(data?.total_cart);
+                if (prams[1] == "bookCheckout") {
+                    window.location.href = checkoutRoute;
+                }else{
+                    successHandler(message);
+                }
+            }else{
+                errorHandler(message);
+                if (prams[1] == "bookCheckout") {
+                    setTimeout(function () {
+                        window.location.href = cartRoute;
+                    }, 2000);
+                }
+            }
+        } else {
+            const errorText = await response.json();
+            warningsHandler(errorText);
+            window.location.href = loginRoute;
+        }
+    } catch (error) {
+        errorHandler(something_went_wrong);
+    }
+};
+// End book Details
+
 
 // Start add to cart
 $(document).on("click", ".add-to-cart", function (e) {
@@ -83,6 +126,13 @@ $(document).on("click", ".checkout", function (e) {
     e.preventDefault();
     let id = $('#course-summary').data("val");
     cartForm(id, "checkout");
+});
+
+$(document).on("click", ".bookCheckout", function (e) {
+    console.clear();
+    e.preventDefault();
+    let id = $('#course-summary').data("val");
+    bookCartForm(id, "bookCheckout");
 });
 
 $(document).on("click", ".authcheckout", function (e) {

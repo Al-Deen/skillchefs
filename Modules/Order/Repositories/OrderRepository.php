@@ -2,6 +2,7 @@
 
 namespace Modules\Order\Repositories;
 
+use App\Models\Book;
 use App\Models\User;
 use App\Traits\ApiReturnFormatTrait;
 use App\Traits\CommonHelperTrait;
@@ -266,6 +267,62 @@ class OrderRepository implements OrderInterface
             ];
             return $this->responseWithSuccess($message, $monthlySales, 200); // return success response
         } catch (\Throwable $th) {
+            return $this->responseWithError($th->getMessage(), [], 400); // return error response
+        }
+    }
+
+
+    public function bookStore($data)
+    {
+        DB::beginTransaction(); // start database transaction
+        try {
+
+
+            // store order data
+            $amount = 0;
+            $discount = 0;
+            $tax = 0;
+            $orderModel = new $this->model;
+            $orderModel->invoice_number = $this->generateInvoiceNumber();
+            $orderModel->user_id = auth()->user()->id;
+            $orderModel->payment_method = @$data['payment_method'] ?? 'free';
+            if(@$data['payment_method'] === 'offline'){
+                $manual_info = [
+                    'payment_type'       => $data['payment_type'],
+                    'additional_details'        => $data['additional_details'],
+                ];
+                $orderModel->payment_manual = $manual_info;
+            }
+            $orderModel->save();
+
+            // store order items
+
+            foreach ($data['carts'] as $key => $cart) {
+                $book = Book::find($cart['book_id']);
+                $orderItemModel = new OrderItem();
+                $orderItemModel->order_id = $orderModel->id;
+                $orderItemModel->book_id = $cart['book_id'];
+                $orderItemModel->amount = $book->price ?? 0;
+                $orderItemModel->discount_amount = course_discount_price($book);
+                $orderItemModel->total_amount = @$book->is_free == 0 ? $book->price - $orderItemModel->discount_amount : 0;
+                $orderItemModel->tax_amount = tax_price($orderItemModel->total_amount);
+                $orderItemModel->commission_amount = $orderItemModel->total_amount * (@$book->user->instructor->commission / 100);
+                $orderItemModel->instructor_amount = $orderItemModel->total_amount - $orderItemModel->commission_amount;
+                $orderItemModel->save();
+                $amount += $orderItemModel->total_amount;
+                $discount += $orderItemModel->discount_amount;
+                $tax += $orderItemModel->tax_amount;
+            }
+            // update order amount and discount
+            $orderModel->amount = $amount + $discount;
+            $orderModel->discount_amount = $discount;
+            $orderModel->total_amount = $amount;
+            $orderItemModel->tax_amount = $tax;
+            $orderModel->save();
+            DB::commit(); // commit database transaction
+            return $this->responseWithSuccess(___('alert.Order created successfully.'), $orderModel); // return success response
+        } catch (\Throwable $th) {
+            DB::rollBack(); // rollback database transaction
             return $this->responseWithError($th->getMessage(), [], 400); // return error response
         }
     }

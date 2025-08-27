@@ -165,6 +165,7 @@ class BookController extends Controller
         try {
             $data['title'] = 'Book Details';
             $data['book'] = Book::where('slug',$slug)->first();
+
             if($data['book']->user->role_id == Role::INSTRUCTOR){
                 $data['user_type'] = ___('frontend.Instructor');
                 $data['profile'] = view('frontend.partials.book.instructor_profile', compact('data'))->render();

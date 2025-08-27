@@ -34,6 +34,8 @@
                                     </h4>
                                 </a>
                                 <h5 class="author-name">by {{ @$cart['author'] }}</h5>
+
+                                @if(!isset($cart['book_id']))
                                 <div class="rating d-flex align-items-center gap-5">
                                     <span class="text-primary font-600 ">{{ number_format($cart['rating'], 1) }}</span>
                                     <div class="d-flex align-items-center gap-2">
@@ -49,6 +51,7 @@
                                     <p class="total-lecture">{{ @$cart['lessons'] }} {{ ___('frontend.Lesson') }}
                                     </p>
                                 </div>
+                                @endif
                             </div>
                             <div class="shoping-wized-prise d-flex flex-column justify-content-end align-items-end">
                                 <button class="clear-cart" data-id="{{ @$cart['course_id'] }}">

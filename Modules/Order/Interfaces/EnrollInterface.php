@@ -14,8 +14,10 @@ interface EnrollInterface
     public function filter($request);
 
     public function store($request);
-    
+
     public function update($request);
 
     public function visited($enroll);
+
+    public function bookStore($request);
 }

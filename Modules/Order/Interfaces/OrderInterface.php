@@ -28,4 +28,6 @@ interface OrderInterface
     public function instructorMonthlySales($enroll);
 
     public function organizationMonthlySales($enroll);
+
+    public function bookStore($request);
 }

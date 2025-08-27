@@ -21,10 +21,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/become-student', [FrontendController::class, 'becomeStudent'])->name('becomeStudent');
 Route::get('/course-details', [FrontendController::class, 'courseDetails'])->name('courseDetails');
 Route::get('/privacy-policy', [FrontendController::class, 'privacyPolicy'])->name('privacyPolicy');
-
 Route::group(['middleware' => 'lang'], function () : void {
 
-    // Non-auth routes 
+    // Non-auth routes
     Route::group(['middleware' => ['not.auth.routes']], function () {
         // controller namespace
         Route::controller(AuthenticationController::class)->prefix('admin')->group(function () {

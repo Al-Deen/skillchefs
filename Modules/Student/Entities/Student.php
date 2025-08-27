@@ -33,16 +33,16 @@ class Student extends Model
     // relation with enrollments
     public function enrollments()
     {
-        return $this->hasMany(Enroll::class, 'user_id', 'user_id');
+        return $this->hasMany(Enroll::class, 'user_id', 'user_id')->whereNotNull('course_id');
     }
     public function completeEnrollments()
     {
-        return $this->hasMany(Enroll::class, 'user_id', 'user_id')->where('is_completed', 1);
+        return $this->hasMany(Enroll::class, 'user_id', 'user_id')->whereNotNull('course_id')->where('is_completed', 1);
     }
 
     public function lastVisited()
     {
-        return $this->hasOne(Enroll::class, 'user_id', 'user_id')->orderBy('visited', 'desc');
+        return $this->hasOne(Enroll::class, 'user_id', 'user_id')->whereNotNull('course_id')->orderBy('visited', 'desc');
     }
 
     public function scopeFilter($query, $req)
